@@ -25,6 +25,9 @@ class Apply
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
+    #[ORM\ManyToOne(inversedBy: 'applies')]
+    private ?Publication $applyPublication = null;
+
     #[ORM\OneToMany(mappedBy: 'userApply', targetEntity: User::class)]
     private Collection $users;
 
@@ -74,6 +77,18 @@ class Apply
         return $this;
     }
 
+    public function getApplyPublication(): ?Publication
+    {
+        return $this->applyPublication;
+    }
+
+    public function setApplyPublication(?Publication $applyPublication): self
+    {
+        $this->applyPublication = $applyPublication;
+      
+        return $this;
+    }
+
     /**
      * @return Collection<int, User>
      */
@@ -100,7 +115,7 @@ class Apply
                 $user->setUserApply(null);
             }
         }
-
+      
         return $this;
     }
 }

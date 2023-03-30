@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PublicationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,7 +24,7 @@ class Publication
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
-
+  
     #[ORM\ManyToOne(inversedBy: 'publications')]
     private ?User $publicationUser = null;
 
@@ -31,6 +33,14 @@ class Publication
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
     private ?Formation $publicationFormation = null;
+
+    #[ORM\OneToMany(mappedBy: 'applyPublication', targetEntity: Apply::class)]
+    private Collection $applies;
+
+    public function __construct()
+    {
+        $this->applies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,6 +83,24 @@ class Publication
         return $this;
     }
 
+    /**
+     * @return Collection<int, Apply>
+     */
+    public function getApplies(): Collection
+    {
+        return $this->applies;
+    }
+
+    public function addApply(Apply $apply): self
+    {
+        if (!$this->applies->contains($apply)) {
+            $this->applies->add($apply);
+            $apply->setApplyPublication($this);
+        }
+      
+        return $this;
+    }
+
     public function getPublicationUser(): ?User
     {
         return $this->publicationUser;
@@ -82,6 +110,18 @@ class Publication
     {
         $this->publicationUser = $publicationUser;
 
+        return $this;
+    }
+
+    public function removeApply(Apply $apply): self
+    {
+        if ($this->applies->removeElement($apply)) {
+            // set the owning side to null (unless already changed)
+            if ($apply->getApplyPublication() === $this) {
+                $apply->setApplyPublication(null);
+            }
+        }
+        
         return $this;
     }
 
