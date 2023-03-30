@@ -40,11 +40,15 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\OneToMany(mappedBy: 'userEntreprise', targetEntity: User::class)]
+    private Collection $users;
+    
     #[ORM\OneToMany(mappedBy: 'publicationCompany', targetEntity: Publication::class)]
     private Collection $publications;
 
     public function __construct()
     {
+        $this->users = new ArrayCollection();
         $this->publications = new ArrayCollection();
     }
 
@@ -145,6 +149,36 @@ class Company
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setUserEntreprise($this);
+        }
+        
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getUserEntreprise() === $this) {
+                $user->setUserEntreprise(null);
+            }
+        }
 
         return $this;
     }

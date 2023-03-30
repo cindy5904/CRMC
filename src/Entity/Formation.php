@@ -28,11 +28,15 @@ class Formation
     #[ORM\Column(type: Types::TEXT)]
     private ?string $webSite = null;
 
-    #[ORM\OneToMany(mappedBy: 'publicationFormation', targetEntity: Publication::class)]
+    #[ORM\OneToMany(mappedBy: 'userFormation', targetEntity: User::class)]
+    private Collection $users;
+
+     #[ORM\OneToMany(mappedBy: 'publicationFormation', targetEntity: Publication::class)]
     private Collection $publications;
 
     public function __construct()
     {
+        $this->users = new ArrayCollection();
         $this->publications = new ArrayCollection();
     }
 
@@ -90,6 +94,24 @@ class Formation
     }
 
     /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setUserFormation($this);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Publication>
      */
     public function getPublications(): Collection
@@ -104,6 +126,18 @@ class Formation
             $publication->setPublicationFormation($this);
         }
 
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getUserFormation() === $this) {
+                $user->setUserFormation(null);
+            }
+        }
+        
         return $this;
     }
 
