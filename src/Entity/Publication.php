@@ -24,6 +24,15 @@ class Publication
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
+  
+    #[ORM\ManyToOne(inversedBy: 'publications')]
+    private ?User $publicationUser = null;
+
+    #[ORM\ManyToOne(inversedBy: 'publications')]
+    private ?Company $publicationCompany = null;
+
+    #[ORM\ManyToOne(inversedBy: 'publications')]
+    private ?Formation $publicationFormation = null;
 
     #[ORM\OneToMany(mappedBy: 'applyPublication', targetEntity: Apply::class)]
     private Collection $applies;
@@ -88,6 +97,18 @@ class Publication
             $this->applies->add($apply);
             $apply->setApplyPublication($this);
         }
+      
+        return $this;
+    }
+
+    public function getPublicationUser(): ?User
+    {
+        return $this->publicationUser;
+    }
+
+    public function setPublicationUser(?User $publicationUser): self
+    {
+        $this->publicationUser = $publicationUser;
 
         return $this;
     }
@@ -100,6 +121,30 @@ class Publication
                 $apply->setApplyPublication(null);
             }
         }
+        
+        return $this;
+    }
+
+    public function getPublicationCompany(): ?Company
+    {
+        return $this->publicationCompany;
+    }
+
+    public function setPublicationCompany(?Company $publicationCompany): self
+    {
+        $this->publicationCompany = $publicationCompany;
+
+        return $this;
+    }
+
+    public function getPublicationFormation(): ?Formation
+    {
+        return $this->publicationFormation;
+    }
+
+    public function setPublicationFormation(?Formation $publicationFormation): self
+    {
+        $this->publicationFormation = $publicationFormation;
 
         return $this;
     }

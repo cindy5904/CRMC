@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -53,6 +55,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
+
+    #[ORM\ManyToMany(targetEntity: Competence::class, inversedBy: 'users')]
+    private Collection $userCompetence;
+
+    #[ORM\ManyToMany(targetEntity: Diplome::class, inversedBy: 'users')]
+    private Collection $userDiplome;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Company $userEntreprise = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Formation $userFormation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Apply $userApply = null;
+    
+    #[ORM\OneToMany(mappedBy: 'publicationUser', targetEntity: Publication::class)]
+    private Collection $publications;
+
+    public function __construct()
+    {
+        $this->userCompetence = new ArrayCollection();
+        $this->userDiplome = new ArrayCollection();
+        $this->publications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -228,6 +255,120 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competence>
+     */
+    public function getUserCompetence(): Collection
+    {
+        return $this->userCompetence;
+    }
+
+    public function addUserCompetence(Competence $userCompetence): self
+    {
+        if (!$this->userCompetence->contains($userCompetence)) {
+            $this->userCompetence->add($userCompetence);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Publication>
+     */
+    public function getPublications(): Collection
+    {
+        return $this->publications;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publications->contains($publication)) {
+            $this->publications->add($publication);
+            $publication->setPublicationUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCompetence(Competence $userCompetence): self
+    {
+        $this->userCompetence->removeElement($userCompetence);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Diplome>
+     */
+    public function getUserDiplome(): Collection
+    {
+        return $this->userDiplome;
+    }
+
+    public function addUserDiplome(Diplome $userDiplome): self
+    {
+        if (!$this->userDiplome->contains($userDiplome)) {
+            $this->userDiplome->add($userDiplome);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publications->removeElement($publication)) {
+            // set the owning side to null (unless already changed)
+            if ($publication->getPublicationUser() === $this) {
+                $publication->setPublicationUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function removeUserDiplome(Diplome $userDiplome): self
+    {
+        $this->userDiplome->removeElement($userDiplome);
+
+        return $this;
+    }
+
+    public function getUserEntreprise(): ?Company
+    {
+        return $this->userEntreprise;
+    }
+
+    public function setUserEntreprise(?Company $userEntreprise): self
+    {
+        $this->userEntreprise = $userEntreprise;
+
+        return $this;
+    }
+
+    public function getUserFormation(): ?Formation
+    {
+        return $this->userFormation;
+    }
+
+    public function setUserFormation(?Formation $userFormation): self
+    {
+        $this->userFormation = $userFormation;
+
+        return $this;
+    }
+
+    public function getUserApply(): ?Apply
+    {
+        return $this->userApply;
+    }
+
+    public function setUserApply(?Apply $userApply): self
+    {
+        $this->userApply = $userApply;
 
         return $this;
     }
