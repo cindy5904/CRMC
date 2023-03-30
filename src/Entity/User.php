@@ -74,6 +74,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'publicationUser', targetEntity: Publication::class)]
     private Collection $publications;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $logo = null;
+
     public function __construct()
     {
         $this->userCompetence = new ArrayCollection();
@@ -369,6 +372,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserApply(?Apply $userApply): self
     {
         $this->userApply = $userApply;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }
