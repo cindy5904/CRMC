@@ -23,6 +23,9 @@ class Apply
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
+    #[ORM\ManyToOne(inversedBy: 'applies')]
+    private ?Publication $applyPublication = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Apply
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getApplyPublication(): ?Publication
+    {
+        return $this->applyPublication;
+    }
+
+    public function setApplyPublication(?Publication $applyPublication): self
+    {
+        $this->applyPublication = $applyPublication;
 
         return $this;
     }
