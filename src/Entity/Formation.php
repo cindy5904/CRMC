@@ -31,9 +31,13 @@ class Formation
     #[ORM\OneToMany(mappedBy: 'userFormation', targetEntity: User::class)]
     private Collection $users;
 
+     #[ORM\OneToMany(mappedBy: 'publicationFormation', targetEntity: Publication::class)]
+    private Collection $publications;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->publications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,7 +106,21 @@ class Formation
         if (!$this->users->contains($user)) {
             $this->users->add($user);
             $user->setUserFormation($this);
+    /**
+     * @return Collection<int, Publication>
+     */
+    public function getPublications(): Collection
+    {
+        return $this->publications;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publications->contains($publication)) {
+            $this->publications->add($publication);
+            $publication->setPublicationFormation($this);
         }
+    }
 
         return $this;
     }
@@ -113,6 +131,16 @@ class Formation
             // set the owning side to null (unless already changed)
             if ($user->getUserFormation() === $this) {
                 $user->setUserFormation(null);
+            }
+        }
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publications->removeElement($publication)) {
+            // set the owning side to null (unless already changed)
+            if ($publication->getPublicationFormation() === $this) {
+                $publication->setPublicationFormation(null);
             }
         }
 

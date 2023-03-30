@@ -23,6 +23,15 @@ class Publication
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
+    #[ORM\ManyToOne(inversedBy: 'publications')]
+    private ?User $publicationUser = null;
+
+    #[ORM\ManyToOne(inversedBy: 'publications')]
+    private ?Company $publicationCompany = null;
+
+    #[ORM\ManyToOne(inversedBy: 'publications')]
+    private ?Formation $publicationFormation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +69,42 @@ class Publication
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getPublicationUser(): ?User
+    {
+        return $this->publicationUser;
+    }
+
+    public function setPublicationUser(?User $publicationUser): self
+    {
+        $this->publicationUser = $publicationUser;
+
+        return $this;
+    }
+
+    public function getPublicationCompany(): ?Company
+    {
+        return $this->publicationCompany;
+    }
+
+    public function setPublicationCompany(?Company $publicationCompany): self
+    {
+        $this->publicationCompany = $publicationCompany;
+
+        return $this;
+    }
+
+    public function getPublicationFormation(): ?Formation
+    {
+        return $this->publicationFormation;
+    }
+
+    public function setPublicationFormation(?Formation $publicationFormation): self
+    {
+        $this->publicationFormation = $publicationFormation;
 
         return $this;
     }
