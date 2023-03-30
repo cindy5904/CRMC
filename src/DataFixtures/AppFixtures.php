@@ -20,15 +20,17 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
         $users = [];
-        // $genders = ['male', 'feminine'];
+        $genders = ['male', 'feminine'];
         $roles = ['ROLE_USER', 'ROLE_COMPANY', 'ROLE_FORMATION',];
         $professions = ["développeur", "intégrateur", "concepteur développeur d'application", "testeur"];
 
         for ($i=0; $i < 50; $i++) { 
             $user = new User();
-            // $gender = $faker->randomElement($genders);
+            $gender = $faker->randomElement($genders);
             $role = $faker->randomElement($roles);
             $firstName = $faker->firstName();
+            $logo = 'https://randomuser.me/api/portraits/';
+            $logoId = $faker->numberBetween(1,99).'.jpg';
             
 
             if ($role === 'ROLE_USER') {
@@ -48,15 +50,11 @@ class AppFixtures extends Fixture
                 $statu = $faker->randomElement(['DISPONIBLE', 'EN FORMATION', 'EN POSTE', 'EN RECONVERSION']);
             }
 
-
-            // $img = 'https://randomuser.me/api/portraits/';
-            // $imgId = $faker->numberBetween(1,99).'.jpg';
-
-            // if ($gender == 'male') {
-            //     $img = $img.'men/'.$imgId;
-            // } else {
-            //     $img = $img.'women/'.$imgId;
-            // }
+            if ($gender == 'male') {
+                $logo = $logo.'men/'.$logoId;
+            } else {
+                $logo = $logo.'women/'.$logoId;
+            }
 
             $user->setName($faker->lastName())
                  ->setAdress($faker->streetAddress())
@@ -69,7 +67,8 @@ class AppFixtures extends Fixture
                  ->setProfession($profession)
                  ->setStatus($statu)
                  ->setPassword($this->hasher->hashPassword($user, 'password'))
-                 ->setRoles([$role]);
+                 ->setRoles([$role])
+                 ->setLogo($logo);
 
                  $manager->persist($user);
                  $users[] = $user;
