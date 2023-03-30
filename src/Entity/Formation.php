@@ -106,6 +106,11 @@ class Formation
         if (!$this->users->contains($user)) {
             $this->users->add($user);
             $user->setUserFormation($this);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Publication>
      */
@@ -120,7 +125,6 @@ class Formation
             $this->publications->add($publication);
             $publication->setPublicationFormation($this);
         }
-    }
 
         return $this;
     }
@@ -133,6 +137,8 @@ class Formation
                 $user->setUserFormation(null);
             }
         }
+        
+        return $this;
     }
 
     public function removePublication(Publication $publication): self

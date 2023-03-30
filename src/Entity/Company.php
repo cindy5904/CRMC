@@ -40,7 +40,6 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-
     #[ORM\OneToMany(mappedBy: 'userEntreprise', targetEntity: User::class)]
     private Collection $users;
     
@@ -168,6 +167,8 @@ class Company
             $this->users->add($user);
             $user->setUserEntreprise($this);
         }
+        
+        return $this;
     }
 
     public function removeUser(User $user): self
@@ -178,6 +179,8 @@ class Company
                 $user->setUserEntreprise(null);
             }
         }
+
+        return $this;
     }
 
     /**

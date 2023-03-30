@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $userCompetence;
 
     #[ORM\ManyToMany(targetEntity: Diplome::class, inversedBy: 'users')]
-    private Collection $UserDiplome;
+    private Collection $userDiplome;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Company $userEntreprise = null;
@@ -77,7 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->userCompetence = new ArrayCollection();
-        $this->UserDiplome = new ArrayCollection();
+        $this->userDiplome = new ArrayCollection();
         $this->publications = new ArrayCollection();
     }
 
@@ -272,12 +272,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->userCompetence->contains($userCompetence)) {
             $this->userCompetence->add($userCompetence);
         }
+
+        return $this;
     }
 
     /**
      * @return Collection<int, Publication>
      */
-     
     public function getPublications(): Collection
     {
         return $this->publications;
@@ -303,17 +304,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Diplome>
      */
-     
     public function getUserDiplome(): Collection
     {
-        return $this->UserDiplome;
+        return $this->userDiplome;
     }
 
     public function addUserDiplome(Diplome $userDiplome): self
     {
-        if (!$this->UserDiplome->contains($userDiplome)) {
-            $this->UserDiplome->add($userDiplome);
+        if (!$this->userDiplome->contains($userDiplome)) {
+            $this->userDiplome->add($userDiplome);
         }
+
+        return $this;
     }
 
     public function removePublication(Publication $publication): self
@@ -330,7 +332,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeUserDiplome(Diplome $userDiplome): self
     {
-        $this->UserDiplome->removeElement($userDiplome);
+        $this->userDiplome->removeElement($userDiplome);
 
         return $this;
     }
