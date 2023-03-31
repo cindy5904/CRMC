@@ -32,7 +32,13 @@
     bottom: 0;
     background: url('/public/images/world.jpg') no-repeat center;
     background-size: cover;
-    opacity: 0.1;
+    opacity: 0.2;
     z-index: 0;
     pointer-events: none;
 }
+
+input:focus {
+    outline: none;
+    border-color: black !important; 
+    box-shadow: none;
+  }
