@@ -3,102 +3,12 @@
 {% block title %}Connexion - {{ parent() }}{% endblock %}
 
 {% block body %}
-{# <form method="post">
-    {% if error %}
-        <div class="w-1/2 mx-auto bg-red-600 text-red-100 px-3 py-4 rounded mb-6">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    > #}
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    {# <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form> #}
-{# <div class="min-h-screen bg-gray-100 flex justify-center items-center">
-  <div class="w-full max-w-md">
+<div class=" min-h-screen bg-gray-100 flex justify-center items-center mt-8">
+  <div class="login w-full max-w-3xl shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <div class="text-center mb-8">
-      <img src="/path/to/your/logo.png" alt="Logo" class="w-32 mx-auto mb-4">
-      <h1 class="text-3xl font-bold text-gray-800">Please sign in</h1>
-    </div>
-    <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      {% if error %}
-      <div class="mb-4">
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <strong class="font-bold">Oops!</strong>
-          <span class="block sm:inline">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
-        </div>
-      </div>
-      {% endif %}
-      {% if app.user %}
-      <div class="mb-4">
-        <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
-          <strong class="font-bold">Success!</strong>
-          <span class="block sm:inline">You are logged in as {{ app.user.userIdentifier }}.</span>
-        </div>
-      </div>
-      {% endif %}
-      <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2" for="inputEmail">
-          Email
-        </label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="email" required autofocus>
-      </div>
-      <div class="mb-6">
-        <label class="block text-gray-700 font-bold mb-2" for="inputPassword">
-          Password
-        </label>
-        <input type="password" name="password" id="inputPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="current-password" required>
-      </div>
-      <div class="flex items-center justify-between">
-        <div class="mb-4">
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        </div>
-        <div>
-          <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-            Mot de passe oublié?
-          </a>
-        </div>
-      </div>
-      <div class="flex items-center justify-between">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-          Sign in
-        </button>
-      </div>
-    </form>
-  </div>
-</div> #}
-<div class="min-h-screen bg-gray-100 flex justify-center items-center">
-  <div class="w-full max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <div class="text-center mb-8">
-      <img src="" alt="Logo" class="w-32 mx-auto mb-4">
-      <h1 class="text-3xl font-bold text-gray-800">Please sign in</h1>
+      {# <img src="{{ asset('/images/logoNew.png') }}" alt="Logo" class="w-20 mx-auto mb-4"> #}
+      <h1 class="text-3xl font-bold text-gray-800">Connexion</h1>
     </div>
     <form method="post">
       {% if error %}
@@ -121,29 +31,53 @@
         <label class="block text-gray-700 font-bold mb-2" for="inputEmail">
           Email
         </label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="email" required autofocus>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class=" bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="email" required autofocus>
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 font-bold mb-2" for="inputPassword">
-          Password
+          Mot de passe
         </label>
         <input type="password" name="password" id="inputPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="current-password" required>
       </div>
-      <div class="flex items-center justify-between">
-        <div class="mb-4">
+      <div class="flex items-center">
+        
           <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        </div>
-        <div>
-          <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-            Mot de passe oublié?
-          </a>
-        </div>
-      </div>
-      <div class="flex items-center justify-between">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-          Sign in
+        
+          <div class="flex items-center flex-grow">
+              <div >
+                  <label class='flex-grow-0'>
+                  <input type="checkbox" name="_remember_me" class="mr-2"> Se rappeler de moi
+                  </label>
+                </div>
+            <div class='ml-auto'>
+              <a class=" font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                Mot de passe oublié?
+              </a>
+            </div>
+            </div>       
+      </div>  
+    <div class="flex items-center justify-center mt-6">
+        <button class="bg-gradient-to-r from-cyan-700 to-cyan-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          Se connecter
         </button>
-      </div>
+    </div>
+    <div class="text-center mt-6">
+      <span>-------------------------------</span><span class="font-bold px-5">Ou</span><span>-------------------------------</span>
+    </div>
+    <div class="flex items-center justify-center gap-4 mt-6">
+      <a href="https://www.facebook.com">
+        <img src="{{asset('/images/facebook-icon.svg')}}" alt="facebook logo" class="w-10 bg-blue-700 rounded-full">
+      </a>
+      <a href="https://www.google.com">
+        <img src="{{asset('/images/google-icon.svg')}}" alt="google logo" class="w-10 bg-red-600 rounded-full">
+      </a>
+      <a href="https://www.linkedin.com">
+        <img src="{{asset('/images/linkedin-icon.svg')}}" alt="linkedin logo" class="w-12">
+      </a>
+    </div>
+    <div class="mt-6">
+        <span>Pas encore de compte?</span><span><a href="#" class="text-blue-600"> Clique</a></span>
+    </div>
     </form>
   </div>
 </div>
