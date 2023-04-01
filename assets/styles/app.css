@@ -4,5 +4,17 @@
 
 
 body {
-    background-color: lightgray;
+    background-color: white;
+}
+
+.color {
+    color: #F26C24;
+}
+
+.bgImg {
+    background-image: url(/public/images/bg-learning.jpg);
+}
+
+.shadowText {
+    text-shadow: 1px 1px 2px black, 0 0 0.2em #F26C24;
 }
