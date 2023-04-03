@@ -80,4 +80,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function verify($value)
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->where('u.adress = :val OR u.city = :val OR u.postalCode = :val')
+            ->setParameter('val', $value)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }

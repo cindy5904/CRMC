@@ -12,11 +12,18 @@ class PublicationController extends AbstractController
 {
     #[Route('/publication', name: 'app_publication')]
     public function index(PublicationRepository $publicationRepository, UserRepository $userRepository): Response
-    {
+    {   
+        $user = $this->getUser();
+        $word = 'A modifier';
+        dump($user);
+        $verify = $userRepository->verify($word);
+        dump($verify);
+
         $users = $userRepository->findAll();
         return $this->render('publication/index.html.twig', [
             'posts' => $publicationRepository->findBy([], ['createdAt' => 'DESC']),
             'users' => $users,
+            'verify' => $verify,
         ]);
     }
 }

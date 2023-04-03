@@ -89,6 +89,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userCompetence = new ArrayCollection();
         $this->userDiplome = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->adress = 'A modifier';
+        $this->city = 'A modifier';
+        $this->postalCode = 'A modifier';
     }
 
     public function getId(): ?int
