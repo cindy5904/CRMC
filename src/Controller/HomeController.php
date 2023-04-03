@@ -22,4 +22,11 @@ class HomeController extends AbstractController
     {
         return $this->render('rgpd/mentions-legale.html.twig');
     }
+
+
+    #[Route('/pdc', name: 'app_pdc')]
+    public function pdc(): Response
+    {
+        return $this->render('rgpd/pdc.html.twig');
+    }
 }
