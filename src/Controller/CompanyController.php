@@ -85,7 +85,9 @@ class CompanyController extends AbstractController
                     ]),
                     new Assert\Length([
                         'min' => 14,
-                        'minMessage' => ''
+                        'minMessage' => 'Saisie minimum 14 chiffre',
+                        'max' => 14,
+                        'maxMessage' => 'Saisie maximum 14 chiffre'
                     ])
                 ]
             ])
