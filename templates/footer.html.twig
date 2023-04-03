@@ -1,0 +1,84 @@
+{% block footer %}
+<footer class="bg-white dark:bg-gray-900">
+    <div class="mx-auto w-full max-w-screen-xl pt-[3rem]">
+        <div class="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-5">
+            <div>
+                <h2 class="mb-6 text-sm font-semibold text-[#F26C24] uppercase">Accueil</h2>
+                <ul class='text-gray-600 dark:text-gray-400 font-medium'>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Présentation de l'équipe</a>
+                    </li>
+                    <li class='mb-4'>
+                        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" data-dropdown-placement="left-start" class="text-gray-600 dark:text-gray-400 font-medium sticky right-0 focus:outline-none  rounded-lg text-sm py-2.5 text-center inline-flex items-center" type="button">Espace<svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 ">Entreprises</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 ">Candidats</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 ">Centre de formation</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="mb-6 text-sm font-semibold text-[#F26C24] uppercase">Contact</h2>
+                <ul class='text-gray-600 dark:text-gray-400 font-medium'>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Nous contacter</a>
+                    </li>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Nous trouver</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="mb-6 text-sm font-semibold text-[#F26C24] uppercase">Témoignages</h2>
+                <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Entreprises</a>
+                    </li>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Candidats</a>
+                    </li>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Centre de formations</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="mb-6 text-sm font-semibold text-[#F26C24] uppercase">Partenaires</h2>
+                <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Nos entreprises</a>
+                    </li>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Nos partenaires</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="mb-6 text-sm font-semibold text-[#F26C24] uppercase">À propos</h2>
+                <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Politique de confidentialité</a>
+                    </li>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">Mentions légales</a>
+                    </li>
+                    <li class='mb-4'>
+                        <a href="#" class="hover:underline">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+    </div>
+    
+    </div>
+</footer>
+
+{% endblock %}
