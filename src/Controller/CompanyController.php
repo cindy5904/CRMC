@@ -30,7 +30,7 @@ class CompanyController extends AbstractController
             'controller_name' => 'CompanyController',
         ]);
     }
-    #[Route('/connection/entreprise', name:'app_register_company')]
+    #[Route('/inscription/entreprise', name:'app_register_company')]
     public function registerCompany(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator)
     {   
         $user = new User();
@@ -38,7 +38,7 @@ class CompanyController extends AbstractController
 
         $form = $this->createFormBuilder()
             ->add('name', null, [
-                'label' => 'Nom',
+                'label' => 'Nom de l\'entreprise',
                 'constraints' => [
                     new Assert\NotBlank([
                         'message' => 'Veuillez entrer un nom',
@@ -134,23 +134,22 @@ class CompanyController extends AbstractController
                 );
     
                 $user->setRoles(['ROLE_COMPANY']);
-                $user->setEmail('test124@mail.com');
+                $user->setEmail($form->get('email')->getData());
                 $user->setName($form->get('name')->getData());
                 $user->setAdress($form->get('adress')->getData());
                 $user->setCity($form->get('city')->getData());
                 $user->setPostalCode($form->get('postal_code')->getData());
-                $user->setTel('0202020202');
+                $user->setTel('A modifier');
                 $siret = $form->get('siret')->getData();
-            
                 $user->setUserEntreprise($company);
                 $company->setNumSiret($siret);
-                $company->setNameRef('Test');
-                $company->setDescription('lorem');
-                $company->setDomaine('pro');
-                $company->setLogo('test');
-                $company->setPartenaire('test');
-                $company->setWebSite('test');
-                $company->setName('test');
+                $company->setNameRef('Ajoute le nom du contact');
+                $company->setDescription('A modidier');
+                $company->setDomaine('A modifier');
+                $company->setLogo('Insérer le logo d\'entreprise');
+                $company->setPartenaire('A modifier');
+                $company->setWebSite('A modifier');
+                $company->setName($form->get('name')->getData());
                 $entityManager->persist($user);
                 $entityManager->persist($company);
                 $entityManager->flush();
