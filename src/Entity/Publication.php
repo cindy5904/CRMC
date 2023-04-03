@@ -37,6 +37,9 @@ class Publication
     #[ORM\OneToMany(mappedBy: 'applyPublication', targetEntity: Apply::class)]
     private Collection $applies;
 
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
     public function __construct()
     {
         $this->applies = new ArrayCollection();
@@ -145,6 +148,18 @@ class Publication
     public function setPublicationFormation(?Formation $publicationFormation): self
     {
         $this->publicationFormation = $publicationFormation;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
