@@ -5,8 +5,13 @@
     {{- parent() -}}
 {%- endblock widget_attributes -%}
 
+{%- block form_row -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('mb-6')) }) -%}
+    {{- parent() -}}
+{%- endblock form_row -%}
+
 {%- block form_label -%}
-    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-gray-800')) }) -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-gray-800 font-bold')) }) -%}
     {{- parent() -}}
 {%- endblock form_label -%}
 
