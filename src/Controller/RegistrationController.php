@@ -7,10 +7,10 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Webmozart\Assert\Assert as AssertAssert;
 
 class RegistrationController extends AbstractController
 {
@@ -30,7 +29,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+        dump($form);
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -58,9 +57,11 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/connection/entreprise', name:'app_register_company')]
+    #[Route('/cdd', name:'app_reg')]
     public function registerCompany(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator)
     {   
+        $user = new User();
+
         $form = $this->createFormBuilder()
             ->add('name', null, [
                 'label' => 'Nom',
@@ -94,8 +95,15 @@ class RegistrationController extends AbstractController
                     ])
                 ],
             ])
-            ->add('email')
-            ->add('siret', IntegerType::class, [
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'Saisir un email valide'
+                    ])
+                ]
+            ])
+            ->add('siret', NumberType::class, [
                 'label' => 'Numéro de siret',
                 'constraints' => [
                     new Assert\NotBlank([
@@ -141,12 +149,10 @@ class RegistrationController extends AbstractController
                 ],
             ])
             ->getForm();
+            dump($form);
 
-            $entreprise = new Company();
-            $user = new User();
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                // encode the plain password
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
@@ -154,11 +160,11 @@ class RegistrationController extends AbstractController
                     )
                 );
     
-                $user->setRoles(['ROLE_USER']);
+                $user->setRoles(['ROLE_COMPANY']);
+                $user->setEmail('test@mail.com');
     
                 $entityManager->persist($user);
                 $entityManager->flush();
-                // do anything else you need here, like send an email
     
                 return $userAuthenticator->authenticateUser(
                     $user,
@@ -166,5 +172,8 @@ class RegistrationController extends AbstractController
                     $request
                 );
             }
+            return $this->render('registration/register-company.html.twig', [
+                'registrationFormCompany' => $form->createView()
+            ]);
     }
 }

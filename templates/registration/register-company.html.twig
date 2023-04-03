@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    {{form_start(registrationFormCompany)}}
+        {{form_widget(registrationFormCompany)}}
+        <button formnovalidate >S'inscrire</button>
+    {{form_end(registrationFormCompany)}}
+    
+{% endblock %}
