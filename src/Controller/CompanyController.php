@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,12 +21,19 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyController extends AbstractController
-{
-    #[Route('/entreprise', name: 'app_company')]
-    public function index(): Response
+{   
+    #[Route('/entreprise', name:'app_company')]
+    public function index()
     {
-        return $this->render('company/index.html.twig', [
-            'controller_name' => 'CompanyController',
+        return $this->render('company/index.html.twig');
+    }
+
+    #[Route('/entreprise/profil', name: 'app_company_profil')]
+    public function show(): Response
+    {   
+        $user = $this->getUser();
+        return $this->render('company/show.html.twig', [
+            'user' => $user
         ]);
     }
     #[Route('/inscription/entreprise', name:'app_register_company')]

@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>{{user.name}}</h1>
+    {{dump(user.userEntreprise)}} 
+    
+    {{dump(user.userEntreprise.description)}}
+    {{dump(user.userEntreprise.numSiret)}}
+    <div>
+        <span id="presentation" class="hidden">Presentation</span>
+        <div id="presentationShow">
+            <p>{{user.userEntreprise.description}}</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam officia delectus autem magnam maxime illum earum itaque similique consequuntur quos animi, libero harum nihil deserunt sunt. Eos est tenetur unde.</p>
+        </div>
+    </div>
+    <div>
+        <span id="annonce" class="w-full h-screen bg-slate-200 pointer-events-auto cursor-default">Annonce</span>
+        <div id="annonceShow">
+            {% for publications in user.publications %}
+                <p>{{publications.content}}</p>
+            {% endfor %}
+            <p>Caché</p>
+        </div>
+    </div>
+    <div>
+        <span id="contact" class="w-full h-screen bg-slate-200 pointer-events-auto cursor-default">Contact</span>
+        <div id="contactShow">
+            <span>{{user.tel}}</span>
+            <span>{{user.email}}</span>
+        </div>
+    </div>
+{% endblock %}
