@@ -45,30 +45,6 @@ class CompanyController extends AbstractController
                     ])
                 ],
             ])
-            // ->add('adress', null, [
-            //     'label' => 'Adresse',
-            //     'constraints' => [
-            //         new Assert\NotBlank([
-            //             'message' => 'Veuillez entrer une adresse',
-            //         ])
-            //     ],
-            // ])
-            // ->add('city', null, [
-            //     'label' => 'Ville',
-            //     'constraints' => [
-            //         new Assert\NotBlank([
-            //             'message' => 'Veuillez entrer une ville',
-            //         ])
-            //     ],
-            // ])
-            // ->add('postal_code', null, [
-            //     'label' => 'Code Postal',
-            //     'constraints' => [
-            //         new Assert\NotBlank([
-            //             'message' => 'Veuillez entrer un code postal',
-            //         ])
-            //     ],
-            // ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
@@ -138,19 +114,9 @@ class CompanyController extends AbstractController
                 $user->setRoles(['ROLE_COMPANY']);
                 $user->setEmail($form->get('email')->getData());
                 $user->setName($form->get('name')->getData());
-                // $user->setAdress($form->get('adress')->getData());
-                // $user->setCity($form->get('city')->getData());
-                // $user->setPostalCode($form->get('postal_code')->getData());
-                $user->setTel('A modifier');
                 $siret = $form->get('siret')->getData();
                 $user->setUserEntreprise($company);
                 $company->setNumSiret($siret);
-                $company->setNameRef('Ajoute le nom du contact');
-                $company->setDescription('A modidier');
-                $company->setDomaine('A modifier');
-                $company->setLogo('Insérer le logo d\'entreprise');
-                $company->setPartenaire('A modifier');
-                $company->setWebSite('A modifier');
                 $company->setName($form->get('name')->getData());
                 $entityManager->persist($user);
                 $entityManager->persist($company);
