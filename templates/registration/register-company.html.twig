@@ -1,10 +1,12 @@
 {% extends "base.html.twig" %}
 {% use "form.html.twig" %}
 {% block body %}
-    <div class="max-w-xl mx-auto">
+    <div class="p-4 bg-slate-200 rounded my-4 max-w-md mx-auto">
     {{form_start(registrationFormCompany)}}
         {{form_widget(registrationFormCompany)}}
-        <button formnovalidate >S'inscrire</button>
+        <div class="w-1/2 mx-auto bg-slate-400 text-center rounded">
+            <button class=" p-2 font-md font-bold">S'inscrire</button>
+        </div>
     {{form_end(registrationFormCompany)}}
     </div>
 {% endblock %}
