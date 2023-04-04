@@ -15,11 +15,9 @@ class PublicationController extends AbstractController
     {   
         $user = $this->getUser();
         $word = 'A modifier';
-        dump($user);
-        $verify = $userRepository->verify($word);
-        dump($verify);
-
+        $verify = $userRepository->verify($user, $word);
         $users = $userRepository->findAll();
+        
         return $this->render('publication/index.html.twig', [
             'posts' => $publicationRepository->findBy([], ['createdAt' => 'DESC']),
             'users' => $users,
