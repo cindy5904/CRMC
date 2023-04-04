@@ -1,22 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choix inscrpition</title>
-</head>
-<body>
-    <div class="max-w-2xl mx auto h-screen flex items-center justify-between">
-        <div class="p-4 rounded bg-slate-300">
-            <a href="{{path('app_register_company')}}">Entreprise</a>
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+    <div class="max-w-5xl mx-auto h-screen flex flex-col items-center justify-around">
+        <div class="h-1/6">
+            <img src="{{ asset('/images/logoNew.png') }}" alt="logo">
         </div>
-        <div class="p-4 rounded bg-slate-300">
-            <a href="{{path('app_register_formation')}}">Centre de formation</a>
-        </div>
-        <div class="p-4 rounded bg-slate-300">
-            <a href="#">Candidat</a>
+        <div class="h-3/6 flex justify-around flex-col w-full">
+            <div class="text-center w-1/3 mx-auto">
+                <h1 class="text-4xl text-white bg-[#7F7FFF] p-4 rounded-xl">Vous etes ?</h1>
+            </div>
+            <div class="flex justify-between">
+                <div class="text-4xl text-white p-4 rounded-xl bg-[#F26C24] hover:bg-[#e78652] hover:scale-105 hover:duration-200">
+                    <a href="{{path('app_register_company')}}">une entreprise</a>
+                </div>
+                <div class="text-4xl text-white p-4 rounded-xl bg-[#F26C24] hover:bg-[#e78652] hover:scale-105 hover:duration-200">
+                    <a href="{{path('app_register_formation')}}">un centre de formation</a>
+                </div>
+                <div class="text-4xl text-white p-4 rounded-xl bg-[#F26C24] hover:bg-[#e78652] hover:scale-105 hover:duration-200">
+                    <a href="#">un candidat</a>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}
