@@ -16,6 +16,11 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/inscription', name:'app_register_choice')]
+    public function choice()
+    {
+        return $this->render('home/choice.html.twig');
+    }
 
     #[Route('/mentions', name: 'app_mentions')]
     public function mentions(): Response
