@@ -12,3 +12,25 @@ import './styles/app.css';
 import './bootstrap';
 
 import 'flowbite';
+
+let annonce = document.querySelector('#annonce');
+let annonceHidden = document.querySelector('#annonceHidden');
+let presentation  = document.querySelector('#presentation');
+let presentationShow = document.querySelector('#presnetationShow');
+let contact = document.querySelector('#contact')
+let contactShow = document.querySelector('#contactShow')
+
+let activesToHidden = [annonce, presentation, contact]
+let targetToHidden = [annonceHidden, presentationShow, contactShow]
+
+for (let activeToHidden in activesToHidden){
+    activeToHidden.addEventListener('click', () => {
+        if(annonceHidden.classList.contains('hidden')){
+            annonceHidden.classList.add('hidden')
+        }
+        annonceHidden.classList.toggle('hidden')
+       
+    })
+}
+
+
