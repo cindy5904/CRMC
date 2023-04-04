@@ -34,6 +34,9 @@ class Formation
      #[ORM\OneToMany(mappedBy: 'publicationFormation', targetEntity: Publication::class)]
     private Collection $publications;
 
+     #[ORM\Column(type: Types::TEXT)]
+     private ?string $description = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -41,6 +44,7 @@ class Formation
         $this->name_ref = "A modifier";
         $this->domain = "A modifier";
         $this->webSite = "A compléter ultérieurement";
+        $this->description = "A compléter ultérieurement";
     }
 
     public function getId(): ?int
@@ -152,6 +156,18 @@ class Formation
                 $publication->setPublicationFormation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
