@@ -92,6 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->adress = 'A modifier';
         $this->city = 'A modifier';
         $this->postalCode = 'A modifier';
+        $this->tel = 'A compléter ultérieurement';
     }
 
     public function getId(): ?int

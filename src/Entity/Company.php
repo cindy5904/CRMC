@@ -50,6 +50,12 @@ class Company
     {
         $this->users = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->name_ref = "A modifier";
+        $this->description = "A modifier";
+        $this->domaine = "A modifier";
+        $this->logo = "A compléter ultérieurement";
+        $this->partenaire = "A compléter ultérieurement";
+        $this->web_site = "A compléter ultérieurement";
     }
 
     public function getId(): ?int
