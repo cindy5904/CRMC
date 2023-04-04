@@ -38,6 +38,9 @@ class Formation
     {
         $this->users = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->name_ref = "A modifier";
+        $this->domain = "A modifier";
+        $this->webSite = "A compléter ultérieurement";
     }
 
     public function getId(): ?int
