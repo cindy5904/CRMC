@@ -3,6 +3,43 @@
 @tailwind utilities;
 
 
-body {
-    background-color: lightgray;
+.login {
+    position: relative;
 }
+
+.login::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/public/images/world.jpg') no-repeat center;
+    background-size: cover;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+}
+
+input:focus {
+    outline: none;
+    border-color: black !important; 
+    box-shadow: none;
+  }
+
+body {
+    background-color: white;
+}
+
+.color {
+    color: #F26C24;
+}
+
+.bgImg {
+    background-image: url(/public/images/bg-learning.jpg);
+}
+
+.shadowText {
+    text-shadow: 1px 1px 2px black, 0 0 0.2em #F26C24;
+}
+

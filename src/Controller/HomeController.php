@@ -13,4 +13,23 @@ class HomeController extends AbstractController
     {
             return $this->render('home/index.html.twig');
     }
+
+    #[Route('/inscription', name:'app_register_choice')]
+    public function choice()
+    {
+        return $this->render('home/choice.html.twig');
+    }
+
+    #[Route('/mentions', name: 'app_mentions')]
+    public function mentions(): Response
+    {
+        return $this->render('rgpd/mentions-legale.html.twig');
+    }
+
+
+    #[Route('/pdc', name: 'app_pdc')]
+    public function pdc(): Response
+    {
+        return $this->render('rgpd/pdc.html.twig');
+    }
 }
