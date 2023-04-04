@@ -14,7 +14,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body {{ stimulus_controller('symfony/ux-swup/swup') }}>
 
         {% block header %}
 
@@ -50,9 +50,9 @@
         </header>
 
         {% endblock %}
-   
+        <main id="swup">
         {% block body %}{% endblock %}
-
+        </main>
         <footer class="">
         {% block footer %}
         
