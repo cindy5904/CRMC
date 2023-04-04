@@ -45,30 +45,6 @@ class FormationController extends AbstractController
                         ])
                      ],
                 ])
-                ->add('adress', null, [
-                    'label' => 'Adresse',
-                    'constraints' => [
-                        new Assert\NotBlank([
-                            'message' => 'Veuillez entrer une adresse',
-                        ])
-                    ],
-                ])
-                ->add('city', null, [
-                    'label' => 'Ville',
-                    'constraints' => [
-                        new Assert\NotBlank([
-                            'message' => 'Veuillez entrer une ville',
-                        ])
-                        ],
-                ])
-                ->add('postal_code', null, [
-                    'label' => 'Code Postal',
-                    'constraints' => [
-                        new Assert\NotBlank([
-                            'message' => 'Veuillez entrer un code postal',
-                        ])
-                    ],
-                ])
                 ->add('email', EmailType::class, [
                     'label' => 'Email',
                     'constraints' => [
@@ -138,16 +114,9 @@ class FormationController extends AbstractController
                     $user->setRoles(['ROLE_FORMATION']);
                     $user->setEmail($form->get('email')->getData());
                     $user->setName($form->get('name')->getData());
-                    $user->setAdress($form->get('adress')->getData());
-                    $user->setCity($form->get('city')->getData());
-                    $user->setPostalCode($form->get('postal_code')->getData());
-                    $user->setTel('A modifier');
                     $siret = $form->get('siret')->getData();
                     $user->setUserFormation($formation);
                     $formation->setNumSiret($siret);
-                    $formation->setNameRef('Ajouter le nom du contact');
-                    $formation->setDomain('A modifier');
-                    $formation->setWebSite('A modifier');
                     $entityManager->persist($user);
                     $entityManager->persist($formation);
                     $entityManager->flush();
