@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyController extends AbstractController
 {
-    #[Route('/company', name: 'app_company')]
+    #[Route('/entreprise', name: 'app_company')]
     public function index(): Response
     {
         return $this->render('company/index.html.twig', [
