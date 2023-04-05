@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% use "form.html.twig" %}
+
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
-
+    <div class="p-4 bg-slate-200 rounded my-4 mt-24 max-w-md mx-auto">
+    <h1 class="flex justify-center mb-4 font-bold text-xl underline underline-offset-8">Inscription</h1>
     {{ form_start(registrationForm) }}
         {{ form_widget(registrationForm) }}
-
-        <button formnovalidate>Inscription</button>
+        <div class="w-1/2 mx-auto bg-slate-400 text-center rounded">
+			<button formnovalidate class="p-2 font-md font-bold">S'inscrire</button>
+		</div>
     {{ form_end(registrationForm) }}
 {% endblock %}
