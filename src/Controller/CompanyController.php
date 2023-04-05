@@ -36,6 +36,12 @@ class CompanyController extends AbstractController
             'user' => $user
         ]);
     }
+
+    #[Route('entreprise/edit', name:'app_company_edit')]
+    public function edit()
+    {
+        return $this->render('company/edit.html.twig');
+    }
     #[Route('/inscription/entreprise', name:'app_register_company')]
     public function registerCompany(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator)
     {   
