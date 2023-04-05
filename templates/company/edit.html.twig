@@ -1,1 +1,9 @@
 {% extends "base.html.twig" %}
+
+{% block body %}
+
+{{form_start(form)}}
+    {{form_widget(form)}}
+    <button>Mettre a jour</button>
+{{form_end(form)}}
+{% endblock %}
