@@ -83,7 +83,8 @@ class AppFixtures extends Fixture
             $post->setContent($faker->realText())
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-2 years')))
                 ->setTitle($faker->randomElement($postTitles))
-                ->setPublicationUser($faker->randomElement($users));
+                ->setPublicationUser($faker->randomElement($users))
+                ->setType('');
 
             $manager->persist($post);
             $posts[] = $post;

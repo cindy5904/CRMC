@@ -6,7 +6,9 @@ module.exports = {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      'fond_profil_user':"url('../public/images/Fond.jpg')",
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

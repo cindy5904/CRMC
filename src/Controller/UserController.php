@@ -28,6 +28,16 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/profil/user', name:'app_profil_user')]
+    public function show(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('user/index.html.twig', [
+            'user' => $user
+        ]);
+    } 
+
     #[Route('/inscription/user', name:'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator)
     {
