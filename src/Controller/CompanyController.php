@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Repository\PublicationRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -29,10 +30,17 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/entreprise/profil', name: 'app_company_profil')]
-    public function show(): Response
+    public function show(PublicationRepository $publi): Response
     {   
+        /** @var User */
         $user = $this->getUser();
+        $id = $user->getId();
+        dump($id);
+        $publications = $publi->findBy(['publicationUser' => $id]);
+        dump($publications);
+
         return $this->render('company/show.html.twig', [
+            'publications' => $publications,
             'user' => $user
         ]);
     }
@@ -42,8 +50,6 @@ class CompanyController extends AbstractController
     {   
         /** @var User $user */
         $user = $this->getUser();
-        /** @var Company $company */
-        $company = $this->getUser();
 
         $form = $this->createFormBuilder()
             ->add('name', null, [
