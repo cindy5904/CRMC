@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="flex flex-col">
+    <div class="flex justify-around w-3/4 mx-auto bg-slate-200 my-10 p-4 rounded-xl">
+        <h1 class="text-xl font-bold">{{user.userEntreprise.name}}</h1>
+        <div>
+            <img src="{{user.userEntreprise.logo}}" alt="logo de la société">
+        </div>
+    </div>
+    <div class="flex justify-center w-full">
+        <div class="flex flex-col w-3/4 mx-auto text-center">
+            <div class="text-center">
+                <button id="annonce" class="bg-slate-200 cursor-pointer focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] p-2 rounded-t-lg">Annonce</button>
+                <button id="presentation" class="bg-slate-200 focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] cursor-pointer p-2 rounded-t-lg">Presentation</button>
+                <button id="contact" class="bg-slate-200 cursor-pointer focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] p-2 rounded-t-lg">Contact</button>
+            </div>
+            <div>
+                <div id="annonceShow" class="w-full h-fit bg-slate-200 hidden mt-2  rounded-2xl">
+                    {% if user.publications is empty %}
+                        <p>Cette section affichera l'ensemble des annonces de l'entreprise</p>
+                        {% else %}
+                            {% for publications in user.publications %}
+                                <p>{{publications}}</p>
+                            {% endfor %}
+                    {% endif %}
+                </div>
+                <div id="presentationShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl">
+                    <p>{{user.userEntreprise.description}}</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam officia delectus autem magnam maxime illum earum itaque similique consequuntur quos animi, libero harum nihil deserunt sunt. Eos est tenetur unde.</p>
+                </div>
+                <div id="contactShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl">
+                    <span>{{user.tel}}</span>
+                    <span>{{user.email}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
