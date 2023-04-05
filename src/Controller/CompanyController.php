@@ -36,6 +36,63 @@ class CompanyController extends AbstractController
             'user' => $user
         ]);
     }
+
+    #[Route('entreprise/edit', name:'app_company_edit')]
+    public function edit(Request $request,EntityManagerInterface $entityManager)
+    {   
+        /** @var User $user */
+        $user = $this->getUser();
+        /** @var Company $company */
+        $company = $this->getUser();
+
+        $form = $this->createFormBuilder()
+            ->add('name', null, [
+                'label' => 'Nom de l\'entreprise',
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Veuillez entrer un nom',
+                    ])
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'Saisir un email valide'
+                    ])
+                ]
+            ])
+            ->add('siret', NumberType::class, [
+                'label' => 'Numéro de siret',
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Saisie obligatoire'
+                    ]),
+                    new Assert\Length([
+                        'min' => 14,
+                        'minMessage' => 'Saisie minimum 14 chiffre',
+                        'max' => 14,
+                        'maxMessage' => 'Saisie maximum 14 chiffre'
+                    ])
+                ]
+            ])
+            ->getForm();
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setEmail($form->get('email')->getData());
+                $user->setName($form->get('name')->getData());
+                $user->getUserEntreprise()->setNumSiret($form->get('siret')->getData());
+                $entityManager->persist($user);
+                $entityManager->flush();
+    
+            }
+
+        return $this->render('company/edit.html.twig', [
+            'user' => $user,
+            'form' => $form
+        ]);
+    }
     #[Route('/inscription/entreprise', name:'app_register_company')]
     public function registerCompany(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator)
     {   
