@@ -6,7 +6,11 @@ module.exports = {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'bg-home' : "url('/images/network.jpg')",
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

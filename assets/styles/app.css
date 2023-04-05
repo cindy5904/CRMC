@@ -43,3 +43,10 @@ body {
     text-shadow: 1px 1px 2px black, 0 0 0.2em #F26C24;
 }
 
+
+
+.bg-home {
+    background-image:url('/public/images/fond.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
