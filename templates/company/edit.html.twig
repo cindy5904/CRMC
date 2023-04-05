@@ -1,12 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-{% include "header.html.twig" %}
-<div class="max-w-xl mx-auto">
-    {{form_start(form)}}
-        {{form_widget(form)}}
-        <button formnovalidate>Mettre a jour</button>
-    {{form_end(form)}}
-</div>
-{% include "footer.html.twig" %}
+
+{{form_start(form)}}
+    {{form_widget(form)}}
+    <button>Mettre a jour</button>
+{{form_end(form)}}
 {% endblock %}
