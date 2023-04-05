@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Company;
 use App\Entity\Publication;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -26,6 +27,7 @@ class AppFixtures extends Fixture
         $roles = ['ROLE_USER', 'ROLE_COMPANY', 'ROLE_FORMATION',];
         $professions = ["développeur", "intégrateur", "concepteur développeur d'application", "testeur"];
         $postTitles = ['Développeur Web', 'Designer UX', 'Analyste de Données', 'Chef de Projet IT', 'Ingénieur Logiciel', 'Spécialiste en Sécurité Informatique', 'Architecte Cloud', 'Administrateur de Bases de Données', 'Développeur Mobile', 'Expert en Réseaux Informatiques'];
+        $types = ['stage', 'alternance', 'emploi'];
 
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
@@ -34,7 +36,8 @@ class AppFixtures extends Fixture
             $firstName = $faker->firstName();
             $logo = 'https://randomuser.me/api/portraits/';
             $logoId = $faker->numberBetween(1, 99) . '.jpg';
-
+            $company = new Company();
+            $type = array_rand($types, 1);
 
             if ($role === 'ROLE_USER') {
                 $profession = $faker->randomElement($professions);
@@ -74,8 +77,21 @@ class AppFixtures extends Fixture
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
                 ->setRoles([$role])
                 ->setLogo($logo);
-
+                if($role ==='ROLE_COMPANY'){
+                $user->setUserEntreprise($company);
+                }
+            $company
+                ->setNumSiret(12345678912345)
+                ->setNameRef($faker->lastName())
+                ->setDescription($faker->text(100))
+                ->setDomaine('IT')
+                ->setLogo($logo)
+                ->setPartenaire($faker->boolean())
+                ->setWebSite("url")
+                ->setName($user->getName());
+        
             $manager->persist($user);
+            $manager->persist($company);
             $users[] = $user;
 
 
@@ -83,9 +99,10 @@ class AppFixtures extends Fixture
             $post->setContent($faker->realText())
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-2 years')))
                 ->setTitle($faker->randomElement($postTitles))
-                ->setPublicationUser($faker->randomElement($users))
-                ->setType('');
-
+                ->setPublicationUser($faker->randomElement($users));
+                if($role ==='ROLE_COMPANY'){
+                $post->setType($type);
+                } else $post->setType('');
             $manager->persist($post);
             $posts[] = $post;
         }
