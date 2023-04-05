@@ -14,23 +14,38 @@ import './bootstrap';
 import 'flowbite';
 
 let annonce = document.querySelector('#annonce');
-let annonceHidden = document.querySelector('#annonceHidden');
+let annonceShow = document.querySelector('#annonceShow');
 let presentation  = document.querySelector('#presentation');
-let presentationShow = document.querySelector('#presnetationShow');
+let presentationShow = document.querySelector('#presentationShow');
 let contact = document.querySelector('#contact')
 let contactShow = document.querySelector('#contactShow')
 
-let activesToHidden = [annonce, presentation, contact]
-let targetToHidden = [annonceHidden, presentationShow, contactShow]
+annonce.addEventListener('click', () => {
+    if(annonceShow.classList.contains('hidden')){
+        annonceShow.classList.add('hidden')
+    }
+    annonceShow.classList.toggle('hidden')
+    presentationShow.classList.add('hidden')
+    contactShow.classList.add('hidden')
+})
 
-for (let activeToHidden in activesToHidden){
-    activeToHidden.addEventListener('click', () => {
-        if(annonceHidden.classList.contains('hidden')){
-            annonceHidden.classList.add('hidden')
-        }
-        annonceHidden.classList.toggle('hidden')
-       
-    })
-}
+presentation.addEventListener('click', () => {
+    if(presentationShow.classList.contains('hidden')){
+        presentationShow.classList.add('hidden')
+        
+    }
+    presentationShow.classList.toggle('hidden')
+    annonceShow.classList.add('hidden')
+    contactShow.classList.add('hidden')
+})
 
+contact.addEventListener('click', () => {
+    if(contactShow.classList.contains('hidden')){
+        contactShow.classList.add('hidden')
+        
+    }
+    contactShow.classList.toggle('hidden')
+    annonceShow.classList.add('hidden')
+    presentationShow.classList.add('hidden')
+})
 
