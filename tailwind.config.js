@@ -1,12 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./assets/**/*.js",  
+    "./assets/**/*.js",
     "./templates/**/*.html.twig",
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'desk': "url('/public/images/bgDesk.jpg')",
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
