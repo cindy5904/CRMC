@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<section class="bg-desk bg-no-repeat bg-cover bg-center">
+
+		<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+			<div class="flex items-center">
+				<img src="/images/logo-M2i.png" alt="logo" class="shadow-2xl rounded">
+				<h2 class="text-5xl font-bold m-auto">{{ user.name }}</h2>
+			</div>
+			<article class="text-xl py-8">
+				{{ user.UserFormation.description }}
+			</article>
+
+			{# <article class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+			                    <ul>
+			                        <li>Nom du centre de formation : <span>{{ user.name }}</span></li>
+			                        <li class="flex items-center gap-4">Logo : <img src="{{ user.logo }}" alt="logo" class="w-10"></li>
+			                        <li>Domaine : <span>{{ user.UserFormation.domain }}</span></li>
+			                        <li></li>
+			                    </ul>
+			                </article> #}
+
+			<table class="border-collapse">
+                <thead>
+                    <tr>
+                        <th class="border border-orange-400">Nom</th>
+                        <th class="border border-orange-400">Logo</th>
+                        <th class="border border-orange-400">Domaine</th>
+                        <th class="border border-orange-400">Lien du site web</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-orange-400">{{ user.name }}</td>
+                        <td  class="border border-orange-400"><img src="{{ user.logo }}" alt="logo" class="w-10"></td>
+                        <td  class="border border-orange-400">{{ user.UserFormation.domain }}</td>
+                        <td class="border border-orange-400"><a href="{{ user.UserFormation.webSite }}">M2i Formation</a></td>
+                    </tr>
+                </tbody>
+
+        </table>
+		</div>
+
+	</section>
+
+	{{include('footer.html.twig')}}
+{% endblock %}

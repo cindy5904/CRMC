@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Formation;
 use App\Entity\User;
+use App\Repository\FormationRepository;
+use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -135,6 +137,17 @@ class FormationController extends AbstractController
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+        ]);
+    }
+
+    #[Route('/formation/profil', name: 'app_formation_profil')]
+    public function show(): Response
+    {
+        
+        $user = $this->getUser();
+        
+        return $this->render('formation/profil.html.twig', [
+            'user' => $user
         ]);
     }
 }
