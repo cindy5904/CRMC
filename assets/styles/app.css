@@ -50,3 +50,9 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.carousel-bg {
+    background-image: url('/public/images/carousel-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
