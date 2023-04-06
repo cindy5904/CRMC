@@ -83,7 +83,7 @@ class AppFixtures extends Fixture
             $company
                 ->setNumSiret(12345678912345)
                 ->setNameRef($faker->lastName())
-                ->setDescription($faker->text(100))
+                ->setDescription($faker->text(700))
                 ->setDomaine('IT')
                 ->setLogo($logo)
                 ->setPartenaire($faker->boolean())
@@ -96,7 +96,7 @@ class AppFixtures extends Fixture
 
 
             $post = new Publication();
-            $post->setContent($faker->realText())
+            $post->setContent($faker->text(700))
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-2 years')))
                 ->setTitle($faker->randomElement($postTitles))
                 ->setPublicationUser($faker->randomElement($users));
