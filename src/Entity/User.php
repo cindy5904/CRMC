@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -84,11 +83,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $logo = null;
 
     public function __construct()
-    {
+    {  
         $this->createdAt = new \DateTimeImmutable();
         $this->userCompetence = new ArrayCollection();
         $this->userDiplome = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->adress = 'A modifier';
+        $this->city = 'A modifier';
+        $this->postalCode = 'A modifier';
+        $this->tel = 'A compléter ultérieurement';
     }
 
     public function getId(): ?int

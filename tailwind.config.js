@@ -7,9 +7,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'bg-home' : "url('/images/network.jpg')",
-      },
+      'fond_profil_user':"url('../public/images/Fond.jpg')",
     },
   },
   plugins: [
