@@ -16,9 +16,10 @@ class FormContactController extends AbstractController
            
             
             
-            $this->addFlash('success', 'Votre message a bien été envoyé!');
+        $this->addFlash('success', 'Votre message a bien été envoyé!');
             
-            return $this->redirectToRoute('app_form_contact');
+        return $this->redirectToRoute('app_home');
+        
         }
         return $this->render('form_contact/index.html.twig');
     }

@@ -14,11 +14,20 @@
 		{% endblock %}
 
 		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
+			{{ encore_entry_script_tags('app')}}
 		{% endblock %}
 	</head>
 	<body {{ stimulus_controller('symfony/ux-swup/swup') }}>
 		<main id="swup">
+
+        <div class="">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="flash-messages alert alert-{{ label }} bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
 		{% block body %}{% endblock %}
 		</main>
 		<footer>
