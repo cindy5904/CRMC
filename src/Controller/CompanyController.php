@@ -36,7 +36,7 @@ class CompanyController extends AbstractController
         $user = $this->getUser();
         $id = $user->getId();
         dump($id);
-        $publications = $publi->findBy(['publicationUser' => $id]);
+        $publications = $publi->findBy(['publicationUser' => $id], ['createdAt' => 'DESC']);
         dump($publications);
 
         return $this->render('company/show.html.twig', [

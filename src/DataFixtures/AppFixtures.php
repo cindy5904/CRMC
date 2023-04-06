@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
             $logo = 'https://randomuser.me/api/portraits/';
             $logoId = $faker->numberBetween(1, 99) . '.jpg';
             $company = new Company();
-            $type = array_rand($types, 1);
+            $type = $faker->randomElement($types);
 
             if ($role === 'ROLE_USER') {
                 $profession = $faker->randomElement($professions);
