@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Repository\PublicationRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,12 +22,81 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyController extends AbstractController
-{
-    #[Route('/entreprise', name: 'app_company')]
-    public function index(): Response
+{   
+    #[Route('/entreprise', name:'app_company')]
+    public function index()
     {
-        return $this->render('company/index.html.twig', [
-            'controller_name' => 'CompanyController',
+        return $this->render('company/index.html.twig');
+    }
+
+    #[Route('/entreprise/profil', name: 'app_company_profil')]
+    public function show(PublicationRepository $publi): Response
+    {   
+        /** @var User */
+        $user = $this->getUser();
+        $id = $user->getId();
+        dump($id);
+        $publications = $publi->findBy(['publicationUser' => $id], ['createdAt' => 'DESC']);
+        dump($publications);
+
+        return $this->render('company/show.html.twig', [
+            'publications' => $publications,
+            'user' => $user
+        ]);
+    }
+
+    #[Route('entreprise/edit', name:'app_company_edit')]
+    public function edit(Request $request,EntityManagerInterface $entityManager)
+    {   
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $form = $this->createFormBuilder()
+            ->add('name', null, [
+                'label' => 'Nom de l\'entreprise',
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Veuillez entrer un nom',
+                    ])
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'Saisir un email valide'
+                    ])
+                ]
+            ])
+            ->add('siret', NumberType::class, [
+                'label' => 'Numéro de siret',
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Saisie obligatoire'
+                    ]),
+                    new Assert\Length([
+                        'min' => 14,
+                        'minMessage' => 'Saisie minimum 14 chiffre',
+                        'max' => 14,
+                        'maxMessage' => 'Saisie maximum 14 chiffre'
+                    ])
+                ]
+            ])
+            ->getForm();
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setEmail($form->get('email')->getData());
+                $user->setName($form->get('name')->getData());
+                $user->getUserEntreprise()->setNumSiret($form->get('siret')->getData());
+                $entityManager->persist($user);
+                $entityManager->flush();
+    
+            }
+
+        return $this->render('company/edit.html.twig', [
+            'user' => $user,
+            'form' => $form
         ]);
     }
     #[Route('/inscription/entreprise', name:'app_register_company')]

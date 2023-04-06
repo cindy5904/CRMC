@@ -28,39 +28,6 @@ class RegistrationFormType extends AbstractType
                     ])
                 ],
             ])
-            ->add('adress', null, [
-                'label' => 'Adresse',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer une adresse',
-                    ])
-                ],
-            ])
-            ->add('city', null, [
-                'label' => 'Ville',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer une ville',
-                    ])
-                ],
-            ])
-            ->add('postal_code', null, [
-                'label' => 'Code Postal',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer un code postal',
-                    ])
-                ],
-            ])
-            ->add('tel', null, [
-                'label' => 'Téléphone',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entrer un numéro de téléphone',
-                    ])
-                ],
-            ])
-
             ->add('email')
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
