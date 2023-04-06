@@ -50,9 +50,24 @@
                     <h1 class="text-xl">Présentation de l'entreprise</h1>
                     <p>{{user.userEntreprise.description}}</p>
                 </div>
-                <div id="contactShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl p-10">
-                    <span>{{user.tel}}</span>
-                    <span>{{user.email}}</span>
+                <div id="contactShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl flex justify-around p-10">
+                    <div>
+                        <h1>adresse de l'entreprise</h1>
+                        <ul>
+                            <li>{{user.adress}}</li>
+                            <li>{{user.postalCode}}</li>
+                            <li>{{user.city}}</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h1>Nous contacter</h1>
+                        <ul>
+                            <li>Contact de référence{{user.userEntreprise.nameRef}}</li>
+                            <li>{{user.email}}</li>
+                            <li>{{user.tel}}</li>
+                            <li> <a href="{{user.userEntreprise.webSite}}">Site web de l'entreprise</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             {# {% else %}
