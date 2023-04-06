@@ -13,21 +13,21 @@ import './bootstrap';
 
 import 'flowbite';
 
-var app = document.getElementById('app');
+// var app = document.getElementById('app');
 
-var typewriter = new Typewriter(app, {
-    loop: true
-});
+// var typewriter = new Typewriter(app, {
+//     loop: true
+// });
 
-typewriter.typeString('[ La reconversion c\'est pas une option... ]')
-    .pauseFor(2500)
-    .deleteAll()
-    .typeString('Si t\es pas Geek ')
-    .pauseFor(2500)
-    .deleteChars(7)
-    .typeString('<strong>Click !</strong>')
-    .pauseFor(2500)
-    .start();
+// typewriter.typeString('[ La reconversion c\'est pas une option... ]')
+//     .pauseFor(2500)
+//     .deleteAll()
+//     .typeString('Si t\es pas Geek ')
+//     .pauseFor(2500)
+//     .deleteChars(7)
+//     .typeString('<strong>Click !</strong>')
+//     .pauseFor(2500)
+//     .start();
 
 let annonce = document.querySelector('#annonce');
 let annonceShow = document.querySelector('#annonceShow');
@@ -36,31 +36,37 @@ let presentationShow = document.querySelector('#presentationShow');
 let contact = document.querySelector('#contact')
 let contactShow = document.querySelector('#contactShow')
 
-annonce.addEventListener('click', () => {
-    if(annonceShow.classList.contains('hidden')){
-        annonceShow.classList.add('hidden')
-    }
-    annonceShow.classList.toggle('hidden')
-    presentationShow.classList.add('hidden')
-    contactShow.classList.add('hidden')
-})
-
-presentation.addEventListener('click', () => {
-    if(presentationShow.classList.contains('hidden')){
+if (annonce) {
+    annonce.addEventListener('click', () => {
+        if(annonceShow.classList.contains('hidden')){
+            annonceShow.classList.add('hidden')
+        }
+        annonceShow.classList.toggle('hidden')
         presentationShow.classList.add('hidden')
-        
-    }
-    presentationShow.classList.toggle('hidden')
-    annonceShow.classList.add('hidden')
-    contactShow.classList.add('hidden')
-})
-
-contact.addEventListener('click', () => {
-    if(contactShow.classList.contains('hidden')){
         contactShow.classList.add('hidden')
-        
-    }
-    contactShow.classList.toggle('hidden')
-    annonceShow.classList.add('hidden')
-    presentationShow.classList.add('hidden')
-})
+    })
+    
+    presentation.addEventListener('click', () => {
+        if(presentationShow.classList.contains('hidden')){
+            presentationShow.classList.add('hidden')
+            
+        }
+        presentationShow.classList.toggle('hidden')
+        annonceShow.classList.add('hidden')
+        contactShow.classList.add('hidden')
+    })
+    
+    contact.addEventListener('click', () => {
+        if(contactShow.classList.contains('hidden')){
+            contactShow.classList.add('hidden')
+            
+        }
+        contactShow.classList.toggle('hidden')
+        annonceShow.classList.add('hidden')
+        presentationShow.classList.add('hidden')
+    })
+}
+// Po
+setTimeout(() => {
+    document.querySelectorAll('.flash-messages').forEach(el => el.remove());
+}, 1000);
