@@ -13,3 +13,18 @@ import './bootstrap';
 
 import 'flowbite';
 
+var app = document.getElementById('app');
+
+var typewriter = new Typewriter(app, {
+    loop: true
+});
+
+typewriter.typeString('[ La reconversion c\'est pas une option... ]')
+    .pauseFor(2500)
+    .deleteAll()
+    .typeString('Si t\es pas Geek ')
+    .pauseFor(2500)
+    .deleteChars(7)
+    .typeString('<strong>Click !</strong>')
+    .pauseFor(2500)
+    .start();

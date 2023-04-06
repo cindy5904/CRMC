@@ -56,3 +56,33 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+.rond {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+  }
+  
+
+.hidden {
+    display: none;
+}
+  
+
+.rond:hover + .hidden {
+    display: block;
+}
+  
+
+.entreprise {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+
+
+  
+
+  
