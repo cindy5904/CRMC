@@ -90,4 +90,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery();
         return $queryBuilder->getResult();
     }
+    // @todo requete sql 
+    // public function display($value)
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->join('u.userEntreprise', 'c')
+    //         ->where('c.id = :value')
+    //         ->setParameter('value', $value)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 }
