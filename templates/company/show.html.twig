@@ -10,15 +10,14 @@
         </div>
     </div>
     <div class="flex justify-center w-full">
-        <div class="flex flex-col w-1/2 mx-auto">
-            {% if is_granted('ROLE_COMPANY') %}
-            <div class="text-center w-2/3">
+        <div class="flex flex-col w-1/2">
+            <div class="text-center">
                 <button id="annonce" class="bg-slate-200 cursor-pointer focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] p-2 rounded-t-lg m-0">Annonce</button>
                 <button id="presentation" class="bg-slate-200 focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] cursor-pointer p-2 rounded-t-lg">Presentation</button>
                 <button id="contact" class="bg-slate-200 cursor-pointer focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] p-2 rounded-t-lg">Contact</button>
             </div>
-            <div class="w-2/3">
-                <div id="annonceShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl p-10">
+            <div class="">
+                <div id="annonceShow" class="w-full h-fit bg-slate-200 mt-2 rounded-2xl p-10">
                     {% if publications is empty %}
                         <p>Cette section affichera l'ensemble des annonces de l'entreprise</p>
                         {% else %}
@@ -48,21 +47,30 @@
                     {% endif %}
                 </div>
                 <div id="presentationShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl p-10">
+                    <h1 class="text-xl">Présentation de l'entreprise</h1>
                     <p>{{user.userEntreprise.description}}</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam officia delectus autem magnam maxime illum earum itaque similique consequuntur quos animi, libero harum nihil deserunt sunt. Eos est tenetur unde.</p>
                 </div>
-                <div id="contactShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl p-10">
-                    <span>{{user.tel}}</span>
-                    <span>{{user.email}}</span>
+                <div id="contactShow" class="w-full h-fit bg-slate-200 hidden mt-2 rounded-2xl flex justify-around p-10">
+                    <div>
+                        <h1>adresse de l'entreprise</h1>
+                        <ul>
+                            <li>{{user.adress}}</li>
+                            <li>{{user.postalCode}}</li>
+                            <li>{{user.city}}</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h1>Nous contacter</h1>
+                        <ul>
+                            <li>Contact de référence{{user.userEntreprise.nameRef}}</li>
+                            <li>{{user.email}}</li>
+                            <li>{{user.tel}}</li>
+                            <li> <a href="{{user.userEntreprise.webSite}}">Site web de l'entreprise</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="w1/3">
-                {{form_start(form)}}
-                    {{form_widget(form)}}
-                    <button>Mettre a jour</button>
-                {{form_end(form)}}
-            </div>
-            {% else %}
+            {# {% else %}
             <div class="text-center">
                 <button id="annonce" class="bg-slate-200 cursor-pointer focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] p-2 rounded-t-lg m-0">Annonce</button>
                 <button id="presentation" class="bg-slate-200 focus:bg-slate-100 focus:text-[#F26C24] focus:ring focus:ring-[#F26C24] cursor-pointer p-2 rounded-t-lg">Presentation</button>
@@ -107,7 +115,7 @@
                     <span>{{user.email}}</span>
                 </div>
             </div>
-            {% endif %}
+            {% endif %} #}
             
             
         </div>
