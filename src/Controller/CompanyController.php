@@ -7,7 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Repository\CompanyRepository;
 use App\Repository\PublicationRepository;
+use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -27,10 +29,28 @@ use Symfony\Component\Validator\Constraints\File;
 
 class CompanyController extends AbstractController
 {   
-    #[Route('/entreprise', name:'app_company')]
-    public function index()
-    {
-        return $this->render('company/index.html.twig');
+  #[Route('/entreprise/{id}', name:'app_company')]
+    public function index($id,CompanyRepository $cr,UserRepository $ur, PublicationRepository $pr)
+    {   
+        $userCompany = $cr->findBy(['id' => $id]);
+        // récupération de la company à l'origine de la publication (donc siret, description..)
+        $users = $ur->findBy(['userEntreprise' => $id]);
+        // récupération des données utilisateurs (donc name, adress..)
+        foreach($userCompany as $company){
+            $company;
+        }
+        foreach($users as $user){
+            $user;
+        }
+        // récupération des publications de l'utilisateur en fonction de son id
+        $publiId = $user->getId();
+        $publications = $pr->findBy(['publicationUser' => $publiId], ['createdAt' => 'DESC']);
+       
+        return $this->render('company/index.html.twig', [
+            'company' => $company,
+            'publications' => $publications,
+            'user' => $user
+        ]);
     }
 
     #[Route('/entreprise/profil', name: 'app_company_profil')]
