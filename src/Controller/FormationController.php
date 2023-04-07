@@ -145,11 +145,11 @@ class FormationController extends AbstractController
     {
         /** @var User */
         $user = $this->getUser();
-        $publication = $publication->findBy(['publicationUser' => $user], ['createdAt' => 'DESC']);
+        $publications = $publication->findBy(['publicationUser' => $user], ['createdAt' => 'DESC']);
         
         return $this->render('formation/profil.html.twig', [
             'user' => $user,
-            'posts' => $publication,
+            'posts' => $publications,
         ]);
     }
 }
