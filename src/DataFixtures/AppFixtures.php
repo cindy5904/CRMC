@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Company;
+use App\Entity\Formation;
 use App\Entity\Publication;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -37,6 +38,7 @@ class AppFixtures extends Fixture
             $logo = 'https://randomuser.me/api/portraits/';
             $logoId = $faker->numberBetween(1, 99) . '.jpg';
             $company = new Company();
+            $formation = new Formation();
             $type = $faker->randomElement($types);
 
             if ($role === 'ROLE_USER') {
@@ -79,6 +81,8 @@ class AppFixtures extends Fixture
                 ->setLogo($logo);
                 if($role ==='ROLE_COMPANY'){
                 $user->setUserEntreprise($company);
+                }elseif ($role === 'ROLE_FORMATION') {
+                    $user->setUserFormation($formation);
                 }
             $company
                 ->setNumSiret(12345678912345)
@@ -89,9 +93,17 @@ class AppFixtures extends Fixture
                 ->setPartenaire($faker->boolean())
                 ->setWebSite("url")
                 ->setName($user->getName());
+
+            $formation
+                ->setNumSiret(12345678912345)
+                ->setNameRef($faker->name())
+                ->setDescription($faker->text(700))
+                ->setDomain('Métiers de l\'IT')
+                ->setWebSite($faker->url());
         
             $manager->persist($user);
             $manager->persist($company);
+            $manager->persist($formation);
             $users[] = $user;
 
 
