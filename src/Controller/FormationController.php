@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Formation;
 use App\Entity\User;
-use App\Repository\FormationRepository;
-use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -1,8 +1,16 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-
-
+	{% if not user %}
+		<div class="text-center h-xl">
+			<p class="text-xl font-bold p-16">Vous devez être connecté pour voir ce contenu</p>
+			<a href="{{ path('app_login') }}" class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded">Se connecter</a>
+			<a href="{{ path('app_register_choice') }}" class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded">Créer un compte</a>
+		</div>
+	
+	{% else %}
+		
+	{% include "header.html.twig" %}
 	<div class="px-4 mx-auto max-w-screen-xl lg:px-6">
 		<ul class="flex flex-wrap text-sm font-medium text-center h-11" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
 			<li class="mr-4" role="presentation">
@@ -22,7 +30,7 @@
 
 				<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 					<div class="flex items-center">
-						<img src="/images/logo-M2i.png" alt="logo" class="shadow-2xl rounded">
+						<img src="{{ user.logo }}" alt="logo" class="shadow-2xl rounded">
 						<h2 class="text-5xl font-bold m-auto">{{ user.name }}</h2>
 					</div>
 
@@ -61,17 +69,15 @@
 
 			</section>
 		</div>
-		<div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+		<div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
 			<section class="bg-desk bg-no-repeat bg-cover bg-center">
-			<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-				<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-					<h2 class="mb-4 text-3xl lg:text-4xl font-bold color shadowText">Publications</h2>
-					<p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, eius voluptatum nulla illo id sunt!</p>
+				<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+					<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+						<h2 class="mb-4 text-3xl lg:text-4xl font-bold color shadowText">Publications</h2>
+						<p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, eius voluptatum nulla illo id sunt!</p>
+					</div>
+					<div class="grid gap-8 lg:grid-cols-2"></div>
 				</div>
-				<div class="grid gap-8 lg:grid-cols-2">
-
-				</div>
-			</div>
 			</section>
 		</div>
 		<div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
@@ -86,4 +92,5 @@
 
 
 	{{include('footer.html.twig')}}
+{% endif %}
 {% endblock %}
