@@ -13,21 +13,21 @@ import './bootstrap';
 
 import 'flowbite';
 
-// var app = document.getElementById('app');
+var app = document.getElementById('app');
 
-// var typewriter = new Typewriter(app, {
-//     loop: true
-// });
+var typewriter = new Typewriter(app, {
+    loop: true
+});
 
-// typewriter.typeString('[ La reconversion c\'est pas une option... ]')
-//     .pauseFor(2500)
-//     .deleteAll()
-//     .typeString('Si t\es pas Geek ')
-//     .pauseFor(2500)
-//     .deleteChars(7)
-//     .typeString('<strong>Click !</strong>')
-//     .pauseFor(2500)
-//     .start();
+typewriter.typeString('[ La reconversion c\'est pas une option... ]')
+    .pauseFor(1000)
+    .deleteAll()
+    .typeString('Si t\'es pas Geek ')
+    .pauseFor(1000)
+    .deleteAll()
+    .typeString('<strong> Click !</strong>')
+    .pauseFor(1000)
+    .start();    
 
 let annonce = document.querySelector('#annonce');
 let annonceShow = document.querySelector('#annonceShow');
