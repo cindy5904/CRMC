@@ -6,7 +6,7 @@
     <div class="w-full mt-8 relative pb-2">
         <img src="{{ asset('/images/bgOrange.jpg') }}"  class="mx-auto" alt="ordinateur"> 
        <div class="hidden lg:block lg:absolute lg:bottom-[7rem] lg:left-[13rem] lg:border-2 lg:border-black lg:rounded-full lg:w-3 lg:h-3 lg:animate-pulse lg:bg-gray-600 lg:cursor-pointer">
-          <a href="{{path('app_company')}}" class="rond"></a>
+          <a href="{{path('app_login')}}" class="rond"></a>
           <div class="lg:absolute bottom-0 left-10 text-black px-4 py-2 hidden">
               <div class="transform rotate-45 absolute left-6"></div>
               <span class="entreprise lg:absolute lg:bottom-10 lg:left-11 lg:underline">
@@ -31,7 +31,7 @@
 
         </div>
         <div class="hidden lg:block lg:absolute lg:top-[33rem] lg:right-[18rem] lg:border-2 lg:border-black lg:rounded-full lg:w-3 lg:h-3 lg:animate-pulse lg:bg-gray-600 lg:cursor-pointer">
-            <a href="{{path('app_formation')}}" class="rond"></a>
+            <a href="{{path('app_login')}}" class="rond"></a>
             <div class="lg:absolute bottom-0 right-10 text-black px-4 py-2 hidden">
             <div class="transform rotate-45 absolute left-6"></div>
             <span class="entreprise lg:absolute lg:bottom-8 lg:left-11 lg:underline">
@@ -41,7 +41,7 @@
         </div>
         </div>
         <div class="hidden lg:block lg:absolute lg:top-[10rem] lg:right-[17rem] lg:border-2 lg:border-black lg:rounded-full lg:w-3 lg:h-3 lg:animate-pulse lg:bg-gray-600 lg:cursor-pointer">
-            <a href="{{path('app_user')}}" class="rond"></a>
+            <a href="{{path('app_login')}}" class="rond"></a>
              <div class="lg:absolute bottom-0 right-10 text-black px-4 py-2 hidden">
             <div class="transform rotate-45 absolute left-6"></div>
             <span class="entreprise lg:absolute lg:bottom-8 lg:left-11 lg:underline">
@@ -59,7 +59,8 @@
             Suivez le guide !</p>
     </div>
 
-    <div id="app"></div>
+    <div id="app" class='mx-auto mb-8 text-bold text-center lg:text-3xl text-black text-shadow-sm'>
+        </div>
 
     <div class="bg-home lg:pt-4 items-center text-center">
         <div class="lg:flex w-3/4 items-center px-5 mx-auto gap-12 mt-10 relative">
@@ -68,12 +69,12 @@
             </div>
 
             <div class="lg:w-1/2">
-                <a href="{{path('app_user')}}" class="bg-orange-500 text-white px-14 py-2 rounded-md lg:mt-4 h-10">Candidat</a>
+                <a href="{{path('app_login')}}" class="bg-orange-500 text-white px-14 py-2 rounded-md lg:mt-4 h-10">Candidat</a>
             </div>
         </div>
         <div class="mx-auto flex-col-reverse flex lg:flex-row w-3/4 items-center lg:gap-12 mt-12 relative">
             <div class="lg:w-1/2">
-                <a href="{{path('app_formation')}}" class="bg-orange-500 text-white px-6 py-2 rounded-md lg:mt-4 h-10">Centre de  formation</a>
+                <a href="{{path('app_login')}}" class="bg-orange-500 text-white px-6 py-2 rounded-md lg:mt-4 h-10">Centre de  formation</a>
             </div>
 
             <div class="lg:w-1/2">
@@ -86,7 +87,7 @@
             </div>
 
             <div class="lg:w-1/2 mx-auto items-center">
-                <a href="{{path('app_company')}}" class="bg-orange-500 text-white px-14 py-2 rounded-md lg:mt-4 h-10 items-center">Entreprise</a>
+                <a href="{{path('app_login')}}" class="bg-orange-500 text-white px-14 py-2 rounded-md lg:mt-4 h-10 items-center">Entreprise</a>
             </div>
         </div>
     </div>

@@ -79,7 +79,11 @@ body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-  }
+}
+
+#app {
+    text-shadow: 2px 2px 0 rgba(48, 48, 47, 0.2);
+}
   
 
 
