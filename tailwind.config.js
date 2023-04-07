@@ -9,8 +9,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         'desk': "url('/public/images/bgDesk.jpg')",
+        'fond_profil_user':"url('/public/images/Fond.jpg')",
       },
-    }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),
