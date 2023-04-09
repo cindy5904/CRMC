@@ -322,29 +322,33 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/entreprise/createpost', name:'app_company_createpost')]
-    public function create(Request $request, EntityManagerInterface $manager): Response
+    public function create(Request $request, EntityManagerInterface $manager, PublicationRepository $publication): Response
     {
+        
         $publication = new Publication();
-
         $form = $this->createFormBuilder($publication)
-        ->add('title')
+        ->add('title', null, [
+            'label'=> 'Titre de la publication',
+        ])
         ->add('type')
-        ->add('content')
+        ->add('content', null, [
+            'label' => 'Contenu de la publication',
+        ])
         ->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form['content']->getData();
-            $publication->setTitle('');
+            $publication->setTitle($form->get('title')->getData());
             $publication->setCreatedAt(new \DateTimeImmutable('now'));
             $publication->setContent($data);
-            $publication->setType('');
+            $publication->setType($form->get('type')->getData());
             $publication->setPublicationUser($this->getUser());
-            $publication->setPublicationCompany($this->getUser()->getuserEntreprise());
+            // $publication->setPublicationCompany($this->getUser()->getUserEntreprise());
             $manager->persist($publication);
             $manager->flush();
 
-            return $this->redirectToRoute('app_company_profil');
+            return $this->redirectToRoute('app_publication');
         }    
         
     
