@@ -84,41 +84,47 @@ class AppFixtures extends Fixture
                 }elseif ($role === 'ROLE_FORMATION') {
                     $user->setUserFormation($formation);
                 }
-            $company
-                ->setNumSiret(12345678912345)
-                ->setNameRef($faker->lastName())
-                ->setDescription($faker->text(700))
-                ->setDomaine('IT')
-                ->setLogo($logo)
-                ->setPartenaire($faker->boolean())
-                ->setWebSite("url")
-                ->setName($user->getName());
-
-            $formation
-                ->setNumSiret(12345678912345)
-                ->setNameRef($faker->name())
-                ->setDescription($faker->text(700))
-                ->setDomain('Métiers de l\'IT')
-                ->setWebSite($faker->url());
-        
             $manager->persist($user);
-            $manager->persist($company);
-            $manager->persist($formation);
+
+            if($user->getUserEntreprise() != null){
+                $company->setNumSiret(12345678912345)
+                    ->setNameRef($faker->lastName())
+                    ->setDescription($faker->text(700))
+                    ->setDomaine('IT')
+                    ->setLogo($logo)
+                    ->setPartenaire($faker->boolean())
+                    ->setWebSite("url")
+                    ->setName($user->getName());
+                $manager->persist($company);
+            }
+            if($user->getUserFormation() != null){
+                $formation
+                    ->setNumSiret(12345678912345)
+                    ->setNameRef($faker->name())
+                    ->setDescription($faker->text(700))
+                    ->setDomain('Métiers de l\'IT')
+                    ->setWebSite($faker->url());
+                $manager->persist($formation);
+            }
+
+            for($j = 1; $j <= rand(2, 5); $j++){
+                $post = new Publication();
+                $post->setContent($faker->text(700))
+                    ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-2 years')))
+                    ->setTitle($faker->randomElement($postTitles))
+                    ->setPublicationUser($user);
+                    if($user->getUserEntreprise() != null){
+                        $post->setType($faker->randomElement($types));
+                        $post->setPublicationCompany($company);
+                    } elseif($user->getUserFormation() != null){
+                        $post->setType($faker->randomElement($types));
+                        $post->setPublicationFormation($formation);
+                    } else $post->settype('A définir');
+                $manager->persist($post);
+                $posts[] = $post;
+            }
             $users[] = $user;
-
-
-            $post = new Publication();
-            $post->setContent($faker->text(700))
-                ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-2 years')))
-                ->setTitle($faker->randomElement($postTitles))
-                ->setPublicationUser($faker->randomElement($users));
-                if($role ==='ROLE_COMPANY'){
-                $post->setType($type);
-                } else $post->setType('');
-            $manager->persist($post);
-            $posts[] = $post;
         }
-
         $manager->flush();
     }
 }
