@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EditUserProfileType;
+use App\Repository\PublicationRepository;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use App\Security\AppAuthenticator;
@@ -29,12 +31,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/profil/user', name:'app_profil_user')]
-    public function show(): Response
+    public function show(PublicationRepository $publication): Response
     {
+        /** @var User */
         $user = $this->getUser();
+        $publications = $publication->findBy(['publicationUser' => $user]);
 
         return $this->render('user/index.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'publications' => $publications
         ]);
     } 
 
@@ -124,6 +129,53 @@ class UserController extends AbstractController
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+        ]);
+    }
+
+    #[Route('/profil/editProfile', name:'app_profil_editProfile')]
+    public function editProfileUser(Request $request): Response
+    {
+        
+        $user = $this->getUser();
+        $form = $this->createForm(EditUserProfileType::class, $user);
+    
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('message', 'Profil mis à jour');
+            return $this->redirectToRoute('user');
+        }
+
+        return $this->render('user/editProfile.html.twig', [
+            'user' => $user
+        ]);
+    } 
+
+    #[Route('/profil/upload-cv', name:'app_profil_upload_cv')]
+    public function uploadCv(Request $request)
+    {
+        $form = $this->createFormBuilder()
+        ->add('cv', FileType::class, [
+            'label' => 'Télécharger votre CV',
+        ])
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cv = $form->get('cv')->getData();
+
+            // Gérer le téléchargement du CV ici
+
+            return $this->redirectToRoute('/profil/user');
+        }
+
+        return $this->render('profil/upload_cv.html.twig', [
+        'form' => $form->createView(),
         ]);
     }
 }
