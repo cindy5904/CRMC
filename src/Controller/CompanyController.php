@@ -56,7 +56,7 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/entreprise/profil', name: 'app_company_profil')]
-    public function show(PublicationRepository $publi): Response
+    public function show(Request $request, PublicationRepository $publi, EntityManagerInterface $manager): Response
     {   
         /** @var User */
         $user = $this->getUser();
@@ -64,10 +64,37 @@ class CompanyController extends AbstractController
         dump($id);
         $publications = $publi->findBy(['publicationUser' => $id], ['createdAt' => 'DESC']);
         dump($publications);
+        $publication = new Publication();
+        $form = $this->createFormBuilder($publication)
+        ->add('title', null, [
+            'label'=> 'Titre de la publication',
+        ])
+        ->add('type')
+        ->add('content', null, [
+            'label' => 'Contenu de la publication',
+        ])
+        ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form['content']->getData();
+            $publication->setTitle($form->get('title')->getData());
+            $publication->setCreatedAt(new \DateTimeImmutable('now'));
+            $publication->setContent($data);
+            $publication->setType($form->get('type')->getData());
+            $publication->setPublicationUser($this->getUser());
+            // $publication->setPublicationCompany($this->getUser()->getUserEntreprise());
+            $manager->persist($publication);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_publication');
+        }    
+        
 
         return $this->render('company/show.html.twig', [
             'publications' => $publications,
-            'user' => $user
+            'user' => $user,
+            'form' => $form,
         ]);
     }
 
