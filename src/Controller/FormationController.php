@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Formation;
+use App\Entity\Publication;
 use App\Entity\User;
+use App\Repository\PublicationRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -135,6 +137,19 @@ class FormationController extends AbstractController
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+        ]);
+    }
+
+    #[Route('/formation/profil', name: 'app_formation_profil')]
+    public function show(PublicationRepository $publication): Response
+    {
+        /** @var User */
+        $user = $this->getUser();
+        $publications = $publication->findBy(['publicationUser' => $user], ['createdAt' => 'DESC']);
+        
+        return $this->render('formation/profil.html.twig', [
+            'user' => $user,
+            'posts' => $publications,
         ]);
     }
 }
