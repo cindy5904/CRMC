@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\Publication;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Form\PublicationType;
 use App\Repository\CompanyRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\UserRepository;
@@ -29,7 +31,7 @@ use Symfony\Component\Validator\Constraints\File;
 
 class CompanyController extends AbstractController
 {   
-  #[Route('/entreprise/{id}', name:'app_company')]
+    #[Route('/entreprise/detail/{id}', name:'app_company')]
     public function index($id,CompanyRepository $cr,UserRepository $ur, PublicationRepository $pr)
     {   
         $userCompany = $cr->findBy(['id' => $id]);
@@ -317,5 +319,42 @@ class CompanyController extends AbstractController
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    #[Route('/entreprise/createpost', name:'app_company_createpost')]
+    public function create(Request $request, EntityManagerInterface $manager, PublicationRepository $publication): Response
+    {
+        
+        $publication = new Publication();
+        $form = $this->createFormBuilder($publication)
+        ->add('title', null, [
+            'label'=> 'Titre de la publication',
+        ])
+        ->add('type')
+        ->add('content', null, [
+            'label' => 'Contenu de la publication',
+        ])
+        ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form['content']->getData();
+            $publication->setTitle($form->get('title')->getData());
+            $publication->setCreatedAt(new \DateTimeImmutable('now'));
+            $publication->setContent($data);
+            $publication->setType($form->get('type')->getData());
+            $publication->setPublicationUser($this->getUser());
+            // $publication->setPublicationCompany($this->getUser()->getUserEntreprise());
+            $manager->persist($publication);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_publication');
+        }    
+        
+    
+    return $this->render('company/create-post.html.twig', [
+        'publication' =>$publication,
+        'form' => $form->createView(),
+    ]);
     }
 }

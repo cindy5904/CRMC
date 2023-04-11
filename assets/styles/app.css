@@ -84,7 +84,22 @@ body {
 #app {
     text-shadow: 2px 2px 0 rgba(48, 48, 47, 0.2);
 }
-  
+
+.bg-companyForm {
+    background-image:url('/public/images/carousel-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-but{
+    background: linear-gradient(135deg, rgb(255, 246, 183) 10%, rgb(246, 65, 108) 100%);
+    border: none;
+}
+
+.bg-but:hover {
+    background: linear-gradient(135deg, rgb(246, 65, 108) 10%, rgb(255, 246, 183) 100%);
+    cursor: pointer;
+  }
 
 
   
