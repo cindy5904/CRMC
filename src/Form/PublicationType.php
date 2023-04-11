@@ -12,13 +12,15 @@ class PublicationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('createdAt')
-            ->add('content')
-            ->add('type')
-            // ->add('publicationUser')
-            // ->add('publicationCompany')
-            // ->add('publicationFormation')
+        ->add('title', null, [
+            'label'=> 'Titre de la publication:',
+        ])
+        ->add('type', null, [
+            'label'=> 'Type de publication :',
+        ])
+        ->add('content', null, [
+            'label'=> 'Publication:',
+            ])
         ;
     }
 
@@ -29,3 +31,4 @@ class PublicationType extends AbstractType
         ]);
     }
 }
+

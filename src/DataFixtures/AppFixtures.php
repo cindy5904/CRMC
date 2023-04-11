@@ -29,6 +29,7 @@ class AppFixtures extends Fixture
         $professions = ["développeur", "intégrateur", "concepteur développeur d'application", "testeur"];
         $postTitles = ['Développeur Web', 'Designer UX', 'Analyste de Données', 'Chef de Projet IT', 'Ingénieur Logiciel', 'Spécialiste en Sécurité Informatique', 'Architecte Cloud', 'Administrateur de Bases de Données', 'Développeur Mobile', 'Expert en Réseaux Informatiques'];
         $types = ['stage', 'alternance', 'emploi'];
+        $typesF = ['formation', 'alternance'];
 
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
@@ -40,6 +41,7 @@ class AppFixtures extends Fixture
             $company = new Company();
             $formation = new Formation();
             $type = $faker->randomElement($types);
+            $typeF = $faker->randomElement($typesF);
 
             if ($role === 'ROLE_USER') {
                 $profession = $faker->randomElement($professions);
@@ -117,7 +119,7 @@ class AppFixtures extends Fixture
                         $post->setType($faker->randomElement($types));
                         $post->setPublicationCompany($company);
                     } elseif($user->getUserFormation() != null){
-                        $post->setType($faker->randomElement($types));
+                        $post->setType($typeF);
                         $post->setPublicationFormation($formation);
                     } else $post->settype('A définir');
                 $manager->persist($post);
