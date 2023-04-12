@@ -191,7 +191,7 @@ class CompanyController extends AbstractController
                ]
            ])
            ->add('partenaires', CheckboxType::class, [
-               'label' => 'souhaitez vous devenir partenaires ?'
+               'label' => 'Devenir partenaire'
            ])
            ->add('webSite', UrlType::class, [
                'label' => 'Lien de votre site web',

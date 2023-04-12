@@ -190,49 +190,49 @@
                     <div class= 'max-w-xl mx-auto items-center'>
                     {{ form_start(form, { 'attr' : {'class' : 'mx-auto'}}) }}
                        <div class='mx-auto'>
-                            <div class="flex gap-4">
-                                <div class='mb-4 mx-auto'>
+                            <div class="flex gap-4 items-center justify-center">
+                                <div class='mb-4'>
                                     {{ form_label(form1.name, 'Nom de l\'entreprise', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.name, {'attr': {'class': 'form-input w-full'}}) }}
                                 </div>
-                                <div class='mb-4  mx-auto'>
+                                <div class='mb-4 '>
                                     {{ form_label(form1.email, 'Votre Email', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.email, {'attr': {'class': 'form-input w-full'}}) }}
                                 </div>
                             </div>
-                            <div class='mx-auto'>
+                            <div class='mx-auto items-center justify-center text-center'>
                                 <div class='mb-4 mx-auto'>
                                     {{ form_label(form1.adress, 'Adresse', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.adress, {'attr': {'class': 'form-input w-3/4'}}) }}
                                 </div>
                             </div>
-                            <div class="flex gap-4">
-                                <div class='mb-4  mx-auto'>
+                            <div class="flex gap-4 items-center justify-center">
+                                <div class='mb-4'>
                                     {{ form_label(form1.postalCode, 'Code Postal', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.postalCode, {'attr': {'class': 'form-input w-full'}}) }}
                                 </div>
-                                <div class='mb-4  mx-auto'>
+                                <div class='mb-4'>
                                     {{ form_label(form1.city, 'Ville', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.city, {'attr': {'class': 'form-input w-full'}}) }}
                                 </div>
                             </div> 
-                            <div class="flex gap-4">
-                                <div class='mb-4 mx-auto'>
+                            <div class="flex gap-4 items-center justify-center">
+                                <div class='mb-4'>
                                     {{ form_label(form1.nameRef, 'Personne référente', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.nameRef, {'attr': {'class': 'form-input w-full'}}) }}
                                 </div>
-                                <div class='mb-4 mx-auto'>
+                                <div class='mb-4'>
                                     {{ form_label(form1.siret, 'Numéro de Siret', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.siret, {'attr': {'class': 'form-input w-full'}}) }}
                                 </div>
                             </div> 
-                            <div class=' mx-auto'>
-                                <div class='mb-4  mx-auto'>
+                            <div class=' mx-auto items-center justify-center text-center'>
+                                <div class='mb-4'>
                                     {{ form_label(form1.description, 'Description', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.description, {'attr': {'class': 'form-input w-3/4'}}) }}
                                 </div>
                             </div>
-                            <div class="flex gap-4 mx-auto">
+                            <div class="flex gap-4 mx-auto items-center justify-center">
                                 <div class='mb-4'>
                                     {{ form_label(form1.domaine, 'Nom de domaine', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
                                     {{ form_widget(form1.domaine, {'attr': {'class': 'form-input w-full'}}) }}
@@ -242,10 +242,10 @@
                                     {{ form_widget(form1.webSite, {'attr': {'class': 'form-input w-full'}}) }}
                                 </div>
                             </div> 
-                            <div class='flex items-center'>
+                            <div class='flex items-center mx-auto text-center'>
                                 {{ form_row (form1.partenaires )}}
                             </div> 
-                            <div>
+                            <div class='mx-auto'>
                                 {{ form_row (form1.logo)}}
                             </div>
                             <button type="submit" class="bg-but1 mt-5 items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
