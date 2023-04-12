@@ -11,50 +11,60 @@
 				<h2 class="mb-4 text-3xl lg:text-4xl font-bold color shadowText">Publications</h2>
 				<p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, eius voluptatum nulla illo id sunt!</p>
 			</div>
-			<div class="grid gap-8 lg:grid-cols-2">
-
-				{% for post in posts %}
-					<article class="p-6 rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
-						<div class="flex justify-between items-center mb-5 text-gray-500">
-							<span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-								<svg class="mr-1 w-3 h-3" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-									<path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-								</svg>
-								{{ post.publicationUser.status }}
-							</span>
-							<span>Type: Recherche Stage</span>
-							<span class="text-sm">{{ post.createdAt|ago(locale='fr') }}</span>
-						</div>
-						<h2 class="mb-2 text-2xl font-bold color shadowText">
-							{{ post.title }}
-						</h2>
-						<p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ post.content | cut }}...</p>
-						<div class="flex justify-between items-center">
-							<div class="flex items-center space-x-4">
-								<img class="w-7 h-7 rounded-full" src="{{ post.publicationUser.logo }}" alt="Image utilisateur"/>
-								<span class="font-medium color">
-								{{ post.publicationUser.name}}
+			<div class="flex justify-between">
+				<div class="w-3/4">
+					{% if posts is empty %}
+						<h1 class="text-xl text-center">Aucun résultat ne coresspond à votre recherche</h1>
+					{% endif %}
+					
+					{% for post in posts %}
+						<article class="p-6 rounded-lg shadow-md bg-slate-50 shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:scale-105 duration-300 mb-10">
+							<div class="flex justify-between items-center mb-5 text-gray-500">
+								<span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+									<svg class="mr-1 w-3 h-3" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+										<path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+									</svg>
+									{{ post.publicationUser.status }}
 								</span>
+								<span>Type: Recherche Stage</span>
+								<span class="text-sm">{{ post.createdAt|ago(locale='fr') }}</span>
 							</div>
-							{% if verify %}
-								<a href="#" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
-								En savoir plus
-									</svg>
-								</a>
-								{# todo addflash #}
-								{% else %}
-								<a href="{{path('app_publication_one', {id : post.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+							<h2 class="mb-2 text-2xl font-bold color shadowText">
+								{{ post.title }}
+							</h2>
+							<p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ post.content | cut }}...</p>
+							<div class="flex justify-between items-center">
+								<div class="flex items-center space-x-4">
+									<img class="w-7 h-7 rounded-full" src="{{ post.publicationUser.logo }}" alt="Image utilisateur"/>
+									<span class="font-medium color">
+									{{ post.publicationUser.name}}
+									</span>
+								</div>
+								{% if verify %}
+									<a href="#" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
 									En savoir plus
-									</svg>
-								</a>
-							{% endif %}
-							
-							
-						</div>
-					</article>
-				{% endfor %}
-
+										</svg>
+									</a>
+									{# todo addflash #}
+									{% else %}
+									<a href="{{path('app_publication_one', {id : post.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+										En savoir plus
+										</svg>
+									</a>
+								{% endif %}	
+							</div>
+						</article>
+					{% endfor %}
+				</div>
+				<div class="w-1/5 bg-white rounded-lg max-h-11 ">
+					{{form_start(form)}}
+						{{form_widget(form)}}
+						<button>Rechercher</button>
+					{{form_end(form)}}
+				</div>
 			</div>
+			
+			
 		</div>
 	</section>
 {{ include('footer.html.twig') }}

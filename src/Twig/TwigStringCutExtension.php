@@ -14,7 +14,7 @@ class TwigStringCutExtension extends AbstractExtension
 
     public function cutFilter($content): string
     {
-        $newContent = substr($content, 0, 100);
+        $newContent = substr($content, 0, 200);
         $limit = strrpos($newContent, " ");
         $content = substr($content, 1, $limit);
 
