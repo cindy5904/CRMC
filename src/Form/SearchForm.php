@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\SearchData;
+use App\SearchBar;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +14,7 @@ class SearchForm extends AbstractType
     {
         $builder
         ->add('searchBar', TextType::class,[
+            'required' => false,
             'label' => 'recherche',
             'attr' => [
                 'placeholder' => 'Rechercher',
@@ -24,7 +25,7 @@ class SearchForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => SearchData::class,
+            'data_class' => SearchBar::class,
         ]);
     }
 }
