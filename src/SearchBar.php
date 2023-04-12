@@ -5,7 +5,6 @@ namespace App;
 class SearchBar
 {
     private string $searchBar = "";
-    private array $types = [];
 
     public function getSearchBar(): ?string
     {
@@ -15,17 +14,6 @@ class SearchBar
     public function setSearchBar(string $searchBar): self
     {
         $this->searchBar = $searchBar;
-        return $this;
-    }
-
-    public function getTypes(): ?array
-    {
-        return $this->types;
-    }
-
-    public function setTypes($types): self
-    {
-        $this->types = $types;
         return $this;
     }
 
