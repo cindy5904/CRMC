@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Form\SearchForm;
+use App\Form\SearchSelect;
 use App\Repository\PublicationRepository;
 use App\Repository\UserRepository;
-use App\SearchData;
+use App\SearchBar;
+use App\SearchSelectFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,20 +24,30 @@ class PublicationController extends AbstractController
         $word = 'A modifier';
         $verify = $userRepository->verify($user, $word);
         $users = $userRepository->findAll();
-        $search = new SearchData();
+        $search = new SearchBar();
+        $select = new SearchSelectFilter();
         $posts = $publicationRepository->findBy([], ['createdAt' => 'DESC']);
         $form = $this->createForm(SearchForm:: class, $search);
         $form->handleRequest($request);
+        $formSelect = $this->createForm(SearchSelect::class, $select);
+        $formSelect->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $posts= $publicationRepository->findBySearch($form->getData());
         }
-       
+
+        if($formSelect->isSubmitted() && $formSelect->isValid()){
+            $results = $formSelect->getData();
+            $posts= $publicationRepository->findByType($results->getProfession(), $results->getTypes());
+        }
+        
         return $this->render('publication/index.html.twig', [
             'posts' => $posts,
             'form' => $form,
             'users' => $users,
             'verify' => $verify,
+            'formSelect' => $formSelect,
+            
         ]);
     }
 

@@ -14,7 +14,7 @@
 			<div class="flex justify-between">
 				<div class="w-3/4">
 					{% if posts is empty %}
-						<h1 class="text-xl text-center">Aucun résultat ne coresspond à votre recherche</h1>
+						<h1 class="text-xl text-center">Aucun résultat ne correspond à votre recherche</h1>
 					{% endif %}
 					
 					{% for post in posts %}
@@ -26,7 +26,7 @@
 									</svg>
 									{{ post.publicationUser.status }}
 								</span>
-								<span>Type: Recherche Stage</span>
+								<span>Type: {{post.type}}</span>
 								<span class="text-sm">{{ post.createdAt|ago(locale='fr') }}</span>
 							</div>
 							<h2 class="mb-2 text-2xl font-bold color shadowText">
@@ -56,11 +56,20 @@
 						</article>
 					{% endfor %}
 				</div>
-				<div class="w-1/5 bg-white rounded-lg max-h-11 ">
-					{{form_start(form)}}
-						{{form_widget(form)}}
-						<button>Rechercher</button>
-					{{form_end(form)}}
+				<div class="w-1/5">
+					<div class="bg-white p-4 border-2 border-black rounded-lg">
+						{{form_start(form)}}
+							{{form_widget(form)}}
+							<button class="bg-slate-400 p-2 rounded-lg">Rechercher</button>
+						{{form_end(form)}}
+						<div class="my-3">
+							<span class="text-xl underline underline-offset-4">Trie par :</span>
+							{{form_start(formSelect)}}
+								{{form_widget(formSelect)}}
+								<button class="bg-slate-400 p-2 rounded-lg">Trier</button>
+							{{form_end(formSelect)}}
+						</div>
+					</div>
 				</div>
 			</div>
 			
