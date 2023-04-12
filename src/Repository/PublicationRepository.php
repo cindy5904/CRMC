@@ -63,4 +63,13 @@ class PublicationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findBySearch($searchName)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.title LIKE :search') // requete préparer car :search est tapé par l'utilisateur
+            ->orderBy('p.createdAt', 'DESC')
+            ->setParameter('search', '%'.$searchName.'%')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }
