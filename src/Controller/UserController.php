@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\EditUserProfileType;
 use App\Repository\PublicationRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use App\Security\AppAuthenticator;
@@ -17,16 +18,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    #[IsGranted('ROLE_USER')]
+    public function index(UserRepository $repository): Response
     {
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'user' => $repository->findAll(),
         ]);
     }
 
@@ -132,30 +136,38 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/editProfile', name:'app_profil_editProfile')]
-    public function editProfileUser(Request $request): Response
+    #[Route('/user/profil/modifier', name: 'app_user_edit')]
+    #[IsGranted('ROLE_USER')]
+    public function edit(Request $request, SluggerInterface $slugger, EntityManagerInterface $manager, UserRepository $repository) 
     {
-        
+        /** @var User $user */
         $user = $this->getUser();
-        $form = $this->createForm(EditUserProfileType::class, $user);
-    
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('message', 'Profil mis à jour');
-            return $this->redirectToRoute('user');
+        // Evite le bug de "logout"
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $manager->refresh($user);
         }
 
-        return $this->render('user/editProfile.html.twig', [
-            'user' => $user
-        ]);
-    } 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Pseudo
+            $baseUsername = $slugger->slug($user->getFirstname())->lower();
+            $username = $baseUsername;
+            $currentCount = 1;
+            $count = $repository->count(['username' => $username]);
 
-    #[Route('/profil/upload-cv', name:'app_profil_upload_cv')]
+            while ($count >= 1 && $username !== $user->getName()) {
+                $currentCount++;
+                $username = $baseUsername.'-'.$currentCount;
+                $count = $repository->count(['username' => $username]);
+            }
+
+            $user->setName($username);
+        }
+    }
+  
+    #[Route('/user/upload-cv', name:'app_user_upload_cv')]
     public function uploadCv(Request $request)
     {
         $form = $this->createFormBuilder()
@@ -174,8 +186,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('/profil/user');
         }
 
-        return $this->render('profil/upload_cv.html.twig', [
+        return $this->render('user/upload_cv.html.twig', [
         'form' => $form->createView(),
         ]);
     }
+
+
 }
