@@ -71,11 +71,13 @@ class PublicationRepository extends ServiceEntityRepository
                 ->where('p.type =:type')
                 ->setParameter('type', $type)
                 ->orderBy('p.createdAt', 'DESC');
-        } elseif ($type === ""){
+        } elseif ($type === null){
+            dump($profession);
             $queryBuilder = $this->createQueryBuilder('p')
-            ->where('p.title =:profession')
-            ->setParameter('profession', $profession)
-            ->orderBy('p.createdAt', 'DESC');
+                ->where('p.title =:profession')
+                ->setParameter('profession', $profession)
+                ->orderBy('p.createdAt', 'DESC');
+                return $queryBuilder->getQuery()->getResult();
         } else {
             $queryBuilder = $this->createQueryBuilder('p')
                 ->where('p.title =:profession')
