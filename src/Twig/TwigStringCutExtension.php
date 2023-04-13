@@ -16,7 +16,7 @@ class TwigStringCutExtension extends AbstractExtension
     {
         $newContent = substr($content, 0, 100);
         $limit = strrpos($newContent, " ");
-        $content = substr($content, 1, $limit);
+        $content = substr($content, 0, $limit);
 
         return $content;
     }

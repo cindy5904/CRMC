@@ -7,6 +7,7 @@ use App\Entity\Publication;
 use App\Entity\User;
 use App\Form\PublicationType;
 use App\Repository\PublicationRepository;
+use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +31,16 @@ use Symfony\Component\Validator\Constraints\File;
 class FormationController extends AbstractController
 {
     #[Route('/formation', name: 'app_formation')]
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
+        $role = 'FORMATION';
+        $usersFormation = $userRepository->findByRole($role);
+        $users = $userRepository->findAll();
+        
         return $this->render('formation/index.html.twig', [
-            'controller_name' => 'FormationController',
+            'usersFormation' => $usersFormation,
+            'users' => $users,
+            'role' => $role,
         ]);
     }
 
@@ -139,13 +146,15 @@ class FormationController extends AbstractController
         ]);
     }
 
-    #[Route('/formation/profil', name: 'app_formation_profil')]
-    public function show(PublicationRepository $publication, Request $request, EntityManagerInterface $manager)
+    #[Route('/formation/profil/{id}', name: 'app_formation_profil')]
+    public function show($id,UserRepository $uR, PublicationRepository $publication, Request $request, EntityManagerInterface $manager)
     {
         // Afficher les publications de l'utilisateur
         /** @var User */
         $user = $this->getUser();
         $publications = $publication->findBy(['publicationUser' => $user], ['createdAt' => 'DESC']);
+
+        $user = $uR->find($id);
 
         // Formulaire ajouter une publication
         $post = new Publication();
@@ -308,6 +317,7 @@ class FormationController extends AbstractController
             $manager->persist($user);
             $manager->flush();
         }
+        
 
         return $this->render('formation/profil.html.twig', [
             'user' => $user,
@@ -316,8 +326,6 @@ class FormationController extends AbstractController
             'formProfil' => $formProfil,
         ]);
     }
-
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {
