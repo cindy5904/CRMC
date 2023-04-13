@@ -40,14 +40,13 @@ class PublicationController extends AbstractController
             $results = $formSelect->getData();
             $posts= $publicationRepository->findByType($results->getProfession(), $results->getTypes());
         }
-        
+
         return $this->render('publication/index.html.twig', [
             'posts' => $posts,
             'form' => $form,
             'users' => $users,
             'verify' => $verify,
             'formSelect' => $formSelect,
-            
         ]);
     }
 
@@ -61,12 +60,29 @@ class PublicationController extends AbstractController
         }
         $user = $post->getPublicationUser();
         $company = $user->getUserEntreprise();
-        $id = $company->getId();
+        $formation = $user->getUserFormation();
 
+        if($post->getPublicationCompany() != null){
+            $idCompany = $company->getId();
+            dump($post);
+            dump($post->getPublicationCompany());
+            return $this->render('publication/showOne.html.twig',[
+                'post' => $post,
+                'idCompany' => $idCompany,
+                'company' => $company,
+            ]);
+        }
+
+        if($post->getPublicationFormation() != null){
+            $idFormation = $formation->getId();
+            return $this->render('publication/showOne.html.twig',[
+                'post' => $post,
+                'idFormation' => $idFormation,
+                'formation' => $formation
+            ]);
+        }
         return $this->render('publication/showOne.html.twig',[
             'post' => $post,
-            'id' => $id,
-            'company' => $company
         ]);
     }
 }
