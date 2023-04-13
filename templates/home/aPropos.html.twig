@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos de nous
+{% endblock %}
+
+	{% block body %}
+		{# {% if not user %}
+			<div class="text-center h-xl">
+				<p class="text-3xl font-bold p-16">Vous devez être connecté pour voir ce contenu</p>
+				<div class="p-10">
+					<a href="{{ path('app_login') }}" class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded">Se connecter</a>
+					<a href="{{ path('app_register_choice') }}" class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded">Créer un compte</a>
+				</div>
+			</div>
+		{% else %} #}
+		{% include 'header.html.twig' %}
+		<div class="flex justify-center w-full mt-8 h-full">
+
+			<div id="accordion-open" data-accordion="open">
+				<h2 id="accordion-open-heading-1">
+					<button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200" data-accordion-target="#accordion-open-body-1" aria-expanded="false" aria-controls="accordion-open-body-1">
+						<span class="flex items-center">Cindy</span>
+						<svg data-accordion-icon class="w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+						</svg>
+					</button>
+				</h2>
+				<div id="accordion-open-body-1" class="hidden" aria-labelledby="accordion-open-heading-1">
+					<div class="p-5 border border-b-0 border-gray-200">
+						<p class="mb-2 text-gray-500">En formation de Développeur Web Web-Mobile</p>
+						<p class="text-gray-500">Venez voir mon portfolio en cliquant sur ce lien :
+							<a href="https://www.mms.com/fr-be" class="text-[#F26C24] hover:underline">ICI</a>
+						</p>
+					</div>
+				</div>
+				<h2 id="accordion-open-heading-2">
+					<button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
+						<span class="flex items-center">Romain</span>
+						<svg data-accordion-icon class="w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+						</svg>
+					</button>
+				</h2>
+				<div id="accordion-open-body-2" class="hidden" aria-labelledby="accordion-open-heading-2">
+					<div class="p-5 border border-b-0 border-gray-200">
+						<p class="mb-2 text-gray-500">En formation de Développeur Web Web-Mobile</p>
+						<p class="text-gray-500">Venez voir mon portfolio en cliquant sur ce lien :
+							<a href="https://matthieumota.fr" class="text-[#F26C24] hover:underline">ICI</a>
+						</p>
+					</div>
+				</div>
+				<h2 id="accordion-open-heading-3">
+					<button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-open-body-3" aria-expanded="false" aria-controls="accordion-open-body-3">
+						<span class="flex items-center">Mélanie</span>
+						<svg data-accordion-icon class="w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+						</svg>
+					</button>
+				</h2>
+				<div id="accordion-open-body-3" class="hidden" aria-labelledby="accordion-open-heading-3">
+					<div class="p-5 border border-b-0 border-gray-200">
+						<p class="mb-2 text-gray-500">En formation de Développeur Web Web-Mobile</p>
+						<p class="text-gray-500">Venez voir mon portfolio en cliquant sur ce lien :
+							<a href="https://www.google.com/search?q=retour+%C3%A0+l%27instinct+primaire&client=firefox-b-d&sxsrf=APwXEdf7--Aswp5jez_29D3sv-mmAkwAMg:1681312036091&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiru6u1z6T-AhUxTKQEHQqPAEYQ_AUoAnoECAEQBA&biw=1536&bih=703&dpr=1.25#imgrc=FJYexnGA-CqC-M" class="text-[#F26C24] hover:underline">ICI</a>
+						</p>
+					</div>
+				</div>
+				<h2 id="accordion-open-heading-4">
+					<button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-b-xl focus:ring-4 focus:ring-gray-200" data-accordion-target="#accordion-open-body-4" aria-expanded="false" aria-controls="accordion-open-body-4">
+						<span class="flex items-center">Coline</span>
+						<svg data-accordion-icon class="w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+						</svg>
+					</button>
+				</h2>
+				<div id="accordion-open-body-4" class="hidden" aria-labelledby="accordion-open-heading-4">
+					<div class="p-5 border border-gray-200">
+						<p class="mb-2 text-gray-500">En formation de Développeur Web Web-Mobile</p>
+						<p class="text-gray-500">Venez voir mon portfolio en cliquant sur ce lien :
+							<a href="https://lille-villeneuvedascq.climb-up.fr/" class="text-[#F26C24] hover:underline">ICI</a>
+						</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	{% include "footer.html.twig" %}
+{% endblock %}

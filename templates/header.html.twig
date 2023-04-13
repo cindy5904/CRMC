@@ -4,28 +4,17 @@
 
 				<div class="bg-[url('https://i0.wp.com/scx2.b-cdn.net/gfx/news/hires/2018/computernetw.jpg')] opacity-80 relative">
 
-					{# {% if app.user %}
-						<div class="lg:w-1/4">
-							<div class="sticky top-5">
-								{% if app.user.avatar %}
-									<img class="w-32 h-32 rounded-full border-4 border-white shadow-md mx-auto mb-4 object-cover" src="{{ asset(app.user.avatar) }}" alt="{{ app.user.firstname }}">
-								{% endif %}
-								<h2 class="text-lg text-center">Bonjour {{ app.user.firstname }},</h2>
-							</div>
-							<button>Déconnection</button>
-						</div>
-					{% endif %} #}
-
-					<div class="bg-white bg-opacity-80 w-full h-48">
+					<div class="bg-white bg-opacity-80 w-full h-36">
 
 						<div class="flex flex-wrap justify-between">
 
-							<div class="lg:hidden mt-12 ml-8 relative">
+							<div class="lg:hidden mt-8 ml-8 relative">
 								<button class="peer focus:bg-[#F26C24] focus:text-gray-200 transition-all duration-200"><img class="w-16 h-16" src="{{ asset('/images/menu_burger_livres.png')}}"></button>
 
 								<div class=' w-80 absolute top-5 z-10 after:content-[""] after:inline-block after:absolute after:top-0 after:bg-white/40 after:w-full after:h-full after:-z-20
 																						after:blur-[2px] after:rounded-lg peer-focus:top-12 peer-focus:opacity-100 peer-focus:visible transition-all duration-300 invisible  opacity-0'>
 
+									{# NavBar en Responsive #}
 									<ul class='py-6 px-3 flex flex-col gap-3'>
 										<li class="mr-24">
 											<a class="text-gray-800 hover:font-bold hover:text-[#F26C24]" href="{{ path('app_home') }}">Accueil</a>
@@ -34,13 +23,13 @@
 											<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="#">A propos</a>
 										</li>
 										<li class="mr-24">
-											<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="#">Contact</a>
+											<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="{{ path('app_formation') }}">Centres de formation</a>
 										</li>
 										<li class="mr-24">
-											<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="#">Témoignages</a>
+											{# <a class="text-gray-800 font-bold hover:text-[#F26C24]" href="{{ path('app_company') }}">Entreprises</a> #}
 										</li>
 										<li class="">
-											<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="#">Partenaires</a>
+											<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="{{ path('app_profil_user') }}">Candidats</a>
 										</li>
 									</ul>
 
@@ -48,7 +37,7 @@
 
 							</div>
 
-							<a href="{{ path('app_home') }}" class="lg:w-full lg:flex lg:justify-center mt-12 mr-8 lg:mr-0"><img class="w-16 h-16" src="{{ asset('/images/logocrmc.png')}}"></a>
+							<a href="{{ path('app_home') }}" class="lg:w-full lg:flex lg:justify-center mt-12 mr-8 lg:mr-0"><img class="w-12 h-12" src="{{ asset('/images/logocrmc.png')}}"></a>
 							<div class="w-full mt-2 text-center">
 								<h1>
 									<span class="text-[#F26C24]">[</span>IT<span class="text-[#F26C24]">]</span>car.Net</h1>
@@ -60,23 +49,45 @@
 
 				</div>
 
-				<nav class="hidden space-x-8 lg:flex lg:justify-center p-8 bg-white">
+				<nav class="hidden space-x-8 lg:flex lg:justify-center p-6 bg-white">
 					<ul class="flex">
-						<li class="mr-24">
+						<li class="mr-12">
 							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_home') }}">Accueil</a>
 						</li>
-						<li class="mr-24">
-							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="#">A propos</a>
+						<li class="mr-12">
+							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_aPropos') }}">A propos</a>
 						</li>
-						<li class="mr-24">
-							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="#">Contact</a>
+						<li class="mr-12">
+							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_formation') }}">Centres de formation</a>
 						</li>
-						<li class="mr-24">
-							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="#">Témoignages</a>
+						<li class="mr-12">
+							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="#">Entreprises</a>
 						</li>
-						<li class="">
-							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="#">Partenaires</a>
+						<li class="mr-12">
+							<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_profil_user') }}">Candidats</a>
 						</li>
+					{% if app.user %}
+						{% if app.user.logo %}
+						<li class="mr-2 items-center">
+							<img class="w-8 h-8 rounded-full border-4 border-white mx-auto mb-4" src="{{ asset(app.user.logo) }}" alt="{{ app.user.firstname }}">
+						</li>
+						<li class="mr-12 text-gray-800 font-bold">
+							<p> ✅ {{ app.user.firstname }}</p>
+						</li>
+						{% endif %}
+						<li class="items-center">
+							<button><a target="_blank" href="/logout.php"><img src="{{ asset('/images/icons8-logout-rounded-30.png') }}"></a></button>
+							{# <a href="#_" class="relative inline-flex items-center justify-center px-12 overflow-hidden font-medium text-black transition duration-500 ease-out border-2 border-white rounded-full shadow-md group">
+								<span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#F26C24] group-hover:translate-x-0 ease">
+									<img src="{{ asset('/images/icons8-logout-rounded-30.png') }}">
+								</span>
+								<span class="absolute flex items-center justify-center w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease">Déconnection</span>
+								<span class="relative invisible">EXIT</span>
+							</a> #}
+						</li>
+					{% endif %}
+
+						
 					</ul>
 				</nav>
 

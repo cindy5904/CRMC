@@ -32,4 +32,10 @@ class HomeController extends AbstractController
     {
         return $this->render('rgpd/pdc.html.twig');
     }
+
+    #[Route('/aPropos', name: 'app_aPropos')]
+    public function aPropos(): Response
+    {
+        return $this->render('home/aPropos.html.twig');
+    }
 }
