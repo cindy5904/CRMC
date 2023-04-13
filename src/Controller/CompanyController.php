@@ -93,6 +93,7 @@ class CompanyController extends AbstractController
          /** @var User  */
        $user= $this->getUser();
        $company = $user->getUserEntreprise();
+       $logo = $company->getLogo();
 
        $form1 = $this->createFormBuilder([
         'name' => $company->getName(),
@@ -188,20 +189,36 @@ class CompanyController extends AbstractController
                    ])
                ]
            ])
-           ->add('logo', FileType::class, array('data_class' => null),[
-               'mapped' => 'false',
-               'required' => 'false',
-               'constraints' => [
-                   new File([
-                       'mimeTypes' => [
-                           'image/jpeg',
-                           'image/jpg',
-                           'image/png',
-                           'image/jfif',
-                       ]
-                   ])
-               ]
-           ])
+        //    ->add('logo', FileType::class, array('data_class' => null),[
+        //        'mapped' => 'false',
+        //        'required' => 'false',
+        //        'constraints' => [
+        //            new File([
+        //                'mimeTypes' => [
+        //                    'image/jpeg',
+        //                    'image/jpg',
+        //                    'image/png',
+        //                    'image/jfif',
+        //                ]
+        //            ])
+        //        ]
+        //    ])
+        ->add('logo', FileType::class, array(
+            'data_class' => null,
+            'mapped' => false,
+            'required' => false,
+            'constraints' => [
+            new File([
+            'mimeTypes' => [
+            'image/jpeg',
+            'image/jpg',
+            'image/png',
+            'image/jfif',
+            ]
+            ])
+            ],
+            'help' => $logo
+            ))
            ->add('partenaires', CheckboxType::class, [
                'label' => 'Devenir partenaire'
            ])
@@ -230,6 +247,7 @@ class CompanyController extends AbstractController
                $company->setDomaine($form1->get('domaine')->getData());
                $company->setPartenaire($form1->get('partenaires')->getData());
                $company->setWebSite($form1->get('webSite')->getData());
+               $company->setLogo($logo);
                dump($user);
                $manager->persist($user);
                $manager->flush();
@@ -243,6 +261,7 @@ class CompanyController extends AbstractController
             'user' => $user,
             'form' => $form,
             'form1' => $form1,
+            'company' =>$company,
         ]);
     }
 
