@@ -92,8 +92,20 @@ class CompanyController extends AbstractController
 
          /** @var User  */
        $user= $this->getUser();
+       $company = $user->getUserEntreprise();
 
-       $form1 = $this->createFormBuilder()
+       $form1 = $this->createFormBuilder([
+        'name' => $company->getName(),
+        'email' => $user->getEmail(),
+        'adress' => $user->getAdress(),
+        'postalCode' => $user->getPostalCode(),
+        'city' => $user->getCity(),
+        'siret' => $company->getNumSiret(),
+        'nameRef' => $company->getNameRef(),
+        'description' => $company->getDescription(),
+        'domaine' => $company->getDomaine(),
+        'webSite' => $company->getWebSite(),
+       ])
            ->add('name', null, [
                'label' => 'Nom de l\'entreprise',
                'constraints' => [
@@ -212,6 +224,7 @@ class CompanyController extends AbstractController
                $user->setCity($form1->get('city')->getData());
                $company = $user->getUserEntreprise();
                $company->setNameRef($form1->get('nameRef')->getData());
+               $company->setName($form1->get('name')->getData());
                $company->setNumSiret($form1->get('siret')->getData());
                $company->setDescription($form1->get('description')->getData());
                $company->setDomaine($form1->get('domaine')->getData());
@@ -221,11 +234,9 @@ class CompanyController extends AbstractController
                $manager->persist($user);
                $manager->flush();
 
-               return $this->redirectToRoute('app_publication');
+               return $this->redirectToRoute('app_company_profil');
    
            }
-
-        
 
         return $this->render('company/show.html.twig', [
             'publications' => $publications,
