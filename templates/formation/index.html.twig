@@ -1,20 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FormationController!{% endblock %}
+{% block title %}Formations -
+	{{ parent() }}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	{% include "header.html.twig" %}
+	<h1 class="text-center mb-4 text-3xl text-4xl font-bold color shadowText pt-10 lg:pt-2">Les centres de formation</h1>
+	<div class="grid gap-10 lg:grid-cols-2 p-10 lg:px-20">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		{% for user in usersFormation %}
+			<article class="p-6 rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
+				<div class="flex  items-center mb-5 text-gray-500">
+					<span><img src="{{ user.logo }}" alt="{{ user.name }}" class="w-12 h-12 rounded-full"></span>
+					<div class="mx-auto">
+						<span class="font-bold text-2xl ">{{user.name}}</span>
+					</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/CRMC/src/Controller/FormationController.php'|file_link(0) }}">src/Controller/FormationController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/CRMC/templates/formation/index.html.twig'|file_link(0) }}">templates/formation/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+				</div>
+				<p class="mb-5 font-medium text-gray-500 dark:text-gray-400">{{ user.userFormation.description | cut }}...</p>
+				
+					<div class="flex justify-between text-gray-500 items-center">
+						<span>{{ user.userFormation.domain }}</span>
+						<a href="{{ path('app_formation_profil',{ id: user.id }) }}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+							En savoir plus
+						
+					</a>
+				</div>
+			
+		</article>
+
+	{% endfor %}
+
+</div>{% endblock %}
