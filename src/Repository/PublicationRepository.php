@@ -63,4 +63,38 @@ class PublicationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findByType($profession, $type)
+    {   
+        if($profession === null){
+            dump($profession);
+            $queryBuilder = $this->createQueryBuilder('p')
+                ->where('p.type =:type')
+                ->setParameter('type', $type)
+                ->orderBy('p.createdAt', 'DESC');
+        } elseif ($type === ""){
+            $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.title =:profession')
+            ->setParameter('profession', $profession)
+            ->orderBy('p.createdAt', 'DESC');
+        } else {
+            $queryBuilder = $this->createQueryBuilder('p')
+                ->where('p.title =:profession')
+                ->setParameter('profession', $profession)
+                ->andWhere('p.type =:type')
+                ->setParameter('type', $type)
+                ->orderBy('p.createdAt', 'DESC');
+        }
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findBySearch($searchName)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->join('p.publicationUser' , 'u')
+            ->where('u.name LIKE :search') 
+            ->orderBy('p.createdAt', 'DESC')
+            ->setParameter('search', '%'.$searchName.'%')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }
