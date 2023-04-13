@@ -88,13 +88,161 @@ class CompanyController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('app_publication');
-        }    
-        
+        }
+
+         /** @var User  */
+       $user= $this->getUser();
+       $company = $user->getUserEntreprise();
+
+       $form1 = $this->createFormBuilder([
+        'name' => $company->getName(),
+        'email' => $user->getEmail(),
+        'adress' => $user->getAdress(),
+        'postalCode' => $user->getPostalCode(),
+        'city' => $user->getCity(),
+        'siret' => $company->getNumSiret(),
+        'nameRef' => $company->getNameRef(),
+        'description' => $company->getDescription(),
+        'domaine' => $company->getDomaine(),
+        'webSite' => $company->getWebSite(),
+       ])
+           ->add('name', null, [
+               'label' => 'Nom de l\'entreprise',
+               'constraints' => [
+                   new Assert\NotBlank([
+                       'message' => 'Veuillez entrer un nom',
+                   ])
+               ],
+           ])
+           ->add('email', EmailType::class, [
+               'label' => 'Email',
+               'constraints' => [
+                   new Assert\Email([
+                       'message' => 'Saisir un email valide'
+                   ])
+               ]
+           ])
+           ->add('adress', null, [
+            'label' => 'N° et voie',
+            'constraints' => [
+                new Assert\NotBlank([
+                    'message' => 'Veuillez renseigner une adresse'
+                ])
+            ]
+            ])
+            ->add('postalCode', NumberType::class, [
+                'label' => 'Code Postal',
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Veuillez renseigner un code postal'
+                    ])
+                ]
+            ])
+            ->add('city', null, [
+                'label' => 'Ville/commune',
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Veuillez renseigner une ville'
+                    ])
+                ]
+            ])
+           ->add('siret', NumberType::class, [
+               'label' => 'Numéro de siret',
+               'constraints' => [
+                   new Assert\NotBlank([
+                       'message' => 'Saisie obligatoire'
+                   ]),
+                   new Assert\Length([
+                       'min' => 14,
+                       'minMessage' => 'Saisie minimum 14 chiffre',
+                       'max' => 14,
+                       'maxMessage' => 'Saisie maximum 14 chiffre'
+                   ])
+               ]
+           ])
+           ->add('nameRef', null, [
+               'label' => 'Personne de référence',
+               'constraints' => [
+                   new Assert\NotBlank([
+                       'message' => 'Veuillez entre un nom'
+                   ])
+               ]
+           ])
+           ->add('description', TextareaType::class, [
+               'label' => 'Description de votre entreprise',
+               'constraints' => [
+                   new Assert\NotBlank([
+                       'message' => 'Veuillez entrer une description'
+                   ]),
+                   new Assert\Length([
+                       'min' => 100,
+                       'minMessage' => '100 caractères minimum'
+                   ])
+               ]
+           ])
+           ->add('domaine', null,[
+               'label' => 'Saisir votre champ d\'expertise',
+               'constraints' => [
+                   new Assert\NotBlank([
+                       'message' => 'Veuillez entrer votre domaine'
+                   ])
+               ]
+           ])
+           ->add('logo', FileType::class, array('data_class' => null),[
+               'mapped' => 'false',
+               'required' => 'false',
+               'constraints' => [
+                   new File([
+                       'mimeTypes' => [
+                           'image/jpeg',
+                           'image/jpg',
+                           'image/png',
+                           'image/jfif',
+                       ]
+                   ])
+               ]
+           ])
+           ->add('partenaires', CheckboxType::class, [
+               'label' => 'Devenir partenaire'
+           ])
+           ->add('webSite', UrlType::class, [
+               'label' => 'Lien de votre site web',
+               'constraints' => [
+                   new Assert\NotBlank([
+                       'message' => 'Saisie obligatoire'
+                   ])
+               ]
+           ])
+           ->getForm();
+
+           $form1->handleRequest($request);
+           if ($form1->isSubmitted() && $form1->isValid()) {
+               $user->setEmail($form1->get('email')->getData());
+               $user->setName($form1->get('name')->getData());
+               $user->setAdress($form1->get('adress')->getData());
+               $user->setPostalCode($form1->get('postalCode')->getData());
+               $user->setCity($form1->get('city')->getData());
+               $company = $user->getUserEntreprise();
+               $company->setNameRef($form1->get('nameRef')->getData());
+               $company->setName($form1->get('name')->getData());
+               $company->setNumSiret($form1->get('siret')->getData());
+               $company->setDescription($form1->get('description')->getData());
+               $company->setDomaine($form1->get('domaine')->getData());
+               $company->setPartenaire($form1->get('partenaires')->getData());
+               $company->setWebSite($form1->get('webSite')->getData());
+               dump($user);
+               $manager->persist($user);
+               $manager->flush();
+
+               return $this->redirectToRoute('app_company_profil');
+   
+           }
 
         return $this->render('company/show.html.twig', [
             'publications' => $publications,
             'user' => $user,
             'form' => $form,
+            'form1' => $form1,
         ]);
     }
 
@@ -202,7 +350,7 @@ class CompanyController extends AbstractController
                ]
            ])
            ->add('partenaires', CheckboxType::class, [
-               'label' => 'souhaitez vous devenir partenaires ?'
+               'label' => 'Devenir partenaire'
            ])
            ->add('webSite', UrlType::class, [
                'label' => 'Lien de votre site web',

@@ -101,6 +101,10 @@ body {
     cursor: pointer;
   }
 
+.bg-but1 {
+    background: linear-gradient(112.4deg, rgb(169, 28, 115) 21.6%, rgb(219, 112, 54) 92.2%);
+}  
+
 
   
 
