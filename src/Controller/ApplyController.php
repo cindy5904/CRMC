@@ -23,10 +23,8 @@ class ApplyController extends AbstractController
         /** @var User */
         $apply = new Apply();
         $user = $this->getUser();
-        
-
         $form = $this->createFormBuilder()
-        
+            
             ->add('upload', FileType::class, array
             ('data_class' => null), [
                 'mapped' => 'false',
@@ -41,7 +39,6 @@ class ApplyController extends AbstractController
                 ]
             ]
             )
-            ->add('publication_id', HiddenType::class)
             ->add('message', TextareaType::class, [
                 'label' => 'Entrez Votre message',
                 ]
@@ -53,9 +50,6 @@ class ApplyController extends AbstractController
                 $apply->setCreatedAt(new \DateTimeImmutable());
                 $apply->setUser($user);
                 $posterFile = $form->get('upload')->getData();
-                $publicationId = $form['publication_id']->getData();
-                
-
                 
                 if ($posterFile) {
                     $fileName = uniqid().'.'.$posterFile->guessExtension(); 
@@ -63,16 +57,12 @@ class ApplyController extends AbstractController
                     
                    $apply->setUpload($fileName);
                 }
-                
-                $apply->setApplyPublication($publication);
                 $apply->setMessage($form['message']->getData());
-                
-                $applyPublication = $apply->getApplyPublication();
-
-
+               
 
                 $entityManager->persist($apply);
                 $entityManager->flush();
+                ;
 
                 return $this->redirectToRoute('app_publication');
             }
