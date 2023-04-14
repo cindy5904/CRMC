@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class=" min-h-screen bg-gray-100 flex justify-center items-center mt-8">
-		<div class="login w-full max-w-3xl shadow-md rounded px-8 pt-6 pb-8 mb-4">
+{% include "header.html.twig" %}
+	<div class=" min-h-screen bg-gray-100 flex justify-center items-center">
+		<div class="login lg:w-full lg:max-w-3xl shadow-md rounded px-8 pt-6 pb-8 mb-4">
 			<div
 				class="text-center mb-8">
 				{# <img src="{{ asset('/images/logoNew.png') }}" alt="Logo" class="w-20 mx-auto mb-4"> #}
@@ -62,7 +62,7 @@
 					</div>
 				</div>
 				<div class="flex items-center justify-center mt-6">
-					<button class="bg-gradient-to-r from-cyan-700 to-cyan-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+					<button class="bg-gradient-to-r from-cyan-700 to-cyan-300 text-white mb-5 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
 						Se connecter
 					</button>
 				</div>
