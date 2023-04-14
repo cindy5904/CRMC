@@ -27,20 +27,27 @@ class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
     #[IsGranted('ROLE_USER')]
-    public function index(UserRepository $repository): Response
+    public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'user' => $repository->findAll(),
+        $role = 'USER';
+        $users = $userRepository->findByRole($role);
+
+        return $this->render('user/profil.html.twig', [
+            'user' => $userRepository->findByRole($role),
+            'users' => $users,
+            'role' => $role,
         ]);
     }
 
-    #[Route('/profil/user', name:'app_profil_user')]
-    public function show(PublicationRepository $publication): Response
+    #[Route('/profil/user/{id}', name:'app_profil_user')]
+    public function show($id,UserRepository $uR, PublicationRepository $publication): Response
     {
         /** @var User */
         $user = $this->getUser();
         $publications = $publication->findBy(['publicationUser' => $user]);
 
+        $user = $uR->find($id);
+        
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'publications' => $publications
@@ -190,6 +197,5 @@ class UserController extends AbstractController
         'form' => $form->createView(),
         ]);
     }
-
 
 }

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ApplyRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,13 +26,8 @@ class Apply
     #[ORM\ManyToOne(inversedBy: 'applies')]
     private ?Publication $applyPublication = null;
 
-    #[ORM\OneToMany(mappedBy: 'userApply', targetEntity: User::class)]
-    private Collection $users;
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'applies')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -89,33 +82,15 @@ class Apply
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $user): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setUserApply($this);
-        }
+        $this->user = $user;
 
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getUserApply() === $this) {
-                $user->setUserApply(null);
-            }
-        }
-      
         return $this;
     }
 }

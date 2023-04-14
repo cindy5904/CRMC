@@ -73,9 +73,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Formation $userFormation = null;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?Apply $userApply = null;
     
     #[ORM\OneToMany(mappedBy: 'publicationUser', targetEntity: Publication::class)]
     private Collection $publications;
@@ -88,6 +85,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $cv;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Apply::class)]
+    private Collection $applies;
+
 
     public function __construct()
     {  
@@ -99,6 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->city = 'A modifier';
         $this->postalCode = 'A modifier';
         $this->tel = 'A compléter ultérieurement';
+        $this->applies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -381,18 +382,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUserApply(): ?Apply
-    {
-        return $this->userApply;
-    }
-
-    public function setUserApply(?Apply $userApply): self
-    {
-        $this->userApply = $userApply;
-
-        return $this;
-    }
-
     public function getLogo(): ?string
     {
         return $this->logo;
@@ -413,6 +402,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCv($cv)
     {
         $this->cv = $cv;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Apply>
+     */
+    public function getApplies(): Collection
+    {
+        return $this->applies;
+    }
+
+    public function addApply(Apply $apply): self
+    {
+        if (!$this->applies->contains($apply)) {
+            $this->applies->add($apply);
+            $apply->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApply(Apply $apply): self
+    {
+        if ($this->applies->removeElement($apply)) {
+            // set the owning side to null (unless already changed)
+            if ($apply->getUser() === $this) {
+                $apply->setUser(null);
+            }
+        }
 
         return $this;
     }
