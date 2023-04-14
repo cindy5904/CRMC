@@ -23,11 +23,9 @@
 				<li class="mr-4" role="presentation">
 					<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
 				</li>
-				{% if app.user %}
-					<li class="mr-2" role="presentation">
-						<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Modifier profil</button>
-					</li>
-				{% endif %}
+				<li class="mr-2" role="presentation">
+					<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Modifier profil</button>
+				</li>
 			</ul>
 		</div>
 		<div id="myTabContent">
@@ -75,9 +73,9 @@
 						<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
 							<h2 class="mb-4 text-3xl lg:text-4xl font-bold color shadowText">Publication(s) de
 								{{ user.name }}</h2>
-							<p class="font-bold text-gray-500 sm:text-xl p-6 underline">Ajouter une publication</p>
 
 							{% if app.user == user %}
+								<p class="font-bold text-gray-500 sm:text-xl p-6 underline">Ajouter une publication</p>
 								<div class="w-1/2 m-auto">
 									{{ form_start(form) }}
 									{{ form_widget(form) }}
@@ -169,24 +167,18 @@
 				</section>
 			</div>
 
-			{% if app.user == user %}
-				<div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-					<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-
-						<p class="font-bold text-gray-500 sm:text-xl p-6 underline">Modifier le profil</p>
-
-						{% if app.user == user %}
-							<div class="w-1/2 m-auto">
-								{{ form_start(formProfil) }}
-								{{ form_widget(formProfil) }}
-								<button class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded hover:-translate-y-1 hover:scale-110 duration-300" formnovalidate>Modifier</button>
-								{{ form_end(formProfil) }}
-							</div>
-						{% endif %}
-
+			<div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+				<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+					<p class="font-bold text-gray-500 sm:text-xl p-6 underline">Modifier le profil</p>
+					<div class="w-1/2 m-auto">
+						{{ form_start(formProfil) }}
+						{{ form_widget(formProfil) }}
+						<button class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded hover:-translate-y-1 hover:scale-110 duration-300" formnovalidate>Modifier</button>
+						{{ form_end(formProfil) }}
 					</div>
 				</div>
-			{% endif %}
+			</div>
+
 		</div>
 		{{include('footer.html.twig')}}
 	{% endif %}
