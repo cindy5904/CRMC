@@ -63,6 +63,7 @@ class ApplyController extends AbstractController
                 $entityManager->persist($apply);
                 $entityManager->flush();
                 
+                $this->addFlash('success', sprintf('Votre candidature au poste "%s" a bien été prise en compte.', $publication->getTitle()));
 
                 return $this->redirectToRoute('app_publication');
             }
