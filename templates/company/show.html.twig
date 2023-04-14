@@ -34,12 +34,12 @@
 				<section class="bg-desk bg-no-repeat bg-cover bg-center">
 					<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-12 lg:px-6">
 						<div class="flex items-center">
-							<img src="{{user.userEntreprise.logo }} " alt="logo" class="shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300 rounded">
+							<img src="{{ asset('logoCompany/' ~ user.logo) }} " alt="logo" class="shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300 rounded max-w-[100px]">
 							<h2 class="text-5xl font-bold m-auto">{{ user.userEntreprise.name }}</h2>
 						</div>
 						<div class="w-full">
-							<h3 class="text-xl font-bold pt-8">Description de l'entreprise :
-								{{ user.name }}
+							<h3 class="text-xl font-bold pt-8">
+								A propos de nous
 							</h3>
 							<article class="text-sm py-8 leading-6 font-medium pb-16">
 								{{ user.UserEntreprise.description }}
@@ -57,7 +57,7 @@
 							<tbody class="font-medium">
 								<tr>
 									<td class="border border-orange-500 py-2 px-4">{{ user.name }}</td>
-									<td class="border border-orange-500 py-2 px-4"><img src="{{ user.userEntreprise.logo }}" alt="Logo" class="w-10 m-auto"></td>
+									<td class="border border-orange-500 py-2 px-4"><img src="{{ asset('logoCompany/' ~ user.logo) }}" alt="Logo" class="w-10 m-auto"></td>
 									<td class="border border-orange-500 py-2 px-4">{{ user.UserEntreprise.domaine }}</td>
 									<td class="border border-orange-500 py-2 px-4">
 										<a href="{{ user.UserEntreprise.webSite }}">{{ user.name }}</a>
@@ -147,7 +147,7 @@
 									<h2 class="text-5xl font-bold text-center">{{ user.name }}</h2>
 								</div>
 								<div class="text-center">
-									<img src="{{ user.logo }}" alt="logo" class="rounded-full shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
+									<img src="{{ asset('logoCompany/' ~ user.logo) }}" alt="logo" class="rounded-full shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300 max-w-[100px]">
 								</div>
 						</div>
 							<ul>
@@ -230,7 +230,7 @@
 									<div class=' mx-auto items-center text-center'>
 										<div class='mb-4'>
 											{{ form_label(form1.description, 'Description', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-											{{ form_widget(form1.description, {'attr': {'class': 'form-input w-full'}}) }}
+											{{ form_widget(form1.description, {'attr': {'class': 'form-input w-full h-32'}}) }}
 										</div>
 									</div>
 									<div class="flex gap-4 mx-auto items-center justify-center">
@@ -246,10 +246,11 @@
 									<div class='flex items-center text-center'>
 										<div>{{ form_row (form1.partenaires )}}</div>
 									</div>
-									<div class='mx-auto'>
+									<div class='flex mx-auto items-center'>
 										{{ form_row (form1.logo)}}
-										<div class="mx-auto">
-											<img src="{{ company.logo }}" alt="Logo">
+										<div class="flex mx-auto items-center space-x-3">
+											<span>Logo actuel</span>
+											<img src="{{ asset('logoCompany/' ~ user.logo) }}" alt="Logo" class="max-w-[50px] border-2 border-black">
 										</div>
 									</div>
 									<button class="bg-but1 mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
