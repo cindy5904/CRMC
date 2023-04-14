@@ -6,6 +6,7 @@
 parameters:
     images_directory: '%kernel.project_dir%/public/logoFormation'
     cv_upload: '%kernel.project_dir%/public/cv'
+    logo_company: '%kernel.project_dir%/public/logoCompany'
 services:
     # default configuration for services in *this* file
     _defaults:
