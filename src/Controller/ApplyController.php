@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Apply;
+use App\Entity\Publication;
 use App\Repository\PublicationRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,13 +18,14 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ApplyController extends AbstractController
 {
-    #[Route('/apply', name: 'app_apply')]
-    public function index(Request $request, EntityManagerInterface $entityManager, PublicationRepository $publication ): Response
+    #[Route('/apply/{id}', name: 'app_apply')]
+    public function index(Request $request, EntityManagerInterface $entityManager, Publication $publication): Response
     {
         /** @var User */
         $apply = new Apply();
         $user = $this->getUser();
-        $form = $this->createFormBuilder()
+        dump($publication);
+        $form = $this->createFormBuilder($apply)
             
             ->add('upload', FileType::class, array
             ('data_class' => null), [
@@ -49,6 +51,7 @@ class ApplyController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $apply->setCreatedAt(new \DateTimeImmutable());
                 $apply->setUser($user);
+                $apply->setApplyPublication($publication);
                 $posterFile = $form->get('upload')->getData();
                 
                 if ($posterFile) {
@@ -57,17 +60,16 @@ class ApplyController extends AbstractController
                     
                    $apply->setUpload($fileName);
                 }
-                $apply->setMessage($form['message']->getData());
-               
-
                 $entityManager->persist($apply);
                 $entityManager->flush();
-                ;
+                
 
                 return $this->redirectToRoute('app_publication');
             }
         return $this->render('apply/index.html.twig',[
             'form' => $form,
+            'post' => $publication,
+
         ]);
     }
 }
