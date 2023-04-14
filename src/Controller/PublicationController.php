@@ -61,28 +61,29 @@ class PublicationController extends AbstractController
         $user = $post->getPublicationUser();
         $company = $user->getUserEntreprise();
         $formation = $user->getUserFormation();
+        dump($post->getPublicationUser());
+        // if($post->getPublicationCompany() != null){
+        //     $idCompany = $company->getId();
+        //     dump($post);
+        //     dump($post->getPublicationCompany());
+        //     return $this->render('publication/showOne.html.twig',[
+        //         'post' => $post,
+        //         'idCompany' => $idCompany,
+        //         'company' => $company,
+        //     ]);
+        // }
 
-        if($post->getPublicationCompany() != null){
-            $idCompany = $company->getId();
-            dump($post);
-            dump($post->getPublicationCompany());
-            return $this->render('publication/showOne.html.twig',[
-                'post' => $post,
-                'idCompany' => $idCompany,
-                'company' => $company,
-            ]);
-        }
-
-        if($post->getPublicationFormation() != null){
-            $idFormation = $formation->getId();
-            return $this->render('publication/showOne.html.twig',[
-                'post' => $post,
-                'idFormation' => $idFormation,
-                'formation' => $formation
-            ]);
-        }
+        // if($post->getPublicationFormation() != null){
+        //     $idFormation = $formation->getId();
+        //     return $this->render('publication/showOne.html.twig',[
+        //         'post' => $post,
+        //         'idFormation' => $idFormation,
+        //         'formation' => $formation
+        //     ]);
+        // }
         return $this->render('publication/showOne.html.twig',[
             'post' => $post,
+            'user' => $user,
         ]);
     }
 }
