@@ -31,9 +31,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\File;
 
 class CompanyController extends AbstractController
-{
-    #[Route('/entreprise/detail/{id}', name:'app_company')]
-    public function index($id,CompanyRepository $cr,UserRepository $ur, PublicationRepository $pr)
+{   
+    #[Route('/entreprise', name:'app_company')]
+    public function index(UserRepository $ur)
+    {   
+        $role = 'COMPANY';
+        $company = $ur->findByRole($role);
+        dump($company);
+
+        return $this->render('company/index.html.twig', [
+            'companys' => $company
+        ]);
+    }
+
+    #[Route('/entreprise/detail/{id}', name:'app_company_retail')]
+    public function showOne($id,CompanyRepository $cr,UserRepository $ur, PublicationRepository $pr)
     {
         $userCompany = $cr->findBy(['id' => $id]);
         // récupération de la company à l'origine de la publication (donc siret, description..)
@@ -49,7 +61,7 @@ class CompanyController extends AbstractController
         $publiId = $user->getId();
         $publications = $pr->findBy(['publicationUser' => $publiId], ['createdAt' => 'DESC']);
 
-        return $this->render('company/index.html.twig', [
+        return $this->render('company/showOne.html.twig', [
             'company' => $company,
             'publications' => $publications,
             'user' => $user
@@ -75,7 +87,7 @@ class CompanyController extends AbstractController
                     new Assert\Length([
                         'min' => 14,
                         'minMessage' => 'Saisie minimum 2 caractères',
-                        'max' => 14,
+                        'max' => 100,
                         'maxMessage' => 'Saisie maximum 100 caractères'
                     ])
                 ]
@@ -103,13 +115,10 @@ class CompanyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form['content']->getData();
-            $publication->setTitle($form->get('title')->getData());
             $publication->setCreatedAt(new \DateTimeImmutable('now'));
-            $publication->setContent($data);
-            $publication->setType($form->get('type')->getData());
             $publication->setPublicationUser($this->getUser());
-            // $publication->setPublicationCompany($this->getUser()->getUserEntreprise());
+            $publication->setPublicationCompany($user->getUserEntreprise());
+            
             $manager->persist($publication);
             $manager->flush();
 
@@ -131,6 +140,7 @@ class CompanyController extends AbstractController
             'description' => $company->getDescription(),
             'domaine' => $company->getDomaine(),
             'webSite' => $company->getWebSite(),
+            $user,
         ])
             ->add('name', null, [
                 'label' => 'Nom de l\'entreprise',
@@ -274,147 +284,6 @@ class CompanyController extends AbstractController
         ]);
     }
 
-    #[Route('entreprise/edit', name:'app_company_edit')]
-    public function edit(Request $request,EntityManagerInterface $entityManager)
-    {
-        /** @var User */
-       $user = $this->getUser();
-
-       $form = $this->createFormBuilder()
-            ->add('name', null, [
-                'label' => 'Nom de l\'entreprise',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez entrer un nom',
-                    ])
-                ],
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'constraints' => [
-                    new Assert\Email([
-                        'message' => 'Saisir un email valide'
-                    ])
-                ]
-            ])
-            ->add('adress', null, [
-                'label' => 'N° et voie',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner une adresse'
-                    ])
-                ]
-            ])
-            ->add('postalCode', NumberType::class, [
-                'label' => 'Code Postal',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner un code postal'
-                    ])
-                ]
-            ])
-            ->add('city', null, [
-                'label' => 'Ville/commune',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner une ville'
-                    ])
-                ]
-            ])
-            ->add('siret', NumberType::class, [
-                'label' => 'Numéro de siret',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Saisie obligatoire'
-                    ]),
-                    new Assert\Length([
-                        'min' => 14,
-                        'minMessage' => 'Saisie minimum 14 chiffre',
-                        'max' => 14,
-                        'maxMessage' => 'Saisie maximum 14 chiffre'
-                    ])
-               ]
-            ])
-            ->add('nameRef', null, [
-                'label' => 'Personne de référence',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez entre un nom'
-                    ])
-                ]
-            ])
-            ->add('description', TextareaType::class, [
-                'label' => 'Description de votre entreprise',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez entrer une description'
-                    ]),
-                    new Assert\Length([
-                        'min' => 100,
-                        'minMessage' => '100 caractères minimum'
-                    ])
-                ]
-            ])
-            ->add('domaine', null,[
-                'label' => 'Saisir votre champ d\'expertise',
-                'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez entrer votre domaine'
-                    ])
-                ]
-            ])
-            ->add('logo', FileType::class, array('data_class' => null),[
-                'mapped' => 'false',
-                'required' => 'false',
-                'constraints' => [
-                    new File([
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/jpg',
-                            'image/png',
-                            'image/jfif',
-                        ]
-                    ])
-                ]
-            ])
-            ->add('partenaires', CheckboxType::class, [
-               'label' => 'Devenir partenaire',
-               'required' => false,
-            ])
-            ->add('webSite', UrlType::class, [
-               'label' => 'Lien de votre site web',
-               'constraints' => [
-                   new Assert\NotBlank([
-                       'message' => 'Saisie obligatoire'
-                   ])
-               ]
-            ])
-            ->getForm();
-
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $user->setEmail($form->get('email')->getData());
-                $user->setName($form->get('name')->getData());
-                $user->setAdress($form->get('adress')->getData());
-                $user->setPostalCode($form->get('postalCode')->getData());
-                $user->setCity($form->get('city')->getData());
-                $company = $user->getUserEntreprise();
-                $company->setNameRef($form->get('nameRef')->getData());
-                $company->setNumSiret($form->get('siret')->getData());
-                $company->setDescription($form->get('description')->getData());
-                $company->setDomaine($form->get('domaine')->getData());
-                $company->setPartenaire($form->get('partenaires')->getData());
-                $company->setWebSite($form->get('webSite')->getData());
-                $entityManager->persist($user);
-                $entityManager->flush();
-
-            }
-
-       return $this->render('company/edit.html.twig', [
-           'user' => $user,
-           'form' => $form
-       ]);
-    }
     #[Route('/inscription/entreprise', name:'app_register_company')]
     public function registerCompany(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator)
     {
