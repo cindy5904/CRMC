@@ -104,7 +104,13 @@ body {
 .bg-but1 {
     background: linear-gradient(112.4deg, rgb(169, 28, 115) 21.6%, rgb(219, 112, 54) 92.2%);
 }  
-
+.btn-apply {
+    background: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
+    transition: background-color 0.5s ease;
+}
+.btn-apply:hover {
+    background: linear-gradient(-20deg, #ff9a44 0%, #fc6076 100%);
+}
 
   
 
