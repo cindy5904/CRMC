@@ -170,8 +170,36 @@ class FormationController extends AbstractController
             $manager->flush();
         }
 
+        return $this->render('formation/profil.html.twig', [
+            'user' => $user,
+            'posts' => $publications,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/formation/modify', name: 'app_formation_modify')]
+    public function modify(Request $request, EntityManagerInterface $manager): Response
+    {
         // Formulaire modification de profil
-        $formProfil = $this->createFormBuilder()
+        /** @var User */
+        $user = $this->getUser();
+        $formation = $user->getUserFormation();
+        $logo = $user->getLogo();
+        $formProfil = $this->createFormBuilder([
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
+            'adress' => $user->getAdress(),
+            'postalCode' => $user->getPostalCode(),
+            'city' => $user->getCity(),
+            'siret' => $formation->getNumSiret(),
+            'nameRef' => $formation->getNameRef(),
+            'description' => $formation->getDescription(),
+            'domain' => $formation->getDomain(),
+            'webSite' => $formation->getWebSite(),
+            'tel' => $user->getTel(),
+            'logo'=> $user->getLogo(),
+           ])
+
             ->add('siret', NumberType::class, [
                 'label' => 'N° de siret',
                 'constraints' => [
@@ -301,12 +329,12 @@ class FormationController extends AbstractController
             $user->setCity($formProfil->get('city')->getData());
             $user->setTel($formProfil->get('tel')->getData());
             $user->setLogo($logo = $formProfil->get('logo')->getData());
+
             if ($logo) {
                 $fileName = uniqid().'.'.$logo->guessExtension();
                 $logo->move($this->getParameter('images_directory'), $fileName);
                 $user->setLogo($fileName);
             }
-
 
             $formation = $user->getUserFormation();
             $formation->setNumSiret($formProfil->get('siret')->getData());
@@ -317,12 +345,8 @@ class FormationController extends AbstractController
             $manager->persist($user);
             $manager->flush();
         }
-        
-
-        return $this->render('formation/profil.html.twig', [
+        return $this->render('formation/modify.html.twig', [
             'user' => $user,
-            'posts' => $publications,
-            'form' => $form,
             'formProfil' => $formProfil,
         ]);
     }

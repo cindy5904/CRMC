@@ -5,31 +5,38 @@
 {% endblock %}
 
 {% block body %}
-	{% include "header.html.twig" %}
-	<h1 class="text-center mb-4 text-3xl text-4xl font-bold color shadowText pt-10 lg:pt-2">Les centres de formation</h1>
-	<div class="grid gap-10 lg:grid-cols-2 p-10 lg:px-20">
+	{% if not app.user %}
+		<div class="text-center h-xl">
+			<p class="text-3xl font-bold p-16">Vous devez être connecté pour voir ce contenu</p>
+			<div class="p-10">
+				<a href="{{ path('app_login') }}" class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded">Se connecter</a>
+				<a href="{{ path('app_register_choice') }}" class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded">Créer un compte</a>
+			</div>
+		</div>
+	{% else %}
+		{% include "header.html.twig" %}
+		<h1 class="text-center mb-4 text-3xl  shadowText pt-10 lg:pt-2">Les centres de formation</h1>
+		<div class="grid gap-10 lg:grid-cols-2 p-10 lg:px-20">
 
-		{% for user in usersFormation %}
-			<article class="p-6 rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
-				<div class="flex  items-center mb-5 text-gray-500">
-					<span><img src="{{ user.logo }}" alt="{{ user.name }}" class="w-12 h-12 rounded-full"></span>
-					<div class="mx-auto">
-						<span class="font-bold text-2xl ">{{user.name}}</span>
+			{% for user in usersFormation %}
+				<article class="p-6 rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
+					<div class="flex  items-center mb-5 text-gray-500">
+						<span><img src="{{ user.logo }}" alt="{{ user.name }}" class="w-12 h-12 rounded-full"></span>
+						<div class="mx-auto">
+							<span class="font-bold text-2xl ">{{user.name}}</span>
+						</div>
 					</div>
-
-				</div>
-				<p class="mb-5 font-medium text-gray-500 dark:text-gray-400">{{ user.userFormation.description | cut }}...</p>
-				
+					<p class="mb-5 font-medium text-gray-500 dark:text-gray-400">{{ user.userFormation.description | cut }}...</p>
 					<div class="flex justify-between text-gray-500 items-center">
 						<span>{{ user.userFormation.domain }}</span>
 						<a href="{{ path('app_formation_profil',{ id: user.id }) }}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
 							En savoir plus
-						
-					</a>
-				</div>
-			
-		</article>
+						</a>
+					</div>
+				</article>
+			{% endfor %}
 
-	{% endfor %}
 
-</div>{% endblock %}
+		</div>
+	{% endif %}
+{% endblock %}
