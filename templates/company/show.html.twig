@@ -17,7 +17,7 @@
 					<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="presentation-tab" data-tabs-target="#presentation" type="button" role="tab" aria-controls="presentation" aria-selected="true">Présentation</button>
 				</li>
 				<li class="mr-4" role="presentation">
-					<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Liste des formations</button>
+					<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Annonces</button>
 				</li>
 				<li class="mr-4" role="presentation">
 					<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
@@ -133,25 +133,23 @@
 					{% endif %}
 				</section>
 			</div>
-
 			<div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
 				<section class="bg-desk bg-no-repeat bg-cover bg-center">
 					<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-12 lg:px-6">
 						<div class="flex items-center flex-wrap">
-							{# <div class="w-1/4">
-								<img src="{{ user.logo }}" alt="logo" class="rounded shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
-							</div> #}
-							<div class="w-2/4 text-center">
-								<h2 class="text-5xl font-bold text-center">{{ user.name }}</h2>
-							</div>
 							<div class="w-full text-center p-8">
 								<h3 class="text-4xl color shadowText">Contactez-nous</h3>
 							</div>
 						</div>
 						<div class="p-8 mb-8 lg:my-20 bg-white rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300 w-3/4 lg:w-1/2 m-auto">
-							<div class="w-1/4 flex ml-auto">
-								<img src="{{ user.logo }}" alt="logo" class="rounded-full shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
-							</div>
+							<div class="flex justify-between items-center">
+								<div>
+									<h2 class="text-5xl font-bold text-center">{{ user.name }}</h2>
+								</div>
+								<div class="text-center">
+									<img src="{{ user.logo }}" alt="logo" class="rounded-full shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
+								</div>
+						</div>
 							<ul>
 								<li>
 									<span class="font-medium">Nom du référant :</span>
@@ -190,80 +188,78 @@
 				<div class="lg:mb-16 mb-8 mx-auto">
                     <p class="font-bold text-gray-500 sm:text-xl underline text-center mb-8">Modifier le profil</p>
                     {% if app.user == user %}
-                    <div class= 'max-w-xl mx-auto items-center'>
-                    {{ form_start(form1) }}
-                       <div class='mx-auto'>
-                            <div class="flex gap-4 items-center justify-between">
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.name, 'Nom de l\'entreprise', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.name, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.email, 'Votre Email', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.email, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                            </div>
-                            <div class='mx-auto items-center justify-betwen text-center'>
-                                <div class='mb-4 mx-auto'>
-                                    {{ form_label(form1.adress, 'Adresse', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.adress, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                            </div>
-                            <div class="flex gap-4 items-center justify-betweenr">
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.postalCode, 'Code Postal', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.postalCode, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.city, 'Ville', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.city, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                            </div> 
-                            <div class="flex gap-4 items-center justify-between">
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.nameRef, 'Personne référente', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.nameRef, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.siret, 'Numéro de Siret', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.siret, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                            </div> 
-                            <div class=' mx-auto items-center text-center'>
-                                <div class='mb-4'>
-                                    {{ form_label(form1.description, 'Description', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.description, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                            </div>
-                            <div class="flex gap-4 mx-auto items-center justify-center">
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.domaine, 'Nom de domaine', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.domaine, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                                <div class='mb-4 w-1/2'>
-                                    {{ form_label(form1.webSite, 'Site Web', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
-                                    {{ form_widget(form1.webSite, {'attr': {'class': 'form-input w-full'}}) }}
-                                </div>
-                            </div> 
-                            <div class='flex items-center text-center'>
-                                <div>{{ form_row (form1.partenaires )}}</div>
-                            </div> 
-                            <div class='mx-auto'>
-                                {{ form_row (form1.logo)}}
-								<div class="mx-auto">
-									<img src="{{ company.logo }}" alt="Logo">
-								</div>
-                            </div>
-                            <button type="submit" class="bg-but1 mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
-								Modifier
-							</button>
-                       </div>
-
-                    {{ form_end(form1) }}
-                    </div>
+						<div class= 'max-w-xl mx-auto items-center'>
+							{{ form_start(form1) }}
+							<div class='mx-auto'>
+									<div class="flex gap-4 items-center justify-between">
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.name, 'Nom de l\'entreprise', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.name, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.email, 'Votre Email', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.email, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+									</div>
+									<div class='mx-auto items-center justify-betwen text-center'>
+										<div class='mb-4 mx-auto'>
+											{{ form_label(form1.adress, 'Adresse', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.adress, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+									</div>
+									<div class="flex gap-4 items-center justify-betweenr">
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.postalCode, 'Code Postal', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.postalCode, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.city, 'Ville', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.city, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+									</div>
+									<div class="flex gap-4 items-center justify-between">
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.nameRef, 'Personne référente', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.nameRef, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.siret, 'Numéro de Siret', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.siret, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+									</div>
+									<div class=' mx-auto items-center text-center'>
+										<div class='mb-4'>
+											{{ form_label(form1.description, 'Description', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.description, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+									</div>
+									<div class="flex gap-4 mx-auto items-center justify-center">
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.domaine, 'Nom de domaine', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.domaine, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+										<div class='mb-4 w-1/2'>
+											{{ form_label(form1.webSite, 'Site Web', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+											{{ form_widget(form1.webSite, {'attr': {'class': 'form-input w-full'}}) }}
+										</div>
+									</div>
+									<div class='flex items-center text-center'>
+										<div>{{ form_row (form1.partenaires )}}</div>
+									</div>
+									<div class='mx-auto'>
+										{{ form_row (form1.logo)}}
+										<div class="mx-auto">
+											<img src="{{ company.logo }}" alt="Logo">
+										</div>
+									</div>
+									<button class="bg-but1 mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
+										Modifier
+									</button>
+							</div>
+							{{ form_end(form1) }}
+						</div>
 					{% endif %}
-
-			      </div>
+			    </div>
 			</div>
 		</div> 	
 		{% include "footer.html.twig" %}
