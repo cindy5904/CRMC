@@ -269,9 +269,8 @@ class CompanyController extends AbstractController
                 $logo = $form1->get('logo')->getData();
                 if ($logo) {
                     $fileName = uniqid().'.'.$logo->guessExtension(); 
-                    $logo->move($this->getParameter('logo_company'), $fileName);
-                    
-                   $user->setLogo($fileName);
+                    $logo->move($this->getParameter('profile_picture'), $fileName);
+                    $user->setLogo($fileName);
                 };
                 $manager->persist($user);
                 $manager->flush();

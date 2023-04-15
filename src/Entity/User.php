@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $publications;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $logo = null;
+    private ?string $logo = 'photoprofil.jpg';
     
     /**
      * @ORM\Column(type="blob", nullable=true)

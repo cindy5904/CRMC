@@ -23,7 +23,7 @@
 									<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="{{ path('app_formation') }}">Centres de formation</a>
 								</li>
 								<li class="mr-24">
-									{# <a class="text-gray-800 font-bold hover:text-[#F26C24]" href="{{ path('app_company') }}">Entreprises</a> #}
+									<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="{{ path('app_company') }}">Entreprises</a>
 								</li>
 								<li class="">
 									<a class="text-gray-800 font-bold hover:text-[#F26C24]" href="{{ path('app_user') }}">Candidats</a>
@@ -60,7 +60,7 @@
 					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_formation') }}">Centres de formation</a>
 				</li>
 				<li class="mr-12">
-					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="#">Entreprises</a>
+					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_company') }}">Entreprises</a>
 				</li>
 				<li class="mr-12">
 					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_user') }}">Candidats</a>
@@ -70,19 +70,15 @@
 						<li class="mr-2 flex items-center">
 							{% if app.user.roles[0] == 'ROLE_FORMATION' %}
 								<a href="{{ path('app_formation_profil', {id : app.user.id } )}}">
-									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset(app.user.logo) }}" alt="{{ app.user.firstname }}">
+									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('profilePicture/' ~ app.user.logo) }}" alt="{{ app.user.firstname }}">
 								</a>
 							{% elseif app.user.roles[0] == 'ROLE_COMPANY' %}
 								<a href="{{ path('app_company_profil') }}">
-									{% if app.user.logo == null %}
-										<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset(app.user.logo) }}" alt="{{ app.user.firstname }}">
-									{% else %}
-										<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('logoCompany/' ~ app.user.logo) }}" alt="{{ app.user.firstname }}">
-									{% endif %}
+									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('profilePicture/' ~ app.user.logo) }}" alt="{{ app.user.firstname }}">
 								</a>
 							{% elseif app.user.roles[0] == 'ROLE_USER' %}
 								<a href="{{ path('app_profil_user', {id: app.user.id} ) }}">
-									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset(app.user.logo) }}" alt="{{ app.user.firstname }}">
+									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('profilePicture/' ~ app.user.logo) }}" alt="{{ app.user.firstname }}">
 								</a>	
 							{% endif %}
 						</li>
