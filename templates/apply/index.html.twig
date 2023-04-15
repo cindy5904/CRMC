@@ -1,27 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ApplyController!{% endblock %}
+{% block title %}Hello ApplyController!
+{% endblock %}
 
 {% block body %}
-{% include "header.html.twig" %}
-    <div class='bg-desk bg-cover bg-no-repeat mb-4'>
-        <h1 class='text-center mb-8 pt-5 font-bold text-xl'>Candidature au poste de {{post.title}}</h1>
+	{% include "header.html.twig" %}
+	<div class='bg-desk bg-cover bg-no-repeat mb-4'>
+		{% if app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ app.flashes('success') }}
+			</div>
+		{% endif %}
+		<h1 class='text-center mb-8 pt-5 font-bold text-xl'>Candidature au poste de
+			{{post.title}}</h1>
 
-        <div class='max-w-xl mx-auto items-center'>
-            {{ form_start(form) }}
-            <div class='mb-4'>
-                {{form_label(form.upload, 'Votre CV', {'label_attr': {'class': 'block text-gray-700 font-bold'}})}}
-                {{ form_widget(form.upload, {'attr': {'class': ''}}) }}
-            </div>
-            <div class='mb-4'>
-                {{form_label(form.message, 'Décrivez votre motivation', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}})}}
-                {{ form_widget(form.message, {'attr': {'class': 'form-input w-full h-72 rounded'}}) }}
-            </div>
-            
-            <button type="submit" class='btn-apply  mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue"'>Envoyer</button>
-        {{ form_end(form) }}
-        </div>
-    
-    </div>
-{% include "footer.html.twig" %}
+		<div class='max-w-xl mx-auto items-center'>
+			{{ form_start(form) }}
+			<div class='mb-4'>
+				{{form_label(form.upload, 'Votre CV', {'label_attr': {'class': 'block text-gray-700 font-bold'}})}}
+				{{ form_widget(form.upload, {'attr': {'class': ''}}) }}
+			</div>
+			<div class='mb-4'>
+				{{form_label(form.message, 'Décrivez votre motivation', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}})}}
+				{{ form_widget(form.message, {'attr': {'class': 'form-input w-full h-72 rounded'}}) }}
+			</div>
+
+			<button type="submit" class='btn-apply  mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue"'>Envoyer</button>
+			{{ form_end(form) }}
+		</div>
+
+	</div>
+	{% include "footer.html.twig" %}
 {% endblock %}
