@@ -113,7 +113,16 @@ body {
 }
 .put-register {
     background-color: rgba(255, 255, 255, 0.7);
-  }
+}
+.choicebg {
+    background: linear-gradient(109.6deg, rgb(255, 207, 84) 11.2%, rgb(255, 158, 27) 91.1%);
+    transition: background-color 0.5s ease,  transform 0.5s ease;
+}
+.choicebg:hover {
+    background: linear-gradient(109.6deg, rgb(255, 158, 27) 11.2%, rgb(255, 207, 84) 91.1%);
+    transform: scale(1.1);
+}
+
   
   
 
