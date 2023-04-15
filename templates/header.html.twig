@@ -34,7 +34,7 @@
 
 					</div>
 
-					<a href="{{ path('app_home') }}" class="lg:w-full lg:flex lg:justify-center mt-12 mr-8 lg:mr-0"><img class="w-12 h-12" src="{{ asset('/images/logocrmc.png')}}"></a>
+					<a href="{{ path('app_home') }}" class="lg:w-full lg:flex lg:justify-center mt-8 mr-8 lg:mr-0"><img class="w-16 h-16" src="{{ asset('/images/logocrmc.png')}}"></a>
 					<div class="w-full mt-2 text-center">
 						<h1>
 							<span class="text-[#F26C24]">[</span>IT<span class="text-[#F26C24]">]</span>car.Net
@@ -48,22 +48,22 @@
 		</div>
 
 		<nav class="hidden space-x-8 lg:flex lg:justify-center p-6 bg-white">
-			<img src="{{ asset('/images/feuilleOrange.png') }}" alt="une feuille orange" class='w-24 absolute right-96'>
-			<ul class="flex items-center">
+			<img src="{{ asset('/images/feuilleOrange.png') }}" alt="une feuille orange" class='w-24 z-10 absolute top-48 right-52'>
+			<ul class="flex items-center text-xl">
 				<li class="mr-12">
-					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_home') }}">Accueil</a>
+					<a class="text-gray-800 font-semibold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_home') }}">Accueil</a>
 				</li>
 				<li class="mr-12">
-					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_publication') }}">Les annonces</a>
+					<a class="text-gray-800 font-semibold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_publication') }}">Les annonces</a>
 				</li>
 				<li class="mr-12">
-					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_formation') }}">Centres de formation</a>
+					<a class="text-gray-800 font-semibold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_formation') }}">Centres de formation</a>
 				</li>
 				<li class="mr-12">
 					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_company') }}">Entreprises</a>
 				</li>
 				<li class="mr-12">
-					<a class="text-gray-800 font-bold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_user') }}">Candidats</a>
+					<a class="text-gray-800 font-semibold hover:text-[#F26C24] hover:underline underline-offset-8" href="{{ path('app_user') }}">Candidats</a>
 				</li>
 				{% if app.user %}
 					{% if app.user.logo %}
@@ -88,13 +88,6 @@
 					{% endif %}
 					<li class="flex items-center">
 						<button><a target="_blank" href="{{ path('app_logout') }}"><img src="{{ asset('/images/icons8-logout-rounded-30.png') }}"></a></button>
-						{# <a href="#_" class="relative inline-flex items-center justify-center px-12 overflow-hidden font-medium text-black transition duration-500 ease-out border-2 border-white rounded-full shadow-md group">
-							<span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#F26C24] group-hover:translate-x-0 ease">
-								<img src="{{ asset('/images/icons8-logout-rounded-30.png') }}">
-							</span>
-							<span class="absolute flex items-center justify-center w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease">Déconnection</span>
-							<span class="relative invisible">EXIT</span>
-						</a> #}
 					</li>
 				{% else %}
 					<li class="flex items-center">

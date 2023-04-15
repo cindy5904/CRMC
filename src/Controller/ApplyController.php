@@ -26,47 +26,54 @@ class ApplyController extends AbstractController
         $user = $this->getUser();
         dump($publication);
         $form = $this->createFormBuilder($apply)
-            
-            ->add('upload', FileType::class, array
-            ('data_class' => null), [
-                'mapped' => 'false',
-                'required' => 'false',
-                'constraints' => [
-                    new File ([
-                        'mimeTypes' => [
-                            'cv.pdf',
-                            'cv.word',
-                        ]
-                    ])
+
+            ->add(
+                'upload',
+                FileType::class,
+                array('data_class' => null),
+                [
+                    'mapped' => 'false',
+                    'required' => 'false',
+                    'constraints' => [
+                        new File([
+                            'mimeTypes' => [
+                                'cv.pdf',
+                                'cv.word',
+                            ]
+                        ])
+                    ]
                 ]
-            ]
             )
-            ->add('message', TextareaType::class, [
-                'label' => 'Entrez Votre message',
+            ->add(
+                'message',
+                TextareaType::class,
+                [
+                    'label' => 'Entrez Votre message',
                 ]
             )
             ->getForm();
 
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $apply->setCreatedAt(new \DateTimeImmutable());
-                $apply->setUser($user);
-                $apply->setApplyPublication($publication);
-                $posterFile = $form->get('upload')->getData();
-                
-                if ($posterFile) {
-                    $fileName = uniqid().'.'.$posterFile->guessExtension(); 
-                    $posterFile->move($this->getParameter('cv_upload'), $fileName);
-                    
-                   $apply->setUpload($fileName);
-                }
-                $entityManager->persist($apply);
-                $entityManager->flush();
-                
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $apply->setCreatedAt(new \DateTimeImmutable());
+            $apply->setUser($user);
+            $apply->setApplyPublication($publication);
+            $posterFile = $form->get('upload')->getData();
 
-                return $this->redirectToRoute('app_publication');
+            if ($posterFile) {
+                $fileName = uniqid() . '.' . $posterFile->guessExtension();
+                $posterFile->move($this->getParameter('cv_upload'), $fileName);
+
+                $apply->setUpload($fileName);
             }
-        return $this->render('apply/index.html.twig',[
+            $entityManager->persist($apply);
+            $entityManager->flush();
+
+            $this->addFlash('success', sprintf('Votre candidature au poste "%s" a bien été prise en compte.', $publication->getTitle()));
+
+            return $this->redirectToRoute('app_publication');
+        }
+        return $this->render('apply/index.html.twig', [
             'form' => $form,
             'post' => $publication,
 
