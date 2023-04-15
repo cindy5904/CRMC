@@ -47,10 +47,10 @@ class UserController extends AbstractController
         $publications = $publication->findBy(['publicationUser' => $user]);
 
         $user = $uR->find($id);
-        
+
         return $this->render('user/index.html.twig', [
             'user' => $user,
-            'publications' => $publications
+            'publications' => $publications,
         ]);
     } 
 
