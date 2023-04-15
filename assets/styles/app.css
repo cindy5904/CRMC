@@ -111,7 +111,10 @@ body {
 .btn-apply:hover {
     background: linear-gradient(-20deg, #ff9a44 0%, #fc6076 100%);
 }
-
+.put-register {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  
   
 
   

@@ -1,16 +1,41 @@
 {% extends "base.html.twig" %}
-{% use "form.html.twig" %}
+{# {% use "form.html.twig" %} #}
 {% block body %}
-    <div class="p-4 bg-slate-200 rounded my-4 max-w-md mx-auto">
-    {{form_start(registrationFormCompany)}}
-    <div class="mx-auto justify-center items-center max-w-screen-xl">
-        {{form_label(registrationFormCompany.)}}
-        {{form_widget(registrationFormCompany)}}
-    </div>
-        
-        <div class="w-1/2 mx-auto bg-slate-400 text-center rounded">
-            <button formnovalidate class=" p-2 font-md font-bold">S'inscrire</button>
+	{% include "header.html.twig" %}
+	<div class="p-8 bg-desk bg-cover bg-no-repeat rounded my-4  max-w-screen-md mx-auto">
+		{{form_start(registrationFormCompany)}}
+		<div class="mx-auto justify-center items-center max-w-screen-sm">
+			<div class="text-center mb-8">
+				<h1 class="text-2xl font-bold text-gray-800">Formulaire d'inscription</h1>
+			</div>
+			<div>
+			{{form_label(registrationFormCompany.name, 'Nom de l\'entreprise', {'label_attr': {'class': 'block text-gray-700 font-bold mt-2 mb-1'}}) }}
+            {{form_widget(registrationFormCompany.name, {'attr': {'class': 'form-input w-full rounded put-register'}})}}
+            </div>
+            <div>
+            {{form_label(registrationFormCompany.email, 'Email', {'label_attr': {'class': 'block text-gray-700 font-bold mt-2 mb-1'}}) }}
+            {{form_widget(registrationFormCompany.email, {'attr': {'class': 'form-input w-full rounded'}})}}
+            </div>
+            <div>
+            {{form_label(registrationFormCompany.siret, 'Numéro de Siret', {'label_attr': {'class': 'block text-gray-700 font-bold mt-2 mb-1'}}) }}
+            {{form_widget(registrationFormCompany.siret, {'attr': {'class': 'form-input w-full rounded'}})}}
+            </div>
+            <div>
+            {{ form_label(registrationFormCompany.plainPassword.first, 'Mot de passe', {'label_attr' : {'class': 'block text-gray-700 font-bold mt-2 mb-1'}}) }}
+            {{ form_widget(registrationFormCompany.plainPassword.first, {'attr': {'class': 'form-input w-full rounded'}}) }}
+            </div>
+            <div>
+            {{ form_label(registrationFormCompany.plainPassword.second, 'Confirmer le mot de passe',  {'label_attr': {'class': 'block text-gray-700 font-bold mt-2 mb-1'}}) }}
+            {{ form_widget(registrationFormCompany.plainPassword.second, {'attr': {'class': 'form-input w-full rounded'}}) }}
+            </div>
+            <div class="flex items-center mt-4 mb-4">
+            {{form_widget(registrationFormCompany.agreeTerms, {'attr': {'class': 'mr-2 align-middle'}})}}
+            {{form_label(registrationFormCompany.agreeTerms, 'Accepter les conditions', {'label_attr': {'class': 'block text-gray-700 font-bold'}}) }}
+            </div>
+            <div class="w-1/3 mx-auto bg-but text-center rounded">
+                <button formnovalidate class="inline-block text-white p-2 font-md font-bold">S'inscrire</button>
+            </div>
         </div>
-    {{form_end(registrationFormCompany)}}
-    </div>
-{% endblock %}
+        {{form_end(registrationFormCompany)}}
+	</div>
+		{% endblock %}
