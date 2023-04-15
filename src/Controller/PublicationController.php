@@ -40,7 +40,12 @@ class PublicationController extends AbstractController
             $results = $formSelect->getData();
             $posts= $publicationRepository->findByType($results->getProfession(), $results->getTypes());
         }
+        // dump($verify);
+        // if($verify){
+        //     $this->addFlash('success', 'Merci de compléter votre profil!');
 
+        //    return $this->redirectToRoute('app_company_profil');
+        // }
         return $this->render('publication/index.html.twig', [
             'posts' => $posts,
             'form' => $form,

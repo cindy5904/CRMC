@@ -18,9 +18,9 @@
 		<h1 class="text-center mb-4 text-3xl  shadowText pt-10 lg:pt-2">Les entreprises référencées</h1>
 		<div class="grid gap-10 lg:grid-cols-2 p-10 lg:px-20">
 			{% for company in companys %}
-				<article class="p-6 rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
+				<article class="p-6 rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-105 duration-300">
 					<div class="flex  items-center mb-5 text-gray-500">
-						<span><img src="{{ company.logo }}" alt="{{ company.name }}" class="w-12 h-12 rounded-full"></span>
+						<span><img src="{{ asset('profilePicture/' ~ company.logo) }}" alt="{{ company.name }}" class="w-12 h-12 rounded-full"></span>
 						<div class="mx-auto">
 							<span class="font-bold text-2xl ">{{company.name}}</span>
 						</div>
@@ -28,9 +28,15 @@
 					<p class="mb-5 font-medium text-gray-500 dark:text-gray-400">{{ company.userEntreprise.description | cut }}...</p>
 					<div class="flex justify-between text-gray-500 items-center">
 						<span>{{ company.userEntreprise.domaine }}</span>
-						<a href="{{ path('app_company_retail',{ id: company.userEntreprise.id }) }}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
-							En savoir plus
-						</a>
+						{% if app.user == company %}
+							<a href="{{ path('app_company_profil',{ id: company.userEntreprise.id }) }}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-105 hover:bg-orange hover:opacity-100 duration-300">
+								Voir mon profil
+							</a>
+						{% else %}
+							<a href="{{ path('app_company_retail',{ id: company.userEntreprise.id }) }}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-105 hover:bg-orange hover:opacity-100 duration-300">
+								En savoir plus
+							</a>
+						{% endif %}
 					</div>
 				</article>
 			{% endfor %}

@@ -31,10 +31,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\File;
 
 class CompanyController extends AbstractController
-{   
+{
     #[Route('/entreprise', name:'app_company')]
     public function index(UserRepository $ur)
-    {   
+    {
         $role = 'COMPANY';
         $company = $ur->findByRole($role);
         dump($company);
@@ -118,7 +118,7 @@ class CompanyController extends AbstractController
             $publication->setCreatedAt(new \DateTimeImmutable('now'));
             $publication->setPublicationUser($this->getUser());
             $publication->setPublicationCompany($user->getUserEntreprise());
-            
+
             $manager->persist($publication);
             $manager->flush();
 
@@ -128,7 +128,6 @@ class CompanyController extends AbstractController
             /** @var User  */
         $user= $this->getUser();
         $company = $user->getUserEntreprise();
-        $logo = $company->getLogo();
         $form1 = $this->createFormBuilder([
             'name' => $company->getName(),
             'email' => $user->getEmail(),
@@ -140,7 +139,6 @@ class CompanyController extends AbstractController
             'description' => $company->getDescription(),
             'domaine' => $company->getDomaine(),
             'webSite' => $company->getWebSite(),
-            $user,
         ])
             ->add('name', null, [
                 'label' => 'Nom de l\'entreprise',
@@ -268,7 +266,12 @@ class CompanyController extends AbstractController
                 $company->setDomaine($form1->get('domaine')->getData());
                 $company->setPartenaire($form1->get('partenaires')->getData());
                 $company->setWebSite($form1->get('webSite')->getData());
-                $company->setLogo($logo);
+                $logo = $form1->get('logo')->getData();
+                if ($logo) {
+                    $fileName = uniqid().'.'.$logo->guessExtension(); 
+                    $logo->move($this->getParameter('profile_picture'), $fileName);
+                    $user->setLogo($fileName);
+                };
                 $manager->persist($user);
                 $manager->flush();
 
@@ -391,42 +394,5 @@ class CompanyController extends AbstractController
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
-    }
-
-    #[Route('/entreprise/createpost', name:'app_company_createpost')]
-    public function create(Request $request, EntityManagerInterface $manager, PublicationRepository $publication): Response
-    {
-
-        $publication = new Publication();
-        $form = $this->createFormBuilder($publication)
-        ->add('title', null, [
-            'label'=> 'Titre de la publication',
-        ])
-        ->add('type')
-        ->add('content', null, [
-            'label' => 'Contenu de la publication',
-        ])
-        ->getForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form['content']->getData();
-            $publication->setTitle($form->get('title')->getData());
-            $publication->setCreatedAt(new \DateTimeImmutable('now'));
-            $publication->setContent($data);
-            $publication->setType($form->get('type')->getData());
-            $publication->setPublicationUser($this->getUser());
-            // $publication->setPublicationCompany($this->getUser()->getUserEntreprise());
-            $manager->persist($publication);
-            $manager->flush();
-
-            return $this->redirectToRoute('app_publication');
-        }
-
-
-    return $this->render('company/create-post.html.twig', [
-        'publication' =>$publication,
-        'form' => $form->createView(),
-    ]);
     }
 }
