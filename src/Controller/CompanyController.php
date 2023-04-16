@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Repository\ApplyRepository;
 use App\Repository\CompanyRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\UserRepository;
@@ -23,7 +24,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\HttpFoundation\File\File as FileFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -64,7 +67,7 @@ class CompanyController extends AbstractController
         $id,
         CompanyRepository $cr,
         UserRepository $ur,
-        PublicationRepository $pr
+        PublicationRepository $pr,
         )
     {
         $userCompany = $cr->findBy(['id' => $id]);
@@ -93,7 +96,9 @@ class CompanyController extends AbstractController
     public function show(
         Request $request,
         PublicationRepository $publi,
-        EntityManagerInterface $manager
+        EntityManagerInterface $manager,
+        ApplyRepository $ar,
+        UserRepository $ur,
         ): Response
     {
         /** @var User */
@@ -300,13 +305,22 @@ class CompanyController extends AbstractController
 
             return $this->redirectToRoute('app_company_profil');
         }
-
+            
+            $candidat = [];
+            foreach($publications as $publication){
+                $id = $publication->getId();
+                $publi = $ar->findPostulaCandidat($id);;
+                $candidat[] = $publi;
+            }
+            dump($candidat);
         return $this->render('company/show.html.twig', [
+            'apply' => $candidat,
             'publications' => $publications,
             'user' => $user,
             'form' => $form,
             'form1' => $form1,
-            'company' => $company,
+            'company' =>$company,
+            'publication' => $candidat,
         ]);
     }
     #[Route('/inscription/entreprise', name:'app_register_company')]

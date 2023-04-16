@@ -63,4 +63,14 @@ class ApplyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findCandidat($id)
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->join('a.user', 'u')
+            ->where('u.id =:id')
+            ->setParameter('id', $id)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }
