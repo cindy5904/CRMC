@@ -71,10 +71,10 @@ class CompanyController extends AbstractController
         // récupération de la company à l'origine de la publication (donc siret, description..)
         $users = $ur->findBy(['userEntreprise' => $id]);
         // récupération des données utilisateurs (donc name, adress..)
-        foreach($userCompany as $company){
+        foreach ($userCompany as $company) {
             $company;
         }
-        foreach($users as $user){
+        foreach ($users as $user) {
             $user;
         }
         // récupération des publications de l'utilisateur en fonction de son id
@@ -87,7 +87,7 @@ class CompanyController extends AbstractController
             'user' => $user
         ]);
     }
-
+ 
     #[IsGranted('ROLE_COMPANY')]
     #[Route('/entreprise/profil', name: 'app_company_profil')]
     public function show(
@@ -103,7 +103,7 @@ class CompanyController extends AbstractController
         $publication = new Publication();
         $form = $this->createFormBuilder($publication)
             ->add('title', null, [
-                'label'=> 'Titre de la publication',
+                'label' => 'Titre de la publication',
                 'constraints' => [
                     new Assert\NotBlank([
                         'message' => 'Saisie obligatoire'
@@ -149,8 +149,8 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('app_publication');
         }
 
-            /** @var User  */
-        $user= $this->getUser();
+        /** @var User  */
+        $user = $this->getUser();
         $company = $user->getUserEntreprise();
         $form1 = $this->createFormBuilder([
             'name' => $company->getName(),
@@ -181,12 +181,12 @@ class CompanyController extends AbstractController
                 ]
             ])
             ->add('adress', null, [
-            'label' => 'N° et voie',
-            'constraints' => [
-                new Assert\NotBlank([
-                    'message' => 'Veuillez renseigner une adresse'
-                ])
-            ]
+                'label' => 'N° et voie',
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Veuillez renseigner une adresse'
+                    ])
+                ]
             ])
             ->add('postalCode', TextType::class, [
                 'label' => 'Code Postal',
@@ -238,7 +238,7 @@ class CompanyController extends AbstractController
                     ])
                 ]
             ])
-            ->add('domaine', null,[
+            ->add('domaine', null, [
                 'label' => 'Saisir votre champ d\'expertise',
                 'constraints' => [
                     new Assert\NotBlank([
@@ -247,19 +247,19 @@ class CompanyController extends AbstractController
                 ]
             ])
             ->add('logo', FileType::class, array(
-                    'data_class' => null,
-                    'mapped' => false,
-                    'required' => false,
-                    'constraints' => [
-                        new File([
-                            'mimeTypes' => [
-                                'image/jpeg',
-                                'image/jpg',
-                                'image/png',
-                                'image/jfif',
-                            ]
-                        ])
-                    ],
+                'data_class' => null,
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                            'image/jfif',
+                        ]
+                    ])
+                ],
             ))
             ->add('partenaires', CheckboxType::class, [
                 'label' => 'Devenir partenaire',
@@ -274,7 +274,6 @@ class CompanyController extends AbstractController
                 ]
             ])
             ->getForm();
-
             $form1->handleRequest($request);
             if ($form1->isSubmitted() && $form1->isValid()) {
                 $user->setEmail($form1->get('email')->getData());
@@ -299,18 +298,17 @@ class CompanyController extends AbstractController
                 $manager->persist($user);
                 $manager->flush();
 
-                return $this->redirectToRoute('app_company_profil');
-            }
+            return $this->redirectToRoute('app_company_profil');
+        }
 
         return $this->render('company/show.html.twig', [
             'publications' => $publications,
             'user' => $user,
             'form' => $form,
             'form1' => $form1,
-            'company' =>$company,
+            'company' => $company,
         ]);
     }
-
     #[Route('/inscription/entreprise', name:'app_register_company')]
     public function registerCompany(
         Request $request,
@@ -388,35 +386,35 @@ class CompanyController extends AbstractController
             ])
             ->getForm();
 
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                        $user,
-                        $form->get('plainPassword')->getData()
-                    )
-                );
-
-                $user->setRoles(['ROLE_COMPANY']);
-                $user->setEmail($form->get('email')->getData());
-                $user->setName($form->get('name')->getData());
-                $siret = $form->get('siret')->getData();
-                $user->setUserEntreprise($company);
-                $company->setNumSiret($siret);
-                $company->setName($form->get('name')->getData());
-                $entityManager->persist($user);
-                $entityManager->persist($company);
-                $entityManager->flush();
-
-                return $userAuthenticator->authenticateUser(
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
-                    $authenticator,
-                    $request
-                );
-            }
-            return $this->render('registration/register-company.html.twig', [
-                'registrationFormCompany' => $form->createView()
-            ]);
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $user->setRoles(['ROLE_COMPANY']);
+            $user->setEmail($form->get('email')->getData());
+            $user->setName($form->get('name')->getData());
+            $siret = $form->get('siret')->getData();
+            $user->setUserEntreprise($company);
+            $company->setNumSiret($siret);
+            $company->setName($form->get('name')->getData());
+            $entityManager->persist($user);
+            $entityManager->persist($company);
+            $entityManager->flush();
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+        }
+        return $this->render('registration/register-company.html.twig', [
+            'registrationFormCompany' => $form->createView()
+        ]);
     }
     public function configureOptions(OptionsResolver $resolver): void
     {
