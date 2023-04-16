@@ -25,12 +25,40 @@ class AppFixtures extends Fixture
         $users = [];
         $posts = [];
         $genders = ['male', 'female'];
-        $roles = ['ROLE_USER', 'ROLE_COMPANY', 'ROLE_FORMATION',];
+        $roles = ['ROLE_USER', 'ROLE_COMPANY', 'ROLE_FORMATION'];
         $professions = ["développeur", "intégrateur", "concepteur développeur d'application", "testeur"];
         $postTitles = ['Développeur Web', 'Designer UX', 'Analyste de Données', 'Chef de Projet IT', 'Ingénieur Logiciel', 'Spécialiste en Sécurité Informatique', 'Architecte Cloud', 'Administrateur de Bases de Données', 'Développeur Mobile', 'Expert en Réseaux Informatiques'];
         $types = ['stage', 'alternance', 'emploi'];
         $typesF = ['formation', 'alternance'];
 
+        $user = new User();
+        $user->setName('Mélanie');
+        $user->setEmail('melanie@live.fr');
+        $user->setPassword($this->hasher->hashPassword($user, 'crmc'));
+        $user->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setName('Cindy');
+        $user->setEmail('cindy@live.fr');
+        $user->setPassword($this->hasher->hashPassword($user, 'crmc'));
+        $user->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setName('Coline');
+        $user->setEmail('coline@live.fr');
+        $user->setPassword($this->hasher->hashPassword($user, 'crmc'));
+        $user->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setName('Romain');
+        $user->setEmail('romain@live.fr');
+        $user->setPassword($this->hasher->hashPassword($user, 'crmc'));
+        $user->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
+        
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
             $gender = $faker->randomElement($genders);
