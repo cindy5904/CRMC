@@ -8,15 +8,14 @@
 	<section class="bgImg">
 		<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 			<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-				<h2 class="mb-4 text-3xl lg:text-4xl font-bold color shadowText">Publications</h2>
-				<p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, eius voluptatum nulla illo id sunt!</p>
+				<h2 class="mb-4 text-3xl lg:text-4xl font-bold color shadowText">Les annonces</h2>
+				<p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Bienvenue dans notre section annonce, retrouvé toutes les dernières publications de nos utilisateurs</p>
 			</div>
-			<div class="flex justify-between">
-				<div class="w-3/4">
+			<div class="flex justify-between flex-col-reverse xl:flex-row">
+				<div class="xl:w-3/4">
 					{% if posts is empty %}
 						<h1 class="text-xl text-center">Aucun résultat ne correspond à votre recherche</h1>
 					{% endif %}
-					
 					{% for post in posts %}
 						<article class="p-6 rounded-lg shadow-md bg-slate-50 shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:scale-105 duration-300 mb-10">
 							<div class="flex justify-between items-center mb-5 text-gray-500">
@@ -52,26 +51,28 @@
 							</div>
 						</article>
 					{% endfor %}
+					<div class="navigation text-center">
+						{{ knp_pagination_render(posts, 'component/pagination.html.twig') }}
+					</div>
 				</div>
-				<div class="w-1/5">
-					<div class="bg-white p-4 border-2 border-black rounded-lg">
+				<div class="xl:w-1/5 hidden xl:block">
+					<div class="bg-white p-4 border-orange-100 border-2 shadow-[#F26C24] shadow-md rounded-lg text-gray-600">
 						{{form_start(form)}}
 							{{form_widget(form)}}
-							<button class="bg-slate-400 p-2 rounded-lg">Rechercher</button>
+							<button class="items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">Rechercher</button>
 						{{form_end(form)}}
 						<div class="my-3">
 							<span class="text-xl underline underline-offset-4">Trie par :</span>
 							{{form_start(formSelect)}}
 								{{form_widget(formSelect)}}
-								<button class="bg-slate-400 p-2 rounded-lg">Trier</button>
+								<button class="flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">Trier</button>
 							{{form_end(formSelect)}}
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			
 		</div>
 	</section>
 {{ include('footer.html.twig') }}
 {% endblock %}
+

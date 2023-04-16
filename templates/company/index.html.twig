@@ -41,6 +41,9 @@
 				</article>
 			{% endfor %}
 		</div>
+		<div class="navigation text-center my-8">
+			{{ knp_pagination_render(companys, 'component/pagination.html.twig') }}
+		</div>
         {% include "footer.html.twig" %}
 	{% endif %}
 {% endblock %}
