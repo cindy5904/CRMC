@@ -13,6 +13,7 @@ use App\Repository\PublicationRepository;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -33,11 +34,25 @@ use Symfony\Component\Validator\Constraints\File;
 class CompanyController extends AbstractController
 {
     #[Route('/entreprise', name:'app_company')]
-    public function index(UserRepository $ur)
+    public function index(
+        UserRepository $ur,
+        Request $request,
+        PaginatorInterface $paginator,
+        )
     {
         $role = 'COMPANY';
         $company = $ur->findByRole($role);
-        dump($company);
+        $totalCount = ceil((count($company))/10);
+        $page = $request->query->get('page', 1);
+
+        if ($page > $totalCount) {
+            throw $this->createNotFoundException("La page $page est inexistante.");
+        }
+        $company = $paginator->paginate(
+            $company,
+            $page,
+            10
+        );
 
         return $this->render('company/index.html.twig', [
             'companys' => $company
@@ -45,7 +60,12 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/entreprise/detail/{id}', name:'app_company_retail')]
-    public function showOne($id,CompanyRepository $cr,UserRepository $ur, PublicationRepository $pr)
+    public function showOne(
+        $id,
+        CompanyRepository $cr,
+        UserRepository $ur,
+        PublicationRepository $pr
+        )
     {
         $userCompany = $cr->findBy(['id' => $id]);
         // récupération de la company à l'origine de la publication (donc siret, description..)
@@ -70,7 +90,11 @@ class CompanyController extends AbstractController
 
     #[IsGranted('ROLE_COMPANY')]
     #[Route('/entreprise/profil', name: 'app_company_profil')]
-    public function show(Request $request, PublicationRepository $publi, EntityManagerInterface $manager): Response
+    public function show(
+        Request $request,
+        PublicationRepository $publi,
+        EntityManagerInterface $manager
+        ): Response
     {
         /** @var User */
         $user = $this->getUser();
@@ -268,7 +292,7 @@ class CompanyController extends AbstractController
                 $company->setWebSite($form1->get('webSite')->getData());
                 $logo = $form1->get('logo')->getData();
                 if ($logo) {
-                    $fileName = uniqid().'.'.$logo->guessExtension(); 
+                    $fileName = uniqid().'.'.$logo->guessExtension();
                     $logo->move($this->getParameter('profile_picture'), $fileName);
                     $user->setLogo($fileName);
                 };
@@ -288,7 +312,12 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/inscription/entreprise', name:'app_register_company')]
-    public function registerCompany(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator)
+    public function registerCompany(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+        UserAuthenticatorInterface $userAuthenticator,
+        AppAuthenticator $authenticator)
     {
         $user = new User();
         $company = new Company();
