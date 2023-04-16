@@ -48,7 +48,7 @@ class FormationController extends AbstractController
             10
         );
         $users = $userRepository->findAll();
-        
+
         return $this->render('formation/index.html.twig', [
             'usersFormation' => $usersFormation,
             'users' => $users,
@@ -74,6 +74,9 @@ class FormationController extends AbstractController
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Saisie obligatoire'
+                    ]),
                     new Assert\Email([
                         'message' => 'Veuillez saisir un email valide',
                     ])

@@ -4,12 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Apply;
 use App\Entity\Publication;
-use App\Repository\PublicationRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +15,7 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ApplyController extends AbstractController
 {
+    #[Route('ROLE_USER')]
     #[Route('/apply/{id}', name: 'app_apply')]
     public function index(Request $request, EntityManagerInterface $entityManager, Publication $publication): Response
     {

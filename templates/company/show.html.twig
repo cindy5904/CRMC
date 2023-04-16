@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	{% if not user %}
+	{% if app.user != user %}
 		<div class="text-center h-xl">
 			<p class="text-3xl font-bold p-16">Vous devez être connecté pour voir ce contenu</p>
 			<div class="p-10">

@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\File;
 
 class CompanyController extends AbstractController
-{
+{   #[IsGranted('ROLE_USER')]
     #[Route('/entreprise', name:'app_company')]
     public function index(
         UserRepository $ur,
@@ -58,7 +58,7 @@ class CompanyController extends AbstractController
             'companys' => $company
         ]);
     }
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/entreprise/detail/{id}', name:'app_company_retail')]
     public function showOne(
         $id,
@@ -87,7 +87,7 @@ class CompanyController extends AbstractController
             'user' => $user
         ]);
     }
- 
+
     #[IsGranted('ROLE_COMPANY')]
     #[Route('/entreprise/profil', name: 'app_company_profil')]
     public function show(
@@ -332,6 +332,9 @@ class CompanyController extends AbstractController
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Saisie obligatoire'
+                    ]),
                     new Assert\Email([
                         'message' => 'Saisir un email valide'
                     ])
@@ -413,7 +416,7 @@ class CompanyController extends AbstractController
             );
         }
         return $this->render('registration/register-company.html.twig', [
-            'registrationFormCompany' => $form->createView()
+            'registrationFormCompany' => $form
         ]);
     }
     public function configureOptions(OptionsResolver $resolver): void
