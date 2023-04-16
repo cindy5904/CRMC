@@ -17,7 +17,7 @@ class SearchForm extends AbstractType
             'required' => false,
             'label' => 'recherche',
             'attr' => [
-                'placeholder' => 'Rechercher',
+                'placeholder' => 'Entreprise, centre de formation...',
             ]
         ]);
     }

@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+{% use "form.html.twig" %}
+
+{% block title %}Modification
+	{{user.name}}-{{parent()}}
+{% endblock %}
+
+{% block body %}
+	{% include "header.html.twig" %}
+
+	<div class="lg:mb-16 mb-8 mx-auto">
+		<p class="font-bold text-gray-500 sm:text-xl p-8 pb-10 underline text-center">Modifier le profil</p>
+		<div class='max-w-xl mx-auto items-center'>
+			{{ form_start(formProfil) }}
+			<div class='mx-auto'>
+				<div class="flex gap-4 items-center justify-between">
+					<div class='mb-4 w-1/2'>
+						{{ form_label(formProfil.name, 'Nom', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.name, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+					<div class='mb-4 w-1/2'>
+						{{ form_label(formProfil.email, 'Votre Email', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.email, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+				</div>
+				<div class='mx-auto items-center justify-betwen text-center'>
+					<div class='mb-4 mx-auto'>
+						{{ form_label(formProfil.adress, 'Adresse', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.adress, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+				</div>
+				<div class="flex gap-4 items-center justify-betweenr">
+					<div class='mb-4 w-1/2'>
+						{{ form_label(formProfil.postalCode, 'Code Postal', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.postalCode, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+					<div class='mb-4 w-1/2'>
+						{{ form_label(formProfil.city, 'Ville', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.city, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+				</div>
+				<div class="flex gap-4 items-center justify-between">
+					<div class='mb-4 w-1/2'>
+						{{ form_label(formProfil.nameFirstName, 'Prénom', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.nameFirstName, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+					<div class='mb-4 w-1/2'>
+						{{ form_label(formProfil.profession, 'Profession', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.profession, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+				</div>
+				<div class=' mx-auto items-center text-center'>
+					<div class='mb-4'>
+						{{ form_label(formProfil.status, 'Status', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+						{{ form_widget(formProfil.status, {'attr': {'class': 'form-input w-full'}}) }}
+					</div>
+				</div>
+				
+				<div class='mx-auto'>
+					{{ form_widget (formProfil)}}
+
+				</div>
+				<div class="text-center">
+					<button type="submit" class="bg-but1 mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
+						Modifier
+					</button>
+				</div>
+			</div>
+
+			{{ form_end(formProfil) }}
+		</div>
+	</div>
+{% endblock %}

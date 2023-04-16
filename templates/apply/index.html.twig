@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ApplyController!{% endblock %}
+{% block title %}Postuler{% endblock %}
 
 {% block body %}
 {% include "header.html.twig" %}
     <div class='bg-desk bg-cover bg-no-repeat mb-4'>
+        {% if app.flashes('success') %}
+			<div class="alert alert-success" role="alert">
+				{{ app.flashes('success') }}
+			</div>
+		{% endif %}
         <h1 class='text-center mb-8 pt-5 font-bold text-xl'>Candidature au poste de {{post.title}}</h1>
 
         <div class='max-w-xl mx-auto items-center'>

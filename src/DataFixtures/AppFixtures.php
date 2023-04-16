@@ -61,11 +61,8 @@ class AppFixtures extends Fixture
         
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
-            $gender = $faker->randomElement($genders);
             $role = $faker->randomElement($roles);
             $firstName = $faker->firstName();
-            $logo = 'https://randomuser.me/api/portraits/';
-            $logoId = $faker->numberBetween(1, 99) . '.jpg';
             $company = new Company();
             $formation = new Formation();
             $type = $faker->randomElement($types);
@@ -88,14 +85,6 @@ class AppFixtures extends Fixture
                 $statu = $faker->randomElement(['DISPONIBLE', 'EN FORMATION', 'EN POSTE', 'EN RECONVERSION']);
             }
 
-            if ($gender == 'male') {
-                $logo = $logo . 'men/' . $logoId;
-                $firstName = $faker->firstNameMale();
-            } else {
-                $logo = $logo . 'women/' . $logoId;
-                $firstName = $faker->firstNameFemale();
-            }
-
             $user->setName($faker->lastName())
                 ->setAdress($faker->streetAddress())
                 ->setPostalCode($faker->postcode())
@@ -107,8 +96,8 @@ class AppFixtures extends Fixture
                 ->setProfession($profession)
                 ->setStatus($statu)
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
-                ->setRoles([$role])
-                ->setLogo($logo);
+                ->setRoles([$role]);
+                // ->setLogo($logo);
                 if($role ==='ROLE_COMPANY'){
                 $user->setUserEntreprise($company);
                 }elseif ($role === 'ROLE_FORMATION') {
@@ -121,7 +110,6 @@ class AppFixtures extends Fixture
                     ->setNameRef($faker->lastName())
                     ->setDescription($faker->text(700))
                     ->setDomaine('IT')
-                    ->setLogo($logo)
                     ->setPartenaire($faker->boolean())
                     ->setWebSite("url")
                     ->setName($user->getName());
