@@ -51,3 +51,18 @@ import { initCarousels } from 'flowbite';
 document.addEventListener('swup:pageView', () => {
     initCarousels();
 });
+
+
+const themeButton = document.querySelector('.theme i');
+
+
+if (document.body.classList.contains('dark')) {
+    themeButton.classList.remove('bx-moon');
+    themeButton.classList.add('bx-sun');
+}
+
+themeButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    themeButton.classList.toggle('bx-moon');
+    themeButton.classList.toggle('bx-sun');
+});
