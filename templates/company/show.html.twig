@@ -278,20 +278,19 @@
 								{% for publi in publication %}
 										{% for pub in publi %}
 											<div class="bg-white rounded-lg shadow-md shadow-orange-400 border-orange-200 border-2 p-2">
-												{{dump(pub)}}
 												<ul>
 													<li class="flex items-center">
-													<span class="font-bold mx-2">{{ pub.user.name }}</span>
-													<p>
-														{{ pub.createdAt|ago(locale='fr') }} à postuler à votre annonce n°
-														{{ pub.applyPublication.id }}
-													</p>
-													<a href="{{path('app_profil_user', {id:pub.user.id})}}" class="bg-but1 mt-5 mb-4 mx-auto px-2 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue ">Voir le profil</a>
+														<span class="font-bold mx-2">{{ pub.user.name }}</span>
+														<p>
+															{{ pub.createdAt|ago(locale='fr') }} à postuler à votre annonce n°
+															{{ pub.applyPublication.id }}
+														</p>
+														<a href="{{path('app_profil_user', {id:pub.user.id})}}" class="bg-but1 mt-5 mb-4 mx-auto px-2 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue ">Voir le profil</a>
 													</li>
 												</ul>
 												<div class="flex justify-between items-center">
 													<div class="flex items-center space-x-4">
-													</div>
+												</div>
 											</div>
 										{% endfor %}
 									</div>

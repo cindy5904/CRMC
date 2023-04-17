@@ -64,7 +64,7 @@ class PublicationRepository extends ServiceEntityRepository
 //        ;
 //    }
     public function findByType($profession, $type)
-    {   
+    {
         if($profession === null){
             $queryBuilder = $this->createQueryBuilder('p')
                 ->where('p.type =:type')
@@ -91,7 +91,7 @@ class PublicationRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('p')
             ->join('p.publicationUser' , 'u')
-            ->where('u.name LIKE :search') 
+            ->where('u.name LIKE :search')
             ->orderBy('p.createdAt', 'DESC')
             ->setParameter('search', '%'.$searchName.'%')
             ->getQuery();
