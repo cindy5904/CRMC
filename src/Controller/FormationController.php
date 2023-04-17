@@ -6,6 +6,7 @@ use App\Entity\Formation;
 use App\Entity\Publication;
 use App\Entity\User;
 use App\Form\PublicationType;
+use App\Repository\ApplyRepository;
 use App\Repository\PublicationRepository;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
@@ -162,7 +163,7 @@ class FormationController extends AbstractController
     }
 
     #[Route('/formation/profil/{id}', name: 'app_formation_profil')]
-    public function show($id,UserRepository $uR, PublicationRepository $publication, Request $request, EntityManagerInterface $manager)
+    public function show($id,UserRepository $uR, PublicationRepository $publication, Request $request, EntityManagerInterface $manager,ApplyRepository $ar)
     {
         // Afficher les publications de l'utilisateur
         /** @var User */
@@ -184,11 +185,19 @@ class FormationController extends AbstractController
             $manager->persist($post);
             $manager->flush();
         }
+        $candidat = [];
+        foreach($publications as $publication){
+            $id = $publication->getId();
+            $publi = $ar->findPostulaCandidat($id);;
+            $candidat[] = $publi;
+        }
+        dump($candidat);
 
         return $this->render('formation/profil.html.twig', [
             'user' => $user,
             'posts' => $publications,
             'form' => $form,
+            'publication' => $candidat
         ]);
     }
 
