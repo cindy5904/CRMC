@@ -29,6 +29,9 @@
 					{% endfor %}
 				</div>
 			</div>
+			<div class="navigation text-center my-8">
+				{{ knp_pagination_render(users, 'component/pagination.html.twig') }}
+			</div>
         {% include "footer.html.twig" %}
 	</section>
 {% endblock %}
