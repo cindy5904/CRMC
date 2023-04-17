@@ -11,7 +11,6 @@ module.exports = {
         'desk': "url('/public/images/bgDesk.jpg')",
         'fond_profil_user':"url('/public/images/Fond.jpg')",
       },
-
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
       },

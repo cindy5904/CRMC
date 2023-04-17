@@ -11,7 +11,10 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-            return $this->render('home/index.html.twig');
+        $isHomepage = true;
+            return $this->render('home/index.html.twig',[
+                'is_homepage' => $isHomepage,
+            ]);
     }
 
     #[Route('/inscription', name:'app_register_choice')]

@@ -119,3 +119,69 @@ body {
     background: linear-gradient(109.6deg, rgb(255, 158, 27) 11.2%, rgb(255, 207, 84) 91.1%);
     transform: scale(1.1);
 }
+.bx-moon {
+    width: 20px;
+    height: 10px;
+}
+body.dark {
+    background-color: #251819;
+    color: #c2bdbd;
+}
+body.dark header nav{
+    background-color: #251819;
+}
+body.dark header nav li a {
+    color: #c2bdbd;
+}
+body.dark header nav li .connec {
+    color: white;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #c2bdbd;
+}
+
+.nav-buttons {
+    align-items: center;
+    column-gap: 16px;
+}
+
+.theme {
+    display: flex;
+    font-size: 20px;
+    cursor: pointer;
+}
+body.dark .sear input {
+    background-color: white;
+
+}
+body.dark #app {
+    color:#c2bdbd;
+}
+body.dark .dark {
+    background-color: #251819 !important;
+}
+body.dark .bg-fond_profil_user{
+    background-color: #251819 !important;
+}
+body.dark .dark h1 {
+    color:#c2bdbd;
+}
+body.dark .dark label {
+    color: #c2bdbd;
+}
+body.dark .foo p {
+    color: #c2bdbd;
+}
+footer .logo {
+    color:#f3f2f2 ;
+}
+
+footer .links a {
+    color: #c2bdbd;
+}
+
+  
+  
+
+  
+

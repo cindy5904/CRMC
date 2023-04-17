@@ -40,13 +40,11 @@
 									</span>
 								</div>
 								{% if verify %}
-									<a href="#" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
-										En savoir plus
-									</a>
+									<p class="bg-red-200 p-2 rounded-lg border-2 border-red-300">Merci de compléter ton profil pour postuler</p>
 								{% else %}
-									<a href="{{path('app_publication_one', {id : post.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
-										En savoir plus
-									</a>
+										<a href="{{path('app_publication_one', {id : post.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+											En savoir plus
+										</a>
 								{% endif %}	
 							</div>
 						</article>
