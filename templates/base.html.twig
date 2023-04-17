@@ -22,9 +22,9 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
-         {% block head %}
+         {# {% block head %}
             {% set is_homepage = app.request.attributes.get('_route') == 'app_home' %}
-        {% endblock %}
+        {% endblock %} #}
         {% block content %}{% endblock %}
 		{% block javascripts %}
             <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
