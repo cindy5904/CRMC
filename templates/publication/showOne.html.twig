@@ -47,33 +47,31 @@
                     {% endif %}
                 {% endif %}
                 {% if app.user.roles[0] == 'ROLE_COMPANY' %}
-                    {% if post.publicationUser is not null %}
-                        <a href="{{path('app_profil_user', {id : user.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
-                      Voir le profil
-                        </a>
-                    {% elseif post.publicationFormation is not null %}  
-                        <a href="{{path('app_formation_profil', {id : formation.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+                    {% if post.publicationFormation is not null %}  
+                        <a href="{{path('app_formation_profil', {id : post.publicationUser.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Voir le profil
                         </a>   
                     {% elseif post.publicationCompany is not null %}   
-                         <a href="{{path('app_company_profil')}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+                         <a href="{{path('app_company_retail', {id : post.publicationUser.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Voir le profil
-                        </a>   
+                        </a>  
+                   {% else %}  
+                    <a href="{{path('app_profil_user', {id : post.publicationUser.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+                    Voir le profil </a>
                     {% endif %}
                 {% endif %}
                 {% if app.user.roles[0] == 'ROLE_FORMATION' %}
-                    {% if post.publicationUser is not null %}
-                        <a href="{{path('app_profil_user', {id : user.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
-                      Voir le profil
-                        </a>
-                    {% elseif post.publicationFormation is not null %}  
-                        <a href="{{path('app_formation_profil', {id : formation.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+                    {% if post.publicationFormation is not null %}  
+                        <a href="{{path('app_formation_profil', {id : post.publicationUser.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Voir le profil
                         </a>   
                     {% elseif post.publicationCompany is not null %}   
-                         <a href="{{path('app_company_profil')}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+                         <a href="{{path('app_company_retail', {id : post.publicationUser.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Voir le profil
-                        </a>   
+                        </a>  
+                   {% else %}  
+                    <a href="{{path('app_profil_user', {id : user.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
+                    Voir le profil </a>
                     {% endif %}
                 {% endif %}
                 
