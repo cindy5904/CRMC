@@ -18,8 +18,7 @@ class SearchSelect extends AbstractType
             'Stage' => 'stage',
             'Alternance' => 'alternance',
             'Formation' => 'formation',
-            'CDI' => 'cdi',
-            'CDD' => 'cdd'
+            'Emploi' => 'emploi',
             ],
             'required' => false,
         ])
