@@ -3,7 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    {% include 'header.html.twig' %}
+    {% include 'header.html.twig' with { is_homepage: true } only %}
+
 
     <div class="w-full mt-8 relative pb-2">
         <img src="{{ asset('/images/bgOrange.jpg') }}"  class="mx-auto" alt="ordinateur"> 
