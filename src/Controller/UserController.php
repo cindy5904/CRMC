@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,10 +27,21 @@ class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
     #[IsGranted('ROLE_USER')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository,Request $request,PaginatorInterface $paginator): Response
     {
         $role = 'USER';
         $users = $userRepository->findByRole($role);
+        $totalCount = ceil((count($users))/10);
+        $page = $request->query->get('page', 1);
+
+        if ($page > $totalCount) {
+            throw $this->createNotFoundException("La page $page est inexistante.");
+        }
+        $users = $paginator->paginate(
+            $users,
+            $page,
+            10
+        );
 
         return $this->render('user/profil.html.twig', [
             'user' => $userRepository->findByRole($role),
