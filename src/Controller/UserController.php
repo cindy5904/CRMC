@@ -3,8 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\EditUserProfileType;
-use App\Form\FileType as FormFileType;
+use App\Form\UserProfileType;
 use App\Repository\PublicationRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -14,7 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\File;
 
 class UserController extends AbstractController
 {
@@ -38,6 +35,50 @@ class UserController extends AbstractController
             'user' => $userRepository->findByRole($role),
             'users' => $users,
             'role' => $role,
+        ]);
+    }
+
+    #[Route('profil/user/edit', name: 'app_edit')]
+    public function edit(EntityManagerInterface $manager, Request $request): Response
+    {
+         // Formulaire modification de profil
+        /** @var User */
+        $user = $this->getUser();
+        $logo = $user->getLogo();
+        $formProfil = $this->createForm(UserProfileType::class, $user);
+
+        $formProfil->handleRequest($request);
+
+        if ($formProfil->isSubmitted() && $formProfil->isValid()) {
+
+            $user->setEmail($formProfil->get('email')->getData());
+            $user->setName($formProfil->get('name')->getData());
+            $user->setAdress($formProfil->get('adress')->getData());
+            $user->setPostalCode($formProfil->get('postalCode')->getData());
+            $user->setCity($formProfil->get('city')->getData());
+            $user->setTel($formProfil->get('tel')->getData());
+            $user->setLogo($logo = $formProfil->get('logo')->getData());
+            $user->setFirstName($formProfil->get('firstname')->getData());
+            $user->setProfession($formProfil->get('profession')->getData());
+            $user->setStatus($formProfil->get('status')->getData());
+
+            if ($logo) {
+                $fileName = uniqid().'.'.$logo->guessExtension();
+                $logo->move($this->getParameter('images_directory'), $fileName);
+                $user->setLogo($fileName);
+            }
+
+            $manager->persist($user);
+            $manager->flush();
+        }
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('404 No Found');
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'formProfil' => $formProfil,
         ]);
     }
 
@@ -138,12 +179,4 @@ class UserController extends AbstractController
                     'registrationForm' => $form->createView()
                 ]);
     }
-    
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }
-
 }
