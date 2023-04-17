@@ -19,7 +19,7 @@
 
 			<div class="p-12 flex justify-center items-center space-x-8">
 				
-				<img src="{{ asset(user.logo) }}" class="lg:w-32 w-16 order-last ml-8 rounded-full" alt="Avatar"/>
+				<img src="{{ asset('profilePicture/' ~ user.logo) }}" class="lg:w-32 w-16 order-last ml-8 rounded-full" alt="Avatar"/>
 				<h1 class="lg:text-5xl md:text-3xl text-xl inline-block lg:order-1">{{ user.name }} {{ user.firstname }}</h1>
 					
 				<a class="inline-block order-first lg:order-3 w-8" href="https://www.fotor.com/fr/features/avatar-maker/">
