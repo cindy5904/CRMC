@@ -38,6 +38,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('profil/user/edit', name: 'app_edit')]
     public function edit(EntityManagerInterface $manager, Request $request): Response
     {
@@ -58,13 +59,13 @@ class UserController extends AbstractController
             $user->setCity($formProfil->get('city')->getData());
             $user->setTel($formProfil->get('tel')->getData());
             $user->setLogo($logo = $formProfil->get('logo')->getData());
-            $user->setFirstName($formProfil->get('firstname')->getData());
+            $user->setFirstName($formProfil->get('firstName')->getData());
             $user->setProfession($formProfil->get('profession')->getData());
             $user->setStatus($formProfil->get('status')->getData());
 
             if ($logo) {
                 $fileName = uniqid().'.'.$logo->guessExtension();
-                $logo->move($this->getParameter('images_directory'), $fileName);
+                $logo->move($this->getParameter('profile_picture'), $fileName);
                 $user->setLogo($fileName);
             }
 
