@@ -21,7 +21,7 @@
 			{% for user in usersFormation %}
 				<article class="p-6 rounded-lg shadow-md shadow-orange-400 shadow-top-orange-200 border border-orange-200 hover:-translate-y-1 hover:scale-110 duration-300">
 					<div class="flex  items-center mb-5 text-gray-500">
-						<span><img src="{{ user.logo }}" alt="{{ user.name }}" class="w-12 h-12 rounded-full"></span>
+						<span><img src="{{ asset('profilePicture/' ~ user.logo) }}" alt="{{ user.name }}" class="w-12 h-12 rounded-full"></span>
 						<div class="mx-auto">
 							<span class="font-bold text-2xl ">{{user.name}}</span>
 						</div>
@@ -35,8 +35,10 @@
 					</div>
 				</article>
 			{% endfor %}
-
-
 		</div>
+		<div class="navigation text-center my-8">
+			{{ knp_pagination_render(usersFormation, 'component/pagination.html.twig') }}
+		</div>
+		{% include "footer.html.twig" %}
 	{% endif %}
 {% endblock %}

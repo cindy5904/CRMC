@@ -32,7 +32,7 @@ typewriter.typeString('[ La reconversion c\'est pas une option... ]')
 // Po
 setTimeout(() => {
     document.querySelectorAll('.flash-messages').forEach(el => el.remove());
-}, 1000);
+}, 3000);
 
 import { initTabs } from 'flowbite';
 

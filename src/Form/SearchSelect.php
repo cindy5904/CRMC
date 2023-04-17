@@ -17,7 +17,9 @@ class SearchSelect extends AbstractType
             'choices' => [
             'Stage' => 'stage',
             'Alternance' => 'alternance',
-            'Emploi' => 'emploi',
+            'Formation' => 'formation',
+            'CDI' => 'cdi',
+            'CDD' => 'cdd'
             ],
             'required' => false,
         ])

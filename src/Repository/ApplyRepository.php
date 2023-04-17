@@ -63,4 +63,13 @@ class ApplyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findPostulaCandidat($id)
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->join('a.applyPublication', 'p')
+            ->where('p.id =:id')
+            ->setParameter('id', $id)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }

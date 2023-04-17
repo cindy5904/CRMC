@@ -65,10 +65,12 @@
 						{{ form_widget(formProfil.webSite, {'attr': {'class': 'form-input w-full'}}) }}
 					</div>
 				</div>
-
-				<div class='mx-auto'>
-					{{ form_widget (formProfil)}}
-
+				<div class='flex mx-auto items-center'>
+					{{ form_row (formProfil.logo)}}
+					<div class="flex mx-auto items-center space-x-3">
+						<span>Logo actuel</span>
+						<img src="{{ asset('profilePicture/' ~ user.logo) }}" alt="Logo" class="max-w-[50px] border-2 border-black">
+					</div>
 				</div>
 				<div class="text-center">
 					<button type="submit" class="bg-but1 mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
