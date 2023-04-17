@@ -8,6 +8,9 @@
 		</title>
          <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/png" href="img/favicon.png">
+     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap"
       rel="stylesheet"
@@ -19,11 +22,15 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
+         {# {% block head %}
+            {% set is_homepage = app.request.attributes.get('_route') == 'app_home' %}
+        {% endblock %} #}
         {% block content %}{% endblock %}
 		{% block javascripts %}
             <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 			{{ encore_entry_script_tags('app')}}
 		{% endblock %}
+
 	</head>
 	<body {{ stimulus_controller('symfony/ux-swup/swup') }}>
 		<main id="swup">
@@ -79,7 +86,7 @@
           </div>
       </div>
 
-      <div class="p-1 text-center text-neutral-800">
+      <div class="foo p-1 text-center text-neutral-800">
           <p>  © 2023 Tous droits réservés - CRMC Company </p>
       </div>
   </div>

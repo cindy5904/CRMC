@@ -3,7 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    {% include 'header.html.twig' %}
+    {% include 'header.html.twig' with { is_homepage: true } only %}
+
 
     <div class="w-full mt-8 relative pb-2">
         <img src="{{ asset('/images/bgOrange.jpg') }}"  class="mx-auto" alt="ordinateur"> 
@@ -17,7 +18,7 @@
             </div>
         </div>
     
-        <div class="mx-auto absolute lg:top-[36%] w-full pt-5 lg:pt-0 pb-5 lg:pb-0">
+        <div class="sear mx-auto absolute lg:top-[36%] w-full pt-5 lg:pt-0 pb-5 lg:pb-0">
             <form class="flex mx-auto items-center lg:w-1/4">   
                 <label for="voice-search" class="sr-only"></label>
                 <div class="relative w-full">

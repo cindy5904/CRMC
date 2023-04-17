@@ -51,3 +51,20 @@ import { initCarousels } from 'flowbite';
 document.addEventListener('swup:pageView', () => {
     initCarousels();
 });
+
+
+// const themeButton = document.querySelector('.theme i');
+// const isHomepage = themeButton.getAttribute('data-is-homepage') === '1';
+
+// if (isHomepage && document.body.classList.contains('dark')) {
+//     themeButton.classList.remove('bx-moon');
+//     themeButton.classList.add('bx-sun');
+// }
+
+// themeButton.addEventListener('click', () => {
+//     if (isHomepage) {
+//         document.body.classList.toggle('dark');
+//         themeButton.classList.toggle('bx-moon');
+//         themeButton.classList.toggle('bx-sun');
+//     }
+// });
