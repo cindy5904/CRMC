@@ -38,6 +38,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('profil/user/edit', name: 'app_edit')]
     public function edit(EntityManagerInterface $manager, Request $request): Response
     {
