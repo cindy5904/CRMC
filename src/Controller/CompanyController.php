@@ -305,14 +305,13 @@ class CompanyController extends AbstractController
 
             return $this->redirectToRoute('app_company_profil');
         }
-            
             $candidat = [];
             foreach($publications as $publication){
                 $id = $publication->getId();
                 $publi = $ar->findPostulaCandidat($id);;
                 $candidat[] = $publi;
             }
-            dump($candidat);
+            dump($candidat[0]);
         return $this->render('company/show.html.twig', [
             'apply' => $candidat,
             'publications' => $publications,
