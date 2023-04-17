@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	{% if not user %}
+	{% if app.user != user %}
 		<div class="text-center h-xl">
 			<p class="text-3xl font-bold p-16">Vous devez être connecté pour voir ce contenu</p>
 			<div class="p-10">
@@ -25,6 +25,9 @@
 				{% if app.user %}
 					<li class="mr-2" role="presentation">
 						<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Modifier profil</button>
+					</li>
+					<li class="mr-2" role="presentation">
+						<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="candidates-tab" data-tabs-target="#candidates" type="button" role="tab" aria-controls="candidates" aria-selected="false">Candidat</button>
 					</li>
 				{% endif %}
 			</ul>
@@ -96,9 +99,10 @@
 									<div class="flex justify-between items-center">
 										<div class="flex items-center space-x-4">
 											<img class="w-7 h-7 rounded-full" src="{{ asset('profilePicture/' ~ publication.publicationUser.logo) }}" alt="Image utilisateur"/>
-											<span class="font-medium color">
+											<p class="font-medium color">
 												{{ publication.publicationUser.name}}
-											</span>
+												annonce n°{{ publication.id }}
+											</p>
 										</div>
 									</div>
 								</article>
@@ -253,7 +257,7 @@
 											<img src="{{ asset('profilePicture/' ~ user.logo) }}" alt="Logo" class="max-w-[50px] border-2 border-black">
 										</div>
 									</div>
-									<button class="bg-but1 mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
+									<button class="bg-but1 mt-5 mb-4 mx-auto px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue">
 										Modifier
 									</button>
 							</div>
@@ -261,6 +265,37 @@
 						</div>
 					{% endif %}
 			    </div>
+			</div>
+			<div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="candidates" role="tabpanel" aria-labelledby="candidates-tab">
+				<section class="bg-desk bg-no-repeat bg-cover bg-center pb-8">
+					<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-12 lg:px-6">
+						<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+						</div>
+						<div class="grid gap-10 lg:grid-cols-2">
+							{% for publi in publication %}
+								<div class="bg-white rounded-lg shadow-md shadow-orange-400 border-orange-200 border-2 p-2">
+								{% for pub in publi %}
+									<ul>
+										<li class="flex items-center">
+										<span class="font-bold mx-2">{{ pub.user.name }}</span>
+										<p>
+											{{ pub.createdAt|ago(locale='fr') }} à postuler à votre annonce n°
+											{{ pub.applyPublication.id }}
+										</p>
+										<a href="{{path('app_profil_user', {id:pub.user.id})}}" class="bg-but1 mt-5 mb-4 mx-auto px-2 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue ">Voir le profil</a>
+										</li>
+									</ul>
+									<div class="flex justify-between items-center">
+										<div class="flex items-center space-x-4">
+										</div>
+									</div>
+								</article>
+								{% endfor %}
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</section>
 			</div>
 		</div> 	
 		{% include "footer.html.twig" %}

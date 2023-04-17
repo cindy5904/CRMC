@@ -10,6 +10,7 @@ use App\Repository\PublicationRepository;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -31,12 +32,23 @@ use Symfony\Component\Validator\Constraints\File;
 class FormationController extends AbstractController
 {
     #[Route('/formation', name: 'app_formation')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request,PaginatorInterface $paginator): Response
     {
         $role = 'FORMATION';
         $usersFormation = $userRepository->findByRole($role);
+        $totalCount = ceil((count($usersFormation))/10);
+        $page = $request->query->get('page', 1);
+
+        if ($page > $totalCount) {
+            throw $this->createNotFoundException("La page $page est inexistante.");
+        }
+        $usersFormation = $paginator->paginate(
+            $usersFormation,
+            $page,
+            10
+        );
         $users = $userRepository->findAll();
-        
+
         return $this->render('formation/index.html.twig', [
             'usersFormation' => $usersFormation,
             'users' => $users,
@@ -62,6 +74,9 @@ class FormationController extends AbstractController
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Saisie obligatoire'
+                    ]),
                     new Assert\Email([
                         'message' => 'Veuillez saisir un email valide',
                     ])
@@ -197,7 +212,6 @@ class FormationController extends AbstractController
             'domain' => $formation->getDomain(),
             'webSite' => $formation->getWebSite(),
             'tel' => $user->getTel(),
-            'logo'=> $user->getLogo(),
            ])
 
             ->add('siret', NumberType::class, [
@@ -313,10 +327,6 @@ class FormationController extends AbstractController
                     ])
                 ],
             ])
-        
-            // ->add('partenaires', CheckboxType::class, [
-            //     'label' => 'Souhaitez-vous devenir partenaire ?'
-            // ])
             ->getForm();
         $formProfil->handleRequest($request);
 
@@ -328,11 +338,11 @@ class FormationController extends AbstractController
             $user->setPostalCode($formProfil->get('postalCode')->getData());
             $user->setCity($formProfil->get('city')->getData());
             $user->setTel($formProfil->get('tel')->getData());
-            $user->setLogo($logo = $formProfil->get('logo')->getData());
+            $logo = $formProfil->get('logo')->getData();
 
             if ($logo) {
                 $fileName = uniqid().'.'.$logo->guessExtension();
-                $logo->move($this->getParameter('images_directory'), $fileName);
+                $logo->move($this->getParameter('profile_picture'), $fileName);
                 $user->setLogo($fileName);
             }
 

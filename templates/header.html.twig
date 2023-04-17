@@ -74,16 +74,16 @@
 								</a>
 							{% elseif app.user.roles[0] == 'ROLE_COMPANY' %}
 								<a href="{{ path('app_company_profil') }}">
-									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('profilePicture/' ~ app.user.logo) }}" alt="{{ app.user.firstname }}">
+									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('profilePicture/' ~ app.user.logo) }}" alt="{{ app.user.name }}">
 								</a>
 							{% elseif app.user.roles[0] == 'ROLE_USER' %}
 								<a href="{{ path('app_profil_user', {id: app.user.id} ) }}">
-									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('profilePicture/' ~ app.user.logo) }}" alt="{{ app.user.firstname }}">
+									<img class="w-8 h-8 rounded-full border-4 border-white mx-auto" src="{{ asset('profilePicture/' ~ app.user.logo) }}" alt="{{ app.user.name }}">
 								</a>	
 							{% endif %}
 						</li>
 						<li class="mr-12 text-gray-800 font-bold">
-							<p> ✅ {{ app.user.firstname }}</p>
+							<p> ✅ {{ app.user.name }}</p>
 						</li>
 					{% endif %}
 					<li class="flex items-center">
