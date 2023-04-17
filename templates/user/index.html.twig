@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Profil de
-	
+	{{ user.firstname }}
 {% endblock %}
 
 {% block body %}
-	
-		{{ dump(app.user) }}
-		{{ dump(user) }}
-	
 	{% if app.user != user %}
 		<div class="text-center h-xl">
 			<p class="text-3xl font-bold p-16">Vous ne pouvez pas voir ce contenu</p>
