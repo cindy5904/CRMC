@@ -13,9 +13,9 @@ module.exports = {
       },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
-      },   
+      },
     },
-  }, 
+  },
   plugins: [
     require('@tailwindcss/forms'),
     require('flowbite/plugin'),

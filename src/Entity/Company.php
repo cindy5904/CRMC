@@ -42,7 +42,7 @@ class Company
 
     #[ORM\OneToMany(mappedBy: 'userEntreprise', targetEntity: User::class)]
     private Collection $users;
-    
+
     #[ORM\OneToMany(mappedBy: 'publicationCompany', targetEntity: Publication::class)]
     private Collection $publications;
 
@@ -173,7 +173,7 @@ class Company
             $this->users->add($user);
             $user->setUserEntreprise($this);
         }
-        
+
         return $this;
     }
 

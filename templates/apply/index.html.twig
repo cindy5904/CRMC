@@ -22,11 +22,9 @@
                 {{form_label(form.message, 'Décrivez votre motivation', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}})}}
                 {{ form_widget(form.message, {'attr': {'class': 'form-input w-full h-72 rounded'}}) }}
             </div>
-            
             <button type="submit" class='btn-apply  mt-5 mb-4 mx-auto items-center justify-center px-8 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue"'>Envoyer</button>
         {{ form_end(form) }}
         </div>
-    
     </div>
 {% include "footer.html.twig" %}
 {% endblock %}

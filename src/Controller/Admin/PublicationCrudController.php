@@ -17,7 +17,7 @@ class PublicationCrudController extends AbstractCrudController
         return Publication::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -31,10 +31,9 @@ class PublicationCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         if (!$entityInstance instanceof Publication) return;
-        
+
         $entityInstance->setCreatedAt(new \DateTimeImmutable);
 
         parent::persistEntity($entityManager, $entityInstance);
     }
-    
 }

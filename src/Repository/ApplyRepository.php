@@ -73,3 +73,4 @@ class ApplyRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 }
+

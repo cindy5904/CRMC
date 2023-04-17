@@ -27,7 +27,7 @@ typewriter.typeString('[ La reconversion c\'est pas une option... ]')
     .deleteAll()
     .typeString('<strong> Click !</strong>')
     .pauseFor(1000)
-    .start();    
+    .start();
 
 // Po
 setTimeout(() => {

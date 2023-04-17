@@ -19,7 +19,7 @@ class SearchSelectFilter
     }
 
     public function __toString()
-    {   
+    {
         return $this->types;
     }
 

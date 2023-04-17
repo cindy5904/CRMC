@@ -27,6 +27,11 @@
 				<li class="mr-4" role="presentation">
 					<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
 				</li>
+				{% if app.user %}
+					<li class="mr-2" role="presentation">
+						<button class="inline-block p-3 border-b-2 rounded-t-xl aria-selected:border-[#F26C24] aria-selected:text-[#F26C24] hover:text-orange-500 hover:border-gray-300 bg-desk bg-top" id="candidates-tab" data-tabs-target="#candidates" type="button" role="tab" aria-controls="candidates" aria-selected="false">Candidat</button>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 		<div id="myTabContent">
@@ -193,7 +198,40 @@
 					</div>
 				</section>
 			</div>
-
+			<div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="candidates" role="tabpanel" aria-labelledby="candidates-tab">
+				<section class="bg-desk bg-no-repeat bg-cover bg-center pb-8">
+					<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-12 lg:px-6">
+						<div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+						</div>
+						<div class="grid gap-10 ">
+							{% if publication[0] is empty %}
+										Retrouver dans cette section les candidats ayant postuler a vos annonces
+							{% else %}
+								{% for publi in publication %}
+										{% for pub in publi %}
+											<div class="bg-white rounded-lg shadow-md shadow-orange-400 border-orange-200 border-2 p-2">
+												<ul>
+													<li class="flex items-center">
+														<span class="font-bold mx-2">{{ pub.user.name }}</span>
+														<p>
+															{{ pub.createdAt|ago(locale='fr') }} à postuler à votre annonce n°
+															{{ pub.applyPublication.id }}
+														</p>
+														<a href="{{path('app_profil_user', {id:pub.user.id})}}" class="bg-but1 mt-5 mb-4 mx-auto px-2 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:shadow-outline-blue ">Voir le profil</a>
+													</li>
+												</ul>
+												<div class="flex justify-between items-center">
+													<div class="flex items-center space-x-4">
+												</div>
+											</div>
+										{% endfor %}
+									</div>
+								{% endfor %}
+							{% endif %}	
+						</div>
+					</div>
+				</section>
+			</div>
 		</div>
 		{{include('footer.html.twig')}}
 	{% endif %}
