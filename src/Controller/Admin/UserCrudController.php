@@ -31,7 +31,6 @@ class UserCrudController extends AbstractCrudController
                     ->onlyOnForms()
                     ->setFormType(PasswordType::class),
             ArrayField::new('roles'),
-                    
             TextField::new('name'),
             DateTimeField::new('createdAt')->hideOnForm(),
         ];
@@ -40,7 +39,7 @@ class UserCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         if (!$entityInstance instanceof User) return;
-        
+
         $entityInstance->setCreatedAt(new \DateTimeImmutable);
 
         parent::persistEntity($entityManager, $entityInstance);

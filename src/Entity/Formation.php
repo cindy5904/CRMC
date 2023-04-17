@@ -144,7 +144,7 @@ class Formation
                 $user->setUserFormation(null);
             }
         }
-        
+
         return $this;
     }
 

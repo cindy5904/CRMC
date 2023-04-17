@@ -21,32 +21,28 @@
             <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ post.content }}...</p>
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <img class="w-7 h-7 rounded-full" src="{{ post.publicationUser.logo }}" alt="Image utilisateur"/>
+                    <img class="w-7 h-7 rounded-full" src="{{ asset('profilePicture/' ~ post.publicationUser.logo) }}" alt="Image utilisateur"/>
                     <span class="font-medium color">
                     {{ post.publicationUser.name}}
                     </span>
                 </div>
-               {# {% if app.user.roles[0] == 'ROLE_USER' %}
-                  <a href="{{path('app_apply', {id : post.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
-                      Je postule
-                  </a>
-                {% endif %} #}
                 {% if app.user.roles[0] == 'ROLE_USER' %}
                     {% if post.publicationCompany is not null %}
                         <a href="{{path('app_apply', {id : post.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Je postule
                          </a>
-                    {% elseif post.publicationFormation is not null %}   
+                    {% elseif post.publicationFormation is not null %}
                         <a href="{{path('app_apply', {id : post.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Je Candidate
                         </a>
                     {% elseif post.publicationFormation == null and post.publicationCompany == null %}
                         <a href="{{path('app_profil_user', {id : user.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Voir le profil
-                        </a>   
+                        </a>
                     {% endif %}
                 {% endif %}
                 {% if app.user.roles[0] == 'ROLE_COMPANY' %}
+
                     {% if post.publicationFormation is not null %}  
                         <a href="{{path('app_formation_profil', {id : post.publicationUser.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                       Voir le profil
@@ -72,9 +68,9 @@
                    {% else %}  
                     <a href="{{path('app_profil_user', {id : user.id})}}" class="inline-flex items-center text-white hover:underline hover:underline-offset-4 font-bold px-3 py-2 rounded-full transition ease-in-out delay-150 bg-orange-600 opacity-50 hover:-translate-y-1 hover:scale-110 hover:bg-orange hover:opacity-100 duration-300">
                     Voir le profil </a>
+
                     {% endif %}
                 {% endif %}
-                
             </div>
         </article>
     </div>

@@ -24,9 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\HttpFoundation\File\File as FileFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -308,15 +306,15 @@ class CompanyController extends AbstractController
 
             return $this->redirectToRoute('app_company_profil');
         }
-            $candidat = [];
-            foreach($publications as $publication){
-                $id = $publication->getId();
-                $publi = $ar->findPostulaCandidat($id);;
-                $candidat[] = $publi;
-            }
-            dump($candidat[0]);
+
+        $candidat = [];
+        foreach($publications as $publication){
+            $id = $publication->getId();
+            $publi = $ar->findPostulaCandidat($id);;
+            $candidat[] = $publi;
+        }
+
         return $this->render('company/show.html.twig', [
-            'apply' => $candidat,
             'publications' => $publications,
             'user' => $user,
             'form' => $form,

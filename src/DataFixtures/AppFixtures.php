@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
         $user->setPassword($this->hasher->hashPassword($user, 'crmc'));
         $user->setRoles(['ROLE_ADMIN']);
         $manager->persist($user);
-        
+
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
             $role = $faker->randomElement($roles);

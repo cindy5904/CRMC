@@ -78,7 +78,7 @@ class Apply
     public function setApplyPublication(?Publication $applyPublication): self
     {
         $this->applyPublication = $applyPublication;
-      
+
         return $this;
     }
 

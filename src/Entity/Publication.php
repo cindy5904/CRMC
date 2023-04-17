@@ -24,7 +24,7 @@ class Publication
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
-  
+
     #[ORM\ManyToOne(inversedBy: 'publications')]
     private ?User $publicationUser = null;
 
@@ -100,7 +100,7 @@ class Publication
             $this->applies->add($apply);
             $apply->setApplyPublication($this);
         }
-      
+
         return $this;
     }
 
@@ -124,7 +124,7 @@ class Publication
                 $apply->setApplyPublication(null);
             }
         }
-        
+
         return $this;
     }
 
