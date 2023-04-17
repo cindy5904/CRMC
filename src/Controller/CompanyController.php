@@ -69,15 +69,18 @@ class CompanyController extends AbstractController
         )
     {
         $userCompany = $cr->findBy(['id' => $id]);
+        dump($userCompany);
         // récupération de la company à l'origine de la publication (donc siret, description..)
         $users = $ur->findBy(['userEntreprise' => $id]);
         // récupération des données utilisateurs (donc name, adress..)
         foreach ($userCompany as $company) {
             $company;
         }
+        dump($users);
         foreach ($users as $user) {
             $user;
         }
+        
         // récupération des publications de l'utilisateur en fonction de son id
         $publiId = $user->getId();
         $publications = $pr->findBy(['publicationUser' => $publiId], ['createdAt' => 'DESC']);
